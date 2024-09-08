@@ -4,60 +4,43 @@ import { Copy, Upload } from 'lucide-react';
 import React from 'react'
 
 export const ImageUpload = () => {
-    // const data = useLoaderData<typeof loader>();
     const [processedImages, setProcessedImages] = React.useState<string[]>([]);
     const [isProcessing, setIsProcessing] = React.useState(false);
     const [error, setError] = React.useState<string | null>(null);
   
-    // const handleDelete = async (id: string) => {
-    //   try {
-    //     await deleteImage({ id, userId: data.userID });
-    //     // Refresh the image list after deletion if necessary
-    //   } catch (error) {
-    //     console.error('Error deleting image:', error);
-    //   }
-    // };
-    const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (event.target.files) {
-          const file = event.target.files[0];
-          console.log('file', file);
-          setIsProcessing(true);
-          const startTime = performance.now();
-          try {
-              const formData = new FormData();
-              formData.append('image', file);
-              
-              const result = await fetch('/api/process-image', {
-                  method: 'POST',
-                  body: formData,
-              });
-              
-              const resultJson = await result.json();
-              console.log('result', resultJson);
-              
-              if (resultJson.error) {
-                  throw new Error(resultJson.error);
-              }
-              
-              // Create object URLs from base64 data
-              const regularBlob = base64ToBlob(resultJson.regular, 'image/webp');
-              const trimmedBlob = base64ToBlob(resultJson.trimmed, 'image/webp');
-              
-              const regularUrl = URL.createObjectURL(regularBlob);
-              const trimmedUrl = URL.createObjectURL(trimmedBlob);
-              
-              setProcessedImages(prev => [...prev, regularUrl, trimmedUrl]);
-          } catch (err) {
-              console.error('Error removing background:', err);
-              setError('Failed to remove background');
-          } finally {
-              const endTime = performance.now();
-              console.log(`Time spent: ${endTime - startTime}ms`);
-              setIsProcessing(false);
-          }
+const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  if (event.target.files) {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+
+    setIsProcessing(true);
+    const startTime = performance.now();
+
+    try {
+      const result = await fetch('/api/process-image', {
+        method: 'POST',
+        body: formData, // Send file as form data
+      });
+      
+      const resultJson = await result.json();
+
+      if (resultJson.error) {
+        throw new Error(resultJson.error);
       }
-  };
-  
+
+      setProcessedImages(prev => [...prev, resultJson.processedBase64]);
+    } catch (err) {
+      console.error('Error removing background:', err);
+      setError('Failed to remove background');
+    } finally {
+      const endTime = performance.now();
+      console.log(`Time spent: ${endTime - startTime}ms`);
+      setIsProcessing(false);
+    }
+  }
+};
+
 
   
   if (error) {
@@ -116,14 +99,3 @@ export const ImageUpload = () => {
    </div>
   )
 }
-
-  // Helper function to convert base64 to Blob
-  const base64ToBlob = (base64: string, mimeType: string) => {
-    const byteChars = atob(base64.split(',')[1]);
-    const byteNumbers = new Array(byteChars.length);
-    for (let i = 0; i < byteChars.length; i++) {
-        byteNumbers[i] = byteChars.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    return new Blob([byteArray], { type: mimeType });
-};
