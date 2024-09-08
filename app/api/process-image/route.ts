@@ -4,8 +4,8 @@ import sharp from "sharp";
 
 export async function POST(req: Request) {
   try {
-    const formData = await req.formData();
-    const file = formData.get('image') as Blob;
+    const tosentImage = await req.tosentImage();
+    const file = tosentImage.get('image') as Blob;
 
     if (!file) {
       throw new Error('No file provided');

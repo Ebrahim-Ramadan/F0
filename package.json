@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "PORT=3001 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@xixiyahaha/rembg-node": "^2.2.0",
-    "critters": "^0.0.24",
+    "@zeit/next-css": "^1.0.1",
     "lucide-react": "^0.439.0",
     "next": "14.2.8",
     "react": "^18",
