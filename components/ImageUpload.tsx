@@ -74,16 +74,18 @@ export const ImageUpload = () => {
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
-      <div className="mb-8 w-full border-gray-700 flex flex-col items-center justify-center">
+      <div className="mb-8 w-full border-gray-700 flex flex-col items-center justify-center"
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      >
       {isProcessing ?
             <div className={`flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2  border-dashed rounded-lg cursor-pointer bg-black/70 hover:bg-black/90 transition-all duration-300 `}>
               <LoadingDots />
             </div>
             :
             <label
-            onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
+            
               htmlFor="dropzone-file"
               className={`flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2  border-dashed rounded-lg cursor-pointer bg-black/70 hover:bg-black/90 transition-all duration-300 ${draggedState ? 'border-blue-500' : 'border-gray-600'}`}
             >
