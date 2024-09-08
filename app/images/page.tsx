@@ -1,7 +1,9 @@
+import { ImageUpload } from "@/components/ImageUpload";
+
 export default function Home() {
 return(
     <div>
-        assimage
+        <ImageUpload/>
     </div>
 )
 }
