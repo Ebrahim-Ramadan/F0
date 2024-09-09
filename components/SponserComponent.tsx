@@ -56,7 +56,7 @@ export default function SponserComponent() {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         // href='https://github.com/Ebrahim-Ramadan/cmds-find-ctrlb'
-        className="px-4 py-2 bg-red-600/80 backdrop-blur-sm text-xs md:text-sm text-white font-semibold rounded-3xl mt-4 hover:bg-red-700 transition-all duration-300"
+        className="px-4 py-2 bg-[#008b88]/80 backdrop-blur-sm text-xs md:text-sm text-white font-semibold rounded-3xl mt-4 hover:bg-[#197293] transition-all duration-300"
       >
         Try F0
       </a>
