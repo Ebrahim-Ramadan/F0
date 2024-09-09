@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'white-subtle': '0 0px 11px rgb(173 173 173 / 33%)',
+      },
       animation: {
         'float-move': 'float-move 1s ease-out forwards',
       },

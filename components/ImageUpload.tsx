@@ -1,6 +1,7 @@
 'use client'
 // import { copyToClipboard } from '@/utils/utils';
 import { Check, Copy, Upload } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react';
 import LoadingDots from './LoadingDots';
 
@@ -114,10 +115,12 @@ export const ImageUpload = () => {
           <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
             {processedImages.map((src, index) => (
               <div key={index} className="relative group overflow-hidden rounded-lg border-2 border-primary-400">
-                <img
-                  src={src}
-                  alt={`Processed Image ${index + 1}`}
-                  className="object-cover w-full h-36 md:h-72 transition-transform duration-300 group-hover:scale-110"
+                <Image
+                width={500}
+                height={500}
+                alt={`Processed Image ${index + 1}`}
+                src={src}
+                className="object-cover w-full h-36 md:h-72 transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="text-xs md:text-sm absolute top-2 right-2 bg-black/80 backdrop-blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-full">
                   <button

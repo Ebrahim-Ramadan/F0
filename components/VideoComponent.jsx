@@ -46,7 +46,7 @@ const VideoComponent = () => {
                 Welcome to <span className="text-primary-950">F0</span>
               </h1>
               <p className="mt-2 text-primary-900 text-lg md:text-xl">
-                Remove Background from you Images within Milliseconds
+                The fastest cheapest Background removal service, Ever
               </p>
               <button className="mt-2 md:mt-4 flex justify-end w-full">
                 <a href='/images' className='px-5 py-2 md:px-8 md:py-3 bg-primary-900 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-700 transition-all duration-300'>Sign Up</a>
@@ -72,14 +72,14 @@ const VideoComponent = () => {
         </video>
         <button 
           onClick={toggleMute}
-          className="absolute bottom-4 right-4 z-30 p-2 bg-primary-100 backdrop-blur-lg rounded-full text-white hover:bg-opacity-75 transition-all duration-300"
+          className="absolute bottom-8 right-8 z-30 p-2 bg-primary-100 backdrop-blur-lg rounded-full text-white hover:bg-opacity-75 transition-all duration-300"
         >
           {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
         </button>
       </>
     )}
     <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-primary-50 to-transparent z-10"></div>
-    <div className="absolute bottom-6 left-6 md:bottom-4 md:right-4 z-20 text-lg md:text-xl">
+    <div className="absolute bottom-8 left-8  z-20 text-lg md:text-xl">
                   <SponserComponent/>
                 </div>
   </div>
