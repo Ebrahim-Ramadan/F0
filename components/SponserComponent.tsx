@@ -1,17 +1,20 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
 import { useState, useCallback, useRef, useEffect } from 'react'
 
 export default function SponserComponent() {
+  const router = useRouter()
   const [hearts, setHearts] = useState<{ id: number; x: number; y: number }[]>([])
-  const anchorRef = useRef<HTMLAnchorElement>(null)
+  const anchorRef = useRef<HTMLButtonElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const [redirectTimeout, setRedirectTimeout] = useState<NodeJS.Timeout | null>(null)
 
   const createHeart = useCallback(() => {
     if (hearts.length >= 4) return // Limit to 4 hearts
 
     const id = Date.now()
-    const x = Math.random() * 40 - 20 // Random x position between -30 and 30
+    const x = Math.random() * 40 - 20 // Random x position between -20 and 20
     const y = Math.random() * -40 - 20 // Random y position between -20 and -60
 
     setHearts(prevHearts => [...prevHearts, { id, x, y }])
@@ -39,27 +42,44 @@ export default function SponserComponent() {
     }
   }
 
+  const handleClick = () => {
+    // Trigger the hearts effect
+    triggerHearts()
+
+    // Set a delay before redirecting
+    if (redirectTimeout) {
+      clearTimeout(redirectTimeout)
+    }
+
+    const timeout = setTimeout(() => {
+      router.push('https://github.com/Ebrahim-Ramadan/cmds-find-ctrlb')
+    }, 500)
+
+    setRedirectTimeout(timeout)
+  }
+
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
         clearInterval(timeoutRef.current)
       }
+      if (redirectTimeout) {
+        clearTimeout(redirectTimeout)
+      }
     }
-  }, [])
+  }, [redirectTimeout])
 
   return (
     <div className="">
-      
-      <a 
+      <button
         ref={anchorRef}
-        onClick={triggerHearts}
+        onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        // href='https://github.com/Ebrahim-Ramadan/cmds-find-ctrlb'
-        className="px-4 py-2 bg-[#008b88]/80 backdrop-blur-sm text-xs md:text-sm text-white font-semibold rounded-3xl mt-4 hover:bg-[#197293] transition-all duration-300"
+        className="px-4 py-2 bg-blue-900/80 backdrop-blur-3xl text-xs md:text-sm text-white font-semibold rounded-3xl mt-4 hover:bg-blue-950 transition-all duration-300"
       >
         Try F0
-      </a>
+      </button>
       {hearts.map(heart => (
         <svg
           key={heart.id}

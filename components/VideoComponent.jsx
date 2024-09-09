@@ -1,8 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { VolumeX, Volume2, GithubIcon } from 'lucide-react';
+import { VolumeX, Volume2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import { Header } from '@/components/Header';
 const videoAvailable = ['/f0-1.mp4', '/f0-2.mp4'];
 const SponserComponent = dynamic(() => import('@/components/SponserComponent'), {
   ssr: false,

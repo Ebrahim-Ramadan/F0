@@ -23,4 +23,3 @@ const LoadingDots = () => {
   };
   
   export default LoadingDots;
-  
