@@ -55,8 +55,8 @@ export default function SponserComponent() {
         onClick={triggerHearts}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        href='https://github.com/Ebrahim-Ramadan/cmds-find-ctrlb'
-        className="px-4 py-2 bg-white/80 backdrop-blur-sm text-xs md:text-sm text-black font-semibold rounded-3xl mt-4 hover:bg-primary-800 transition-all duration-300"
+        // href='https://github.com/Ebrahim-Ramadan/cmds-find-ctrlb'
+        className="px-4 py-2 bg-red-600/80 backdrop-blur-sm text-xs md:text-sm text-white font-semibold rounded-3xl mt-4 hover:bg-red-700 transition-all duration-300"
       >
         Try F0
       </a>
@@ -65,7 +65,7 @@ export default function SponserComponent() {
           key={heart.id}
           className="absolute w-4 h-4 animate-float-move"
           style={{
-            right: `calc(10px + ${heart.x}px)`, // Adjust hearts to the right edge
+            left: `calc(60px + ${heart.x}px)`, // Adjust hearts to the right edge
             bottom: `calc(40px + ${heart.y}px)`, // Adjust hearts to float above the button
           }}
           viewBox="0 0 24 24"
@@ -74,8 +74,8 @@ export default function SponserComponent() {
         >
           <path
             d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-            fill="#4d194d"
-            stroke="#4d194d"
+            fill="#E20000"
+            stroke="#E20000"
             strokeWidth="2"
           />
         </svg>

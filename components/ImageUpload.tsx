@@ -1,6 +1,6 @@
 'use client'
 import { copyToClipboard } from '@/utils/utils';
-import { Copy, Upload } from 'lucide-react';
+import { Check, Copy, Upload } from 'lucide-react';
 import React from 'react';
 import LoadingDots from './LoadingDots';
 
@@ -9,6 +9,7 @@ export const ImageUpload = () => {
   const [isProcessing, setIsProcessing] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [draggedState, setDraggedState] = React.useState<boolean>(false);
+  const [Copied, setCopied] = React.useState<boolean>(false);
 
   const handleFileUpload = async (file: File) => {
     setIsProcessing(true);
@@ -32,7 +33,7 @@ export const ImageUpload = () => {
       setProcessedImages(prev => [...prev, resultJson.image]);
     } catch (err) {
       console.error('Error removing background:', err);
-      setError('Failed to remove background');
+      setError('Failed to remove background ');
     } finally {
       setIsProcessing(false);
     }
@@ -73,7 +74,7 @@ export const ImageUpload = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
+    <div className='mt-24 flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
       <div className="mb-8 w-full border-gray-700 flex flex-col items-center justify-center"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
@@ -110,9 +111,9 @@ export const ImageUpload = () => {
           <div>Processed Images</div>
         }
         <div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
             {processedImages.map((src, index) => (
-              <div key={index} className="relative group overflow-hidden rounded-lg">
+              <div key={index} className="relative group overflow-hidden rounded-lg border-2 border-primary-400">
                 <img
                   src={src}
                   alt={`Processed Image ${index + 1}`}
@@ -120,11 +121,16 @@ export const ImageUpload = () => {
                 />
                 <div className="text-xs md:text-sm absolute top-2 right-2 bg-black/80 backdrop-blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-full">
                   <button
-                    onClick={() => copyToClipboard(src)}
+                    onClick={() => {
+                      copyToClipboard(src)
+                      setTimeout(() => {
+                        setCopied(true)
+                      }, 300);
+                    }}
                     className="flex items-center px-2 py-1 gap-2"
                   >
-                    <Copy size='16' />
-                    Copy
+                    {Copied ? <Check size='16' /> : <Copy size='16' />}
+                    {Copied ? 'Copied' : 'Copy'}
                   </button>
                 </div>
               </div>

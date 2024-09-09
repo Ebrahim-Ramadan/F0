@@ -1,0 +1,1 @@
+ALTER TABLE "images" ALTER COLUMN "processed_at" DROP DEFAULT;
