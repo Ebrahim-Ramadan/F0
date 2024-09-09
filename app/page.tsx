@@ -4,7 +4,7 @@ import SponserComponent from "@/components/SponserComponent";
 import Image from "next/image";
 
 const DynamicVideoComponent = dynamic(() => import('@/components/VideoComponent'), {
-  ssr: false,
+  // ssr: false,
 });
 
 export default function Home() {
