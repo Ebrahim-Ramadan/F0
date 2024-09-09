@@ -1,7 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import SponserComponent from "@/components/SponserComponent";
-import Image from "next/image";
+
 
 const DynamicVideoComponent = dynamic(() => import('@/components/VideoComponent'), {
   // ssr: false,

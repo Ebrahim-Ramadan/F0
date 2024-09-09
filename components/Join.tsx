@@ -3,16 +3,16 @@ import React from 'react'
 import LoadingDots from './LoadingDots';
 
 export const Join = () => {
-    const [username, setUsername] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    const [loading, setLoading] = React.useState(false);
-    const [error, setError] = React.useState("");
-    const [success, setSuccess] = React.useState("");
+  const [username, setUsername] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<boolean>(false);
+  const [success, setSuccess] = React.useState<string>("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        setError("");
+        setError(false);
         setSuccess("");
     
         try {
@@ -36,7 +36,7 @@ export const Join = () => {
           setUsername("");
           setPassword("");
         } catch (error) {
-          setError((error as Error).message);
+          setError(true);
         } finally {
           setLoading(false);
         }
@@ -81,7 +81,7 @@ export const Join = () => {
       <p className="w-full flex justify-center"><LoadingDots/></p>
     ) : (
       <button
-      disabled={error || success}
+      disabled={error}
         type="submit"
         className="w-full justify-center "
       >

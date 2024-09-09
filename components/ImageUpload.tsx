@@ -1,5 +1,5 @@
 'use client'
-import { copyToClipboard } from '@/utils/utils';
+// import { copyToClipboard } from '@/utils/utils';
 import { Check, Copy, Upload } from 'lucide-react';
 import React from 'react';
 import LoadingDots from './LoadingDots';
@@ -122,7 +122,7 @@ export const ImageUpload = () => {
                 <div className="text-xs md:text-sm absolute top-2 right-2 bg-black/80 backdrop-blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-full">
                   <button
                     onClick={() => {
-                      copyToClipboard(src)
+                      // copyToClipboard(src)
                       setTimeout(() => {
                         setCopied(true)
                       }, 300);
