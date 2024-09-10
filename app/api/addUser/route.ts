@@ -5,17 +5,17 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { username, password } = await req.json();
+    const { username, password, pic } = await req.json();
 
-    if (!username || !password) {
+    if (!username) {
       return NextResponse.json(
         { message: "Username and password are required" },
         { status: 400 }
       );
     }
-
+    console.log('Received data:', { username, password, pic });
     // Call the addUser function from your server-side logic
-    const {id} = await addUser(username, generateHashString(password));
+    const {id} = await addUser(username, generateHashString(password), pic);
     console.log('userReturnedID', id);
 
     if(id.error){

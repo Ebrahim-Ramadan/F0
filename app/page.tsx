@@ -1,8 +1,9 @@
 import {  ArrowRightIcon,  StarsIcon  } from 'lucide-react';
-import DynamicVideoComponent from '@/components/VideoComponent';
-import { HeroSections } from '@/components/HeroSections';
+import DynamicVideoComponent from '@/components/Home/VideoComponent';
+import { HeroSections } from '@/components/Home/HeroSections';
 import { cookies } from 'next/headers';
 import { getUserById, logout } from './actions';
+import { Header } from '@/components/Globals/Header';
 export async function getUserId() {
   const cookieStore = cookies();
   const userId = cookieStore.get('userID')?.value;
@@ -27,6 +28,8 @@ export default async function Home() {
   
   return (
   <div className="min-h-screen  w-full flex mx-auto flex-col items-center justify-center">
+    <Header user={user && user}/>
+
     <DynamicVideoComponent loggedIN={user?true:false}/>
     <section className='pb-12 md:pb-24 flex flex-col items-center justify-center w-full h-full'>
   <div className='w-full h-full flex flex-col items-center justify-center'>

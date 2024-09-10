@@ -80,33 +80,46 @@ export const getUserById = async (id: string | number) => {
   }
 };
 
-export const addUser = async (email: string, password: string): Promise<{ id: number } | { error: string }> => {
+export const addUser = async (
+  email: string,
+  password: string,
+  pic: string
+): Promise<{ id: number; username: string } | { error: string }> => {
   try {
     const existingUser = await db
-      .select()
+      .select({
+        id: users.id,
+        username: users.username,
+      })
       .from(users)
       .where(eq(users.username, email))
       .limit(1);
 
+    // If the user exists, return the user object
     if (existingUser.length > 0) {
-      return { error: "Email already exists" };
+      return existingUser[0];
     }
 
+    // Insert a new user if the email does not exist
     const result = await db
       .insert(users)
       .values({
         username: email,
-        password: password, // Note: Ensure you hash this password before storing
+        password: password, // Ensure password is hashed
+        pic: pic,
+
       })
-      .returning({ insertedId: users.id });
+      .returning({ id: users.id, username: users.username , pic: users.pic });
 
     revalidatePath("/");
-    return { id: result[0].insertedId };
+
+    return result[0];
   } catch (error) {
-    console.error('Error adding user:', error);
+    console.error("Error adding user:", error);
     return { error: "Failed to add user" };
   }
 };
+
 
 export const deleteUser = async (id: number) => {
   await db.delete(users).where(eq(users.id, id));

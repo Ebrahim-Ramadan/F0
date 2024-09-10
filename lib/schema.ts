@@ -5,6 +5,7 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(), // Auto-incrementing user ID
   username: text("username").notNull(), // Username field for user
   password: text("password").notNull(), // Hashed password field
+  pic: text("pic"), // Hashed password field
 });
 
 // Images table (linked to the users table)

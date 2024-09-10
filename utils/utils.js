@@ -53,3 +53,6 @@ export function generateHashString(text) {
   hash.update(text);
   return hash.digest('hex'); // Return the hash as a hexadecimal string
 }
+export function generateRandomString(length = 10) {
+  return [...Array(length)].map(() => Math.random().toString(36)[2]).join('');
+}
