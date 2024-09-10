@@ -6,7 +6,7 @@ const videoAvailable = ['/f0-1.mp4', '/f0-2.mp4'];
 const SponserComponent = dynamic(() => import('@/components/SponserComponent'), {
   ssr: false,
 });
-const VideoComponent = () => {
+const VideoComponent = ({loggedIN}) => {
   const [videoSrc, setVideoSrc] = useState('');
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
@@ -49,7 +49,12 @@ const VideoComponent = () => {
                 The fastest cheapest Background removal service, Ever
               </p>
               <button className="mt-2 md:mt-4 flex justify-end w-full">
-                <a href='/images' className='px-5 py-2 md:px-8 md:py-3 bg-primary-900 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-700 transition-all duration-300'>Sign Up</a>
+                <a href={loggedIN?`/images`:'/join'} className='px-5 py-2 md:px-8 md:py-3 bg-primary-900 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-700 transition-all duration-300'>
+                  {loggedIN ?
+                'Try Now':
+                'Sign Up'  
+                }
+                  </a>
               </button>
             </div>
     </div>

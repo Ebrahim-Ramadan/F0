@@ -1,17 +1,33 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
-import {  ArrowRightIcon, Heart, StarsIcon  } from 'lucide-react';
-import Image from 'next/image';
+import {  ArrowRightIcon,  StarsIcon  } from 'lucide-react';
+import DynamicVideoComponent from '@/components/VideoComponent';
+import { HeroSections } from '@/components/HeroSections';
+import { cookies } from 'next/headers';
+import { getUserById, logout } from './actions';
+export async function getUserId() {
+  const cookieStore = cookies();
+  const userId = cookieStore.get('userID')?.value;
+  console.log('userId', userId);
+  
+  return userId;
+}
 
+export async function getUser() {
+  const userId = await getUserId();
+  if (!userId) return null;
 
-const DynamicVideoComponent = dynamic(() => import('@/components/VideoComponent'), {
-  ssr: true,
-});
+  const user = await getUserById(userId);
+  if (user) return user;
 
-export default function Home() {
+  await logout();
+  return null;
+}
+export default async function Home() {
+  const user  = await getUser()
+  console.log('user', user);
+  
   return (
   <div className="min-h-screen  w-full flex mx-auto flex-col items-center justify-center">
-    <DynamicVideoComponent />
+    <DynamicVideoComponent loggedIN={user?true:false}/>
     <section className='pb-12 md:pb-24 flex flex-col items-center justify-center w-full h-full'>
   <div className='w-full h-full flex flex-col items-center justify-center'>
     <div className='w-full justify-center flex flex-col items-center pb-2'>
@@ -23,7 +39,7 @@ export default function Home() {
   </div>
     </div>
     <div className='w-full h-full flex flex-row items-center px-4 md:px-8 py-2 justify-between'>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 items-center'>
       <div className='w-2 h-8 md:h-10 bg-blue-500 rounded-lg'>
       </div>
         <span className='text-xl md:text-2xl font-bold text-white'>
@@ -36,132 +52,16 @@ Start
 <ArrowRightIcon size='16' className='w-4 h-4'/>
         </div>
       </div>
-<div className="bg-gradient-to-b from-primary-50 to-primary-100 min-h-screen w-full">
-  <div className="w-full pt-2">
-    <div className="p-2 md:p-4 columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-4">
-      <div className="group break-inside-avoid bg-primary-200 rounded-lg ">
-        <div className="flex flex-col w-full relative">
-        <Image
-        className='rounded-lg transition-transform duration-300 group-hover:scale-105'
-          width={1000}
-          height={1000}
-          alt='Picthing'
-          src='/examples/1.jpg'
-          />
-          <div className='absolute bottom-2 right-2 flex flex-row items-center gap-1'>
-            <span className='font-semibold text-xs md:text-sm text-primary-800'>466</span>
-<Heart  fill='#3B82F6' stroke='0' className='w-3 md:w-4'/>
-          </div>
-        </div>
-      </div>
-      <div className="group break-inside-avoid mt-2 md:mt-4 bg-primary-200 rounded-lg ">
-       <div className="flex flex-col relative">
-          <Image
-          className='rounded-lg transition-transform duration-300 group-hover:scale-105'
-          width={1000}
-          height={1000}
-          alt='Picthing'
-          src='/examples/2.jpg'
-          />
-         <div className='absolute bottom-2 right-2 flex flex-row items-center gap-1'>
-          <span className='font-semibold text-xs md:text-sm text-primary-800'>223</span>
-<Heart  fill='#3B82F6' stroke='0' className='w-3 md:w-4'/>
-          </div>
-        </div>
-      </div>
-      <div className="group break-inside-avoid mt-2 md:mt-4 bg-primary-200 rounded-lg ">
-        <div className="flex flex-col relative">
-        <Image
-        className='rounded-lg transition-transform duration-300 group-hover:scale-105'
-          width={1000}
-          height={1000}
-          alt='Picthing'
-          src='/examples/3.jpg'
-          />
-         <div className='absolute bottom-2 right-2 flex flex-row items-center gap-1'>
-          <span className='font-semibold text-xs md:text-sm text-primary-800'>656</span>
-<Heart fill='#3B82F6' stroke='0' className='w-3 md:w-4'/>
-          </div>
-        </div>
-      </div>
-      <div className="group break-inside-avoid mt-2 md:mt-4 bg-primary-200 rounded-lg ">
-        <div className="flex flex-col relative">
-        <Image
-        className='rounded-lg transition-transform duration-300 group-hover:scale-105'
-          width={1000}
-          height={1000}
-          alt='Picthing'
-          src='/examples/4.jpg'
-          />
-          <div className='absolute bottom-2 right-2 flex flex-row items-center gap-1'>
-          <span className='font-semibold text-xs md:text-sm text-primary-800'>647</span>
-<Heart fill='#3B82F6' stroke='0' className='w-3 md:w-4'/>
-          </div>
-        </div>
-      </div>
-      <div className="group break-inside-avoid mt-2 md:mt-4 bg-primary-200 rounded-lg ">
-        <div className="flex flex-col relative">
-        <Image
-        className='rounded-lg transition-transform duration-300 group-hover:scale-105'
-          width={1000}
-          height={1000}
-          alt='Picthing'
-          src='/examples/10.jpg'
-          />
-           <div className='absolute bottom-2 right-2 flex flex-row items-center gap-1'>
-          <span className='font-semibold text-xs md:text-sm text-primary-800'>974</span>
-<Heart fill='#3B82F6' stroke='0' className='w-3 md:w-4'/>
-          </div>
-        </div>
-      </div>
-      <div className="group break-inside-avoid mt-2 md:mt-4 bg-primary-200 rounded-lg ">
-        <div className="flex flex-col relative">
-        <Image
-        className='rounded-lg transition-transform duration-300 group-hover:scale-105'
-          width={1000}
-          height={1000}
-          alt='Picthing'
-          src='/examples/6.jpg'
-          />
-           <div className='absolute bottom-2 right-2 flex flex-row items-center gap-1'>
-          <span className='font-semibold text-xs md:text-sm text-primary-800'>870</span>
-<Heart fill='#3B82F6' stroke='0' className='w-3 md:w-4'/>
-          </div>
-        </div>
-      </div>
-      <div className="group break-inside-avoid mt-2 md:mt-4 bg-primary-200 rounded-lg ">
-        <div className="flex flex-col relative">
-        <Image
-        className='rounded-lg transition-transform duration-300 group-hover:scale-105'
-          width={1000}
-          height={1000}
-          alt='Picthing'
-          src='/examples/7.jpg'
-          />
-           <div className='absolute bottom-2 right-2 flex flex-row items-center gap-1'>
-          <span className='font-semibold text-xs md:text-sm text-primary-800'>214</span>
-<Heart fill='#3B82F6' stroke='0' className='w-3 md:w-4'/>
-          </div>
-        </div>
-      </div>
-      <div className="group break-inside-avoid mt-2 md:mt-4 bg-primary-200 rounded-lg ">
-        <div className="flex flex-col relative">
-        <Image
-        className='rounded-lg transition-transform duration-300 group-hover:scale-105'
-          width={1000}
-          height={1000}
-          alt='Picthing'
-          src='/examples/9.jpg'
-          />
-           <div className='absolute bottom-2 right-2 flex flex-row items-center gap-1'>
-          <span className='font-semibold text-xs md:text-sm text-primary-800'>631</span>
-<Heart fill='#3B82F6' stroke='0' className='w-3 md:w-4'/>
-          </div>
-        </div>
-      </div>
+
+
+
+      <div className="bg-gradient-to-b from-primary-50 to-primary-100 min-h-screen w-full">
+    <div className="w-full pt-2">
+     <HeroSections/>
     </div>
   </div>
-</div>
+
+
 </div>
       </section>
     </div>
