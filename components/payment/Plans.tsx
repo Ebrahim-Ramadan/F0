@@ -1,7 +1,8 @@
 
 import { CheckIcon } from "lucide-react"
 
-export default function Plans({selectedPlan}) {
+export default function Plans() {
+
   return (
     <div className="grid gap-8 max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <div className="grid gap-2 w-full">

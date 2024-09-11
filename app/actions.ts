@@ -48,7 +48,7 @@ export async function requireUser() {
 export async function createUserSession(userId: string, remember: boolean) {
   const cookieStore = cookies();
   cookieStore.set('userID', userId, {
-    maxAge: remember ? 60 * 60 * 24 * 7 : undefined, // 7 days if remember
+    maxAge: remember ? 60 * 60 * 24 * 30 : undefined, // 30 days if remember
     path: '/',
     httpOnly: true,
   });
