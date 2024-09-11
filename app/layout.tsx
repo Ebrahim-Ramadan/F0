@@ -5,7 +5,7 @@ import { Toaster, toast } from 'sonner'
 import { cookies } from "next/headers";
 import { getUserById, logout } from "./actions";
 import { Header } from "@/components/Globals/Header";
-export async function getUserId() {
+ async function getUserId() {
     const cookieStore = cookies();
     const userId = cookieStore.get('userID')?.value;
     console.log('userId', userId);
@@ -13,7 +13,7 @@ export async function getUserId() {
     return userId;
   }
   
-  export async function getUser() {
+   async function getUser() {
     const userId = await getUserId();
     if (!userId) return null;
   
