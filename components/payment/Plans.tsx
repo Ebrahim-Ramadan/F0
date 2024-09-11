@@ -10,7 +10,7 @@ export const Plans = () => {
       <>
         <div className='w-full flex justify-end'>
         <button
-        className={`w-full text-center block px-4 py-2 text-sm rounded-3xl bg-black text-white hover:bg-primary-200`}
+        className={`font-bold w-full text-center block px-4 py-2 text-sm rounded-3xl bg-black text-white hover:bg-primary-200`}
         role="Subscribe"
         id="manage-account"
           onClick={() => setIsOpen(true)}

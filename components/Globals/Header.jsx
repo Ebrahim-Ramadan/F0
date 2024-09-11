@@ -76,7 +76,7 @@ export const Header = ({user}) => {
       <MenuItem>
       <button
        onClick={handleSignOut}
-       className={`block px-4 py-2 text-sm rounded-3xl hover:bg-red-600 bg-red-700 text-white`}
+       className={`font-semibold block px-4 py-2 text-sm rounded-3xl hover:bg-red-600 bg-red-700 text-white`}
        role="menuitem"
        tabIndex="-1"
        id="sign-out"

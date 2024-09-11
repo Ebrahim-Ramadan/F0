@@ -32,7 +32,7 @@ export const Join = () => {
     
           if (!res.ok) {
             const errMessage = await res.json();
-            toast.error(errMessage.message)
+            toast.error('Shit happens, Check Internet connection and Try again later')
             throw new Error(errMessage.message || "Error adding user");
           }
           toast.success('You have successfully joined the community!')
@@ -40,7 +40,6 @@ export const Join = () => {
           router.push('/');
         } catch (error) {
           console.log('error', error);
-          
         } finally {
           setLoading(false);
         }

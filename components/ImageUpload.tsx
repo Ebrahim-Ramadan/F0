@@ -1,6 +1,7 @@
 'use client'
+import { copyToClipboard } from '@/utils/utils';
 // import { copyToClipboard } from '@/utils/utils';
-import { Check, Copy, Upload } from 'lucide-react';
+import { Bookmark, Check, Copy, Folder, Upload } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import LoadingDots from './LoadingDots';
@@ -89,10 +90,10 @@ export const ImageUpload = () => {
             <label
             
               htmlFor="dropzone-file"
-              className={`flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2  border-dashed rounded-lg cursor-pointer bg-black/70 hover:bg-black/90 transition-all duration-300 ${draggedState ? 'border-blue-500' : 'border-gray-600'}`}
+              className={`flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2  border-dashed rounded-lg cursor-pointer  transition-all duration-300 ${draggedState ? 'border-blue-500' : 'border-neutral-600'}`}
             >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <Upload className="w-10 h-10 mb-3 text-gray-400" />
+                <Upload className={`w-10 h-10 mb-3 text-gray-400 transition duration-300 ${draggedState && 'scale-110 text-gray-300 '}`} />
                 <p className="mb-2 text-sm text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                 <p className="text-xs text-gray-400">PNG, JPG or GIF (MAX. 800x400px)</p>
               </div>
@@ -108,9 +109,26 @@ export const ImageUpload = () => {
           }
       </div>
       <div className="border-gray-700 w-full">
-        {processedImages.length > 0 &&
-          <div>Processed Images</div>
-        }
+      <div className='flex justify-end w-full'>
+            <button className='flex flex-row items-center gap-1 bg-primary-200 hover:bg-primary-300 rounded-3xl px-2 py-1'>
+<Bookmark size='14'/>
+Create Collection
+            </button>
+            </div> 
+      <div className='relative w-full h-24'>
+      <div className="absolute  flex flex-col justify-center items-center text-white  px-8">
+            
+          <p
+            className="bg-black font-semibold text-xl md:text-2xl px-2"
+          >
+            My Images
+          </p>
+        </div>
+        <div className='-z-10 absolute left-0 w-full h-[0.1rem] bg-neutral-700 mt-4 rounded-xl'>
+
+        </div>
+      </div>
+
         <div>
           <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
             {processedImages.map((src, index) => (
@@ -135,6 +153,14 @@ export const ImageUpload = () => {
                     {Copied ? <Check size='16' /> : <Copy size='16' />}
                     {Copied ? 'Copied' : 'Copy'}
                   </button>
+                </div>
+                <div className="text-xs md:text-sm absolute top-2 left-2 bg-black/80 backdrop-blur-3xl transition-opacity duration-300 flex items-center justify-center rounded-full">
+                  <input
+                  id={`pic-${index}`}
+                    type='checkbox'
+                    className="flex items-center px-2 py-1 gap-2"
+                  />
+                    
                 </div>
               </div>
             ))}
