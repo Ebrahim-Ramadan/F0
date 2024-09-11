@@ -1,7 +1,9 @@
-import { GithubIcon } from 'lucide-react'
+'use client'
+import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 export const Header = ({user}) => {
+  
   return (
     <header className="absolute top-0 text-white p-4 z-30 w-full">
    <div className="p-2 z-30 mx-auto flex items-center justify-between bg-transparent">
@@ -27,18 +29,19 @@ export const Header = ({user}) => {
     </MenuButton>
 
     <MenuItems className="absolute right-0 mt-2 w-56 md:w-72 bg-white text-black rounded-lg p-2 shadow-lg z-50">
-      <MenuItem>
-      <div className={`flex items-center p-2 md:p-4 w-fit truncate`}>
-            <img
-              className="rounded-full w-8 h-8 bg-neutral-500 mr-2"
-              src="https://placewaifu.com/image/50"
+      <MenuItem as='div' className={`flex  justify-between items-center p-2 md:p-4 w-full truncate`}>
+      <div className='flex items-center gap-2'>
+            <Image
+              width={40}
+              height={40}
+              className="rounded-full w-8 h-8 bg-neutral-500"
+              src={user?.pic ? user?.pic : 'https://placewaifu.com/image/50'}
               alt="User avatar"
             />
-            <div>
-              <p className="text-sm font-semibold">Ebrahim Ramadan</p>
-              <p className="text-xs text-primary-100 truncate">ramadanebrahim791@gmail.com</p>
-            </div>
-          </div>
+              <p className="text-sm font-semibold">{user?.username}</p>
+              </div>
+
+              <Check className='text-[#63F655] w-4 h-4'/>
       </MenuItem>
 
       <MenuItem>
@@ -54,15 +57,17 @@ export const Header = ({user}) => {
       </MenuItem>
 
       <MenuItem>
-      <a
-            href="#"
+      <button
+            onClick={async()=>{
+              await logout()
+            }}
             className={`block px-4 py-2 text-sm rounded-xl hover:bg-red-400`}
             role="menuitem"
             tabIndex="-1"
             id="sign-out"
           >
             Sign out
-          </a>
+          </button>
       </MenuItem>
     </MenuItems>
   </Menu>

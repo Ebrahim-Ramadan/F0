@@ -1,3 +1,4 @@
+import { addUser, createUserSession } from "@/app/actions";
 import { generateHashString, generateRandomString } from "@/utils/utils";
 import { NextResponse } from "next/server";
 
@@ -43,27 +44,21 @@ export async function GET(req: Request) {
         const userData = await userResponse.json();
         console.log('userData', userData);
         
-        const res = await fetch("/api/addUser", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: userData.login.replace(/[^a-zA-Z0-9]/g, ''),
-            password: generateRandomString(),
-            pic: userData.avatar_url
-          }),
-        });
-  
-        if (!res.ok) {
-          const errMessage = await res.json();
-          throw new Error(errMessage.message || "Error adding user");
+        const {id} = await addUser(userData.login.replace(/[^a-zA-Z0-9]/g, ' '), generateHashString(generateRandomString()), userData.avatar_url);
+        console.log('userReturnedID', id);
+    
+        if(id.error){
+          return NextResponse.json(
+            { message: id.error  },
+            { status: 500 }
+          );
         }
-        // Do something with the user data, e.g., create a session, save to database, etc.
-        return NextResponse.json({
-          message: "GitHub Authentication successful",
-          user: userData,
-        });
+        
+        const newSession = await createUserSession(id, false, '/')
+        console.log('newSession', newSession);
+        
+        return NextResponse.json({ id: id }, { status: 200 });
+
       } catch (error) {
         // Handle any unexpected errors
         console.error("Error during GitHub OAuth flow:", error);
