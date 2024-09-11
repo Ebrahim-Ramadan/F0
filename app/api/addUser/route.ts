@@ -3,7 +3,7 @@ import { addUser, createUserSession } from "@/app/actions";
 import { generateHashString } from "@/utils/utils";
 import { NextResponse } from "next/server";
 
-export async function POST(req) {
+export async function POST(req:Request) {
   try {
     const { username, password, pic } = await req.json();
 
@@ -13,7 +13,7 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-    // Call the addUser function from your server-side logic
+    // @ts-ignore
     const {id} = await addUser(username, generateHashString(password), pic);
     console.log('userReturnedID', id);
 
@@ -24,12 +24,12 @@ export async function POST(req) {
       );
     }
     
-    await createUserSession(id, false, '/')
+    await createUserSession(id, false)
     
     return NextResponse.json({ id: id }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { message: error.message || "Error adding user" },
+      { message: (error as Error).message || "Error adding user" },
       { status: 500 }
     );
   }

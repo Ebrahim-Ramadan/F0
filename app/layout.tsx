@@ -8,8 +8,6 @@ import { Header } from "@/components/Globals/Header";
  async function getUserId() {
     const cookieStore = cookies();
     const userId = cookieStore.get('userID')?.value;
-    console.log('userId', userId);
-    
     return userId;
   }
   

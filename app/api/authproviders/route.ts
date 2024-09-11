@@ -43,7 +43,7 @@ export async function GET(req: Request) {
     
         const userData = await userResponse.json();
         console.log('userData', userData);
-        
+        // @ts-ignore
         const {id} = await addUser(userData.login.replace(/[^a-zA-Z0-9]/g, ' '), generateHashString(generateRandomString()), userData.avatar_url);
     
         if(id.error){
@@ -53,7 +53,7 @@ export async function GET(req: Request) {
           );
         }
         
-        await createUserSession(id, false, '/')
+        await createUserSession(id, false)
         const redirectUrl = new URL('/', url.origin);
         // return NextResponse.redirect(redirectUrl);
         return NextResponse.json({ id: id }, { status: 200 });
