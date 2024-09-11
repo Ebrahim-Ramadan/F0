@@ -4,7 +4,11 @@ import Image from 'next/image'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-
+import dynamic from 'next/dynamic'
+// import { Plans } from '../payment/Plans'
+const Plans = dynamic(() => import('../payment/Plans'), {
+  ssr: false,
+});
 
 export const Header = ({user}) => {
   const router = useRouter()
@@ -67,15 +71,7 @@ export const Header = ({user}) => {
       </MenuItem>
 
       <MenuItem>
-      <a
-            href="/payment"
-            className={`text-center block px-4 py-2 text-sm rounded-3xl bg-black text-white hover:bg-primary-200`}
-            role="menuitem"
-            tabIndex="-1"
-            id="manage-account"
-          >
-            Subscribe Now
-          </a>
+      <Plans/>
       </MenuItem>
 
       <MenuItem>
