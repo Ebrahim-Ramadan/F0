@@ -33,24 +33,19 @@ export const HeroSections = () => {
     {images.map((image, index) => (
       <div
         key={index}
-        className={`group break-inside-avoid mt-2 md:mt-4 rounded-lg ${selectedColors[index]} transition-colors duration-300`}
+        className={`group break-inside-avoid rounded-lg transition-colors duration-300 py-2`}
       >
         <div className="flex flex-col relative">
           <Image
-            className="rounded-lg transition-transform duration-300"
+            className={`rounded-lg transition-transform duration-300  ${selectedColors[index]}`}
             width={1000}
             height={1000}
             alt={image.alt}
             src={image.src}
           />
-          <div className="backdrop-blur-3xl bg-white/20 rounded-full px-1 md:px-2 py-1 flex absolute bottom-2 right-2 flex flex-row items-center gap-1">
-            <span className="font-semibold text-[10px] md:text-sm text-primary-900">
-              {image.likes}
-            </span>
-            <Heart fill="#3B82F6" stroke="0" className="w-3 md:w-4" size='12' />
-          </div>
-          <div className='absolute bottom-2 left-2 flex flex-row items-center gap-1'>
-          <div className="flex justify-center gap-2 mt-2">
+          
+          <div className='absolute bottom-8 left-2 flex flex-row items-center gap-1'>
+          <div className="flex justify-start gap-2 ">
                       {bgOptions.map((color, colorIndex) => (
                         <div
                           key={colorIndex}
@@ -60,7 +55,13 @@ export const HeroSections = () => {
                       ))}
                     </div>
             </div>
-         
+            <div className="mt-2 flex justify-end flex flex-row items-center gap-1  px-2">
+            <span className="flex items-center backdrop-blur-3xl bg-white/20 rounded-full px-2 py-1 font-semibold text-[10px] md:text-sm text-primary-900">
+              {image.likes}
+            <Heart fill="#3B82F6" stroke="0" className="w-4" size='14' />
+
+            </span>
+          </div>
         </div>
       </div>
     ))}

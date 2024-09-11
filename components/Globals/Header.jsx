@@ -2,8 +2,13 @@
 import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { toast } from 'sonner'
+import { revalidatePath } from 'next/cache'
+import { useRouter } from 'next/navigation'
+
 export const Header = ({user}) => {
-  
+  const router = useRouter()
+  const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Sonner' }), 900));
   return (
     <header className="absolute top-0 text-white p-4 z-30 w-full">
    <div className="p-2 z-30 mx-auto flex items-center justify-between bg-transparent">
@@ -17,7 +22,9 @@ export const Header = ({user}) => {
         <span className='text-xs md:text-sm font-bold'>Welcome</span>
       </nav>
       
-      <Menu as="div" className="relative">
+     {user ?
+     
+     <Menu as="div" className="relative">
     <MenuButton>
       <Image
         width={40}
@@ -28,7 +35,7 @@ export const Header = ({user}) => {
       />
     </MenuButton>
 
-    <MenuItems className="absolute right-0 mt-2 w-56 md:w-72 bg-white text-black rounded-lg p-2 shadow-lg z-50">
+    <MenuItems className="[&>*]:w-full absolute right-0 mt-2 w-56 md:w-72 bg-white text-black rounded-lg p-2 shadow-lg z-50">
       <MenuItem as='div' className={`flex  justify-between items-center p-2 md:p-4 w-full truncate`}>
       <div className='flex items-center gap-2'>
             <Image
@@ -47,7 +54,7 @@ export const Header = ({user}) => {
       <MenuItem>
       <a
             href="#"
-            className={`block px-4 py-2 text-sm rounded-xl hover:bg-neutral-200`}
+            className={`text-center block px-4 py-2 text-sm rounded-xl hover:bg-neutral-200`}
             role="menuitem"
             tabIndex="-1"
             id="manage-account"
@@ -59,7 +66,16 @@ export const Header = ({user}) => {
       <MenuItem>
       <button
             onClick={async()=>{
-              await logout()
+              await fetch('/api/signout')
+              toast.promise(promise, {
+                loading: 'Loading...',
+                success: () => {
+                  return `Signed out successfully`;
+                },
+                error: 'Error',
+              });
+              router.refresh() 
+              // revalidatePath("/");
             }}
             className={`block px-4 py-2 text-sm rounded-xl hover:bg-red-400`}
             role="menuitem"
@@ -71,6 +87,9 @@ export const Header = ({user}) => {
       </MenuItem>
     </MenuItems>
   </Menu>
+  :
+  <a className='bg-neutral-100 text-center block px-4 py-2 text-sm md:text-base rounded-3xl hover:bg-neutral-200 text-black font-semibold' href="/join">Login</a>
+  }
   
     </div>
   </header>

@@ -41,29 +41,28 @@ export const Join = () => {
       };
       
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center gap-8 md:p-0 p-4'>
+    <div className='min-h-screen flex flex-col items-center justify-center gap-8 md:p-0 p-4 w-full'>
         <div className='font-semibold text-3xl md:text-4xl'>Join Now</div>
-<div className='text-sm flex flex-col items-center justify-center w-full  gap-2'>
-<div className='flex flex-col items-center justify-center w-full '>
-<a  className='flex flex-row items-center bg-primary-200 hover:bg-primary-100 transition duration-300 font-semibold rounded-full px-4 py-2  gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
-Sign In with Github
-<Github size='16'/>
-  </a>
-</div>
-<div className='flex flex-col items-center justify-center w-full '>
-<a  className='flex text-black flex-row items-center bg-primary-950 hover:bg-primary-900 transition duration-300 font-semibold rounded-full px-4 py-2  gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
-Sign In with Google
-{/* <Github size='16'/> */}
-<Image
-width={24}
-height={24}
-className='w-4 h-4'
-src="/assets/google.svg"
-alt="google"
-/>
-  </a>
-</div>
-</div>
+    <div className=' flex flex-col items-center justify-center w-full  gap-2'>
+      <div className='flex flex-col items-center justify-center w-full '>
+        <a  className='w-full md:w-fit justify-center flex flex-row items-center bg-primary-200 hover:bg-primary-100 transition duration-300 font-semibold rounded-full px-4 py-2  gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
+          Sign In with Github
+          <Github size='18'/>
+            </a>
+          </div>
+        <div className='flex flex-col items-center justify-center w-full '>
+            <a  className='w-full md:w-fit justify-center flex text-black flex-row items-center bg-primary-950 hover:bg-primary-900 transition duration-300 font-semibold rounded-full px-4 py-2  gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
+            Sign In with Google
+              <Image
+              width={24}
+              height={24}
+              className='w-4 h-4'
+              src="/assets/google.svg"
+              alt="google"
+            />
+          </a>
+      </div>
+    </div>
         <div className='flex flex-col items-center justify-center w-full md:w-1/2'>
         <form onSubmit={handleSubmit} className=" w-full md:w-1/2">
     <div className="mb-4">

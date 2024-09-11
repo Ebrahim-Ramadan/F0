@@ -1,38 +1,19 @@
 import {  ArrowRightIcon,  StarsIcon  } from 'lucide-react';
 import DynamicVideoComponent from '@/components/Home/VideoComponent';
 import { HeroSections } from '@/components/Home/HeroSections';
-import { cookies } from 'next/headers';
-import { getUserById, logout } from './actions';
-import { Header } from '@/components/Globals/Header';
-export async function getUserId() {
-  const cookieStore = cookies();
-  const userId = cookieStore.get('userID')?.value;
-  console.log('userId', userId);
-  
-  return userId;
-}
 
-export async function getUser() {
-  const userId = await getUserId();
-  if (!userId) return null;
+import {  getUserId } from './actions';
 
-  const user = await getUserById(userId);
-  if (user) return user;
 
-  await logout();
-  return null;
-}
 export default async function Home() {
-  const user  = await getUser()
-  console.log('user', user);
-  
+  const userId = await getUserId();
+
   return (
   <div className="min-h-screen  w-full flex mx-auto flex-col items-center justify-center">
-    <Header user={user && user}/>
 
-    <DynamicVideoComponent loggedIN={user?true:false}/>
+    <DynamicVideoComponent loggedIN={userId?true:false}/>
     <section className='pb-12 md:pb-24 flex flex-col items-center justify-center w-full h-full'>
-  <div className='w-full h-full flex flex-col items-center justify-center'>
+  <div className='w-full h-full flex flex-col items-center justify-center mt-[-2rem] z-50'>
     <div className='w-full justify-center flex flex-col items-center pb-2'>
     <div className='flex flex-row gap-2 items-center justify-center bg-gradient-to-r from-primary-200 to-primary-100 rounded-full p-2 hover:bg-red-200 transition-colors'>
     <StarsIcon className='w-8 h-8 md:w-10 md:h-10 bg-blue-900 flex items-center justify-center p-2 rounded-full'/>

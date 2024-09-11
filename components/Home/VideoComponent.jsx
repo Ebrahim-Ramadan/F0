@@ -77,14 +77,14 @@ const VideoComponent = ({loggedIN}) => {
         </video>
         <button 
           onClick={toggleMute}
-          className="absolute bottom-8 right-8 z-30 p-2 bg-primary-100 backdrop-blur-lg rounded-full text-white hover:bg-opacity-75 transition-all duration-300"
+          className="absolute bottom-16 right-6 z-30 p-2 bg-primary-100 backdrop-blur-lg rounded-full text-white hover:bg-opacity-75 transition-all duration-300"
         >
           {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
         </button>
       </>
     )}
     <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-primary-50 to-transparent z-10"></div>
-    <div className="absolute bottom-8 left-8  z-20 text-lg md:text-xl">
+    <div className="absolute bottom-16 left-6  z-20 text-lg md:text-xl">
                   <SponserComponent/>
                 </div>
   </div>

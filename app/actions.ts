@@ -11,8 +11,6 @@ import { cookies } from 'next/headers';
 export async function getUserId() {
   const cookieStore = cookies();
   const userId = cookieStore.get('userID')?.value;
-  console.log('userId', userId);
-  
   return userId;
 }
 
@@ -47,20 +45,22 @@ export async function requireUser() {
   return null;
 }
 
-export async function createUserSession(userId: string, remember: boolean, redirectTo: string) {
+export async function createUserSession(userId: string, remember: boolean) {
   const cookieStore = cookies();
   cookieStore.set('userID', userId, {
     maxAge: remember ? 60 * 60 * 24 * 7 : undefined, // 7 days if remember
     path: '/',
     httpOnly: true,
   });
-  return { redirect: redirectTo };
+  revalidatePath("/");
+  return true;
 }
 
 export async function logout() {
   const cookieStore = cookies();
   cookieStore.delete('userID');
-  return { redirect: '/' };
+  revalidatePath("/");
+  return true;
 }
 
 export const getUserById = async (id: string | number) => {

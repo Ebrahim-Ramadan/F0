@@ -45,7 +45,6 @@ export async function GET(req: Request) {
         console.log('userData', userData);
         
         const {id} = await addUser(userData.login.replace(/[^a-zA-Z0-9]/g, ' '), generateHashString(generateRandomString()), userData.avatar_url);
-        console.log('userReturnedID', id);
     
         if(id.error){
           return NextResponse.json(
@@ -54,11 +53,10 @@ export async function GET(req: Request) {
           );
         }
         
-        const newSession = await createUserSession(id, false, '/')
-        console.log('newSession', newSession);
-        
+        await createUserSession(id, false, '/')
+        const redirectUrl = new URL('/', url.origin);
+        // return NextResponse.redirect(redirectUrl);
         return NextResponse.json({ id: id }, { status: 200 });
-
       } catch (error) {
         // Handle any unexpected errors
         console.error("Error during GitHub OAuth flow:", error);
