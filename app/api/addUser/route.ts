@@ -1,6 +1,7 @@
 // app/api/addUser/route.ts
 import { addUser, createUserSession } from "@/app/actions";
 import { generateHashString } from "@/utils/utils";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(req:Request) {
@@ -25,7 +26,7 @@ export async function POST(req:Request) {
     }
     
     await createUserSession(id, false)
-    
+    revalidatePath('/')
     return NextResponse.json({ id: id }, { status: 200 });
   } catch (error) {
     return NextResponse.json(

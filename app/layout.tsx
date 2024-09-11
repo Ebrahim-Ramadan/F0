@@ -43,12 +43,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const user  = await getUser()
-  console.log('user', user);
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary-50`}
       >
+     <div className="-z-50 absolute w-[150px] h-[150px] bg-neutral-100 z-[-1] blur-[200px] top-0 bottom-0 left-0 right-0 m-auto rounded-full"></div>
+
     <Header user={user && user}/>
 
          <Toaster position="bottom-right" richColors  theme="dark"/>
@@ -58,3 +59,6 @@ export default async function RootLayout({
     </html>
   );
 }
+
+export const revalidate = 0; // Prevent Next.js from using a cache
+export const dynamic = 'force-dynamic'; // Force dynamic behavior

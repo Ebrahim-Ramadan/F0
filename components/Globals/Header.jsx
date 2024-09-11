@@ -3,12 +3,27 @@ import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { toast } from 'sonner'
-import { revalidatePath } from 'next/cache'
 import { useRouter } from 'next/navigation'
+
 
 export const Header = ({user}) => {
   const router = useRouter()
-  const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Sonner' }), 900));
+  const handleSignOut = async () => {
+    const promise = fetch('/api/signout');
+    toast.promise(promise, {
+      loading: 'Signing out...',
+      success: 'Signed out successfully',
+      error: 'Error while signing out',
+    });
+
+    try {
+      await promise;
+      router.refresh(); 
+    } catch (error) {
+      console.error("Error signing out:", error);
+    } finally {
+    }
+  };
   return (
     <header className="absolute top-0 text-white p-4 z-30 w-full">
    <div className="p-2 z-30 mx-auto flex items-center justify-between bg-transparent">
@@ -35,8 +50,8 @@ export const Header = ({user}) => {
       />
     </MenuButton>
 
-    <MenuItems className="[&>*]:w-full absolute right-0 mt-2 w-56 md:w-72 bg-white text-black rounded-lg p-2 shadow-lg z-50">
-      <MenuItem as='div' className={`flex  justify-between items-center p-2 md:p-4 w-full truncate`}>
+    <MenuItems className="flex gap-2 flex-col [&>*]:w-full absolute right-0 mt-2 w-56 md:w-72 bg-white text-black  rounded-3xl p-2 shadow-lg z-50">
+      <MenuItem as='div' className={`flex rounded-3xl justify-between items-center p-2 md:p-4 w-full truncate bg-primary-950`}>
       <div className='flex items-center gap-2'>
             <Image
               width={40}
@@ -48,47 +63,37 @@ export const Header = ({user}) => {
               <p className="text-sm font-semibold">{user?.username}</p>
               </div>
 
-              <Check className='text-[#63F655] w-4 h-4'/>
+              <Check className='text-primary-400 w-4 h-4'/>
       </MenuItem>
 
       <MenuItem>
       <a
-            href="#"
-            className={`text-center block px-4 py-2 text-sm rounded-xl hover:bg-neutral-200`}
+            href="/payment"
+            className={`text-center block px-4 py-2 text-sm rounded-3xl bg-black text-white hover:bg-primary-200`}
             role="menuitem"
             tabIndex="-1"
             id="manage-account"
           >
-            Manage account
+            Subscribe Now
           </a>
       </MenuItem>
 
       <MenuItem>
       <button
-            onClick={async()=>{
-              await fetch('/api/signout')
-              toast.promise(promise, {
-                loading: 'Loading...',
-                success: () => {
-                  return `Signed out successfully`;
-                },
-                error: 'Error',
-              });
-              router.refresh() 
-              // revalidatePath("/");
-            }}
-            className={`block px-4 py-2 text-sm rounded-xl hover:bg-red-400`}
-            role="menuitem"
-            tabIndex="-1"
-            id="sign-out"
-          >
-            Sign out
-          </button>
+       onClick={handleSignOut}
+       className={`block px-4 py-2 text-sm rounded-3xl hover:bg-red-600 bg-red-700 text-white`}
+       role="menuitem"
+       tabIndex="-1"
+       id="sign-out"
+     >
+       Log out
+     </button>
+     
       </MenuItem>
     </MenuItems>
   </Menu>
   :
-  <a className='bg-neutral-100 text-center block px-4 py-2 text-sm md:text-base rounded-3xl hover:bg-neutral-200 text-black font-semibold' href="/join">Login</a>
+    <a className='bg-neutral-100 text-center block px-4 py-2 text-sm md:text-base rounded-3xl hover:bg-neutral-200 text-black font-semibold' href="/join">Login</a>
   }
   
     </div>

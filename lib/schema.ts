@@ -6,6 +6,7 @@ export const users = pgTable("users", {
   username: text("username").notNull(), // Username field for user
   password: text("password").notNull(), // Hashed password field
   pic: text("pic"), // Hashed password field
+  paymentDate: timestamp("payment_date"), // Payment date field
 });
 
 // Images table (linked to the users table)

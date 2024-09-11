@@ -1,12 +1,14 @@
 'use client'
 import { createUserSession } from '@/app/actions';
-import { Github } from 'lucide-react';
+import { Github, Router } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { toast } from 'sonner';
 import LoadingDots from './LoadingDots';
 
 export const Join = () => {
+  const router = useRouter()
   const [username, setUsername] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -34,7 +36,11 @@ export const Join = () => {
             throw new Error(errMessage.message || "Error adding user");
           }
           toast.success('You have successfully joined the community!')
+          router.refresh(); 
+          router.push('/');
         } catch (error) {
+          console.log('error', error);
+          
         } finally {
           setLoading(false);
         }
@@ -42,10 +48,11 @@ export const Join = () => {
       
   return (
     <div className='min-h-screen flex flex-col items-center justify-center gap-8 md:p-0 p-4 w-full'>
+
         <div className='font-semibold text-3xl md:text-4xl'>Join Now</div>
     <div className=' flex flex-col items-center justify-center w-full  gap-2'>
       <div className='flex flex-col items-center justify-center w-full '>
-        <a  className='w-full md:w-fit justify-center flex flex-row items-center bg-primary-200 hover:bg-primary-100 transition duration-300 font-semibold rounded-full px-4 py-2  gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
+        <a  className='w-full md:w-fit justify-center flex flex-row items-center bg-primary-300 hover:bg-primary-200 transition duration-300 font-semibold rounded-full px-4 py-2  gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
           Sign In with Github
           <Github size='18'/>
             </a>

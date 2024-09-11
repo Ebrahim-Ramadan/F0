@@ -8,9 +8,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      boxShadow: {
-        'white-subtle': '0 0px 11px rgb(173 173 173 / 33%)',
-      },
       animation: {
         'float-move': 'float-move 1s ease-out forwards',
       },
@@ -26,16 +23,16 @@ const config: Config = {
       colors: {
         primary: {
           50:  '#000000', // Lightest shade
-          100: '#1A1A1A',
-          200: '#333333',
-          300: '#4D4D4D',
-          400: '#666666', // Darkest shade
-          500: '#808080', // Main color
-          600: '#999999',
-          700: '#B3B3B3',
-          800: '#CCCCCC',
-          900: '#E6E6E6', // Dark shade
-          950: '#FFFFFF', // Darkest shade
+          100: '#121212', // Lightest shade
+          200: '#1A1A1A',
+          300: '#333333',
+          400: '#4D4D4D',
+          500: '#666666', // Darkest shade
+          600: '#808080', // Main color
+          700: '#999999',
+          800: '#B3B3B3',
+          900: '#CCCCCC',
+          950: '#E6E6E6', // Dark shade
           // switchPalette: '#474554', // You can adjust this as needed
         },        
       },

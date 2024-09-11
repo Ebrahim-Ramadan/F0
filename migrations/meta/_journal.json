@@ -22,6 +22,13 @@
       "when": 1725995456153,
       "tag": "0002_jazzy_the_captain",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1726031467792,
+      "tag": "0003_handy_sway",
+      "breakpoints": true
     }
   ]
 }

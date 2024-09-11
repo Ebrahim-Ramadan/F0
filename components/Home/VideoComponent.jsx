@@ -30,7 +30,7 @@ const VideoComponent = ({loggedIN}) => {
 
   return (
     <div className="w-full h-screen flex flex-col">
-  <div className="absolute top-0 bg-gradient-to-b from-[#171717] to-transparent z-20 w-full h-16"></div>
+  <div className="absolute top-0 bg-gradient-to-b from-primary-200 to-transparent z-20 w-full h-16"></div>
 
   <div className="w-full flex-grow relative">
     <div className='absolute h-full flex flex-col justify-center items-center text-white z-20 w-full bg-primary-50 bg-opacity-20 backdrop-blur-xs px-4 md:px-8'>
@@ -49,7 +49,7 @@ const VideoComponent = ({loggedIN}) => {
                 The fastest cheapest Background removal service, Ever
               </p>
               <button className="mt-2 md:mt-4 flex justify-end w-full">
-                <a href={loggedIN?`/images`:'/join'} className='px-5 py-2 md:px-8 md:py-3 bg-primary-900 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-700 transition-all duration-300'>
+                <a href={loggedIN?`/images`:'/join'} className='px-5 py-2 md:px-8 md:py-3 bg-primary-950 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-900 transition-all duration-300'>
                   {loggedIN ?
                 'Try Now':
                 'Sign Up'  

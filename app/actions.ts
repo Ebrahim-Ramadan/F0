@@ -107,9 +107,9 @@ export const addUser = async (
         username: email,
         password: password, // Ensure password is hashed
         pic: pic,
-
+        paymentDate: null
       })
-      .returning({ id: users.id, username: users.username , pic: users.pic });
+      .returning({ id: users.id, username: users.username , pic: users.pic, paymentDate: users.paymentDate });
 
     revalidatePath("/");
 
