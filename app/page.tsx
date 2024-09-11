@@ -40,7 +40,7 @@ Start
 
 
       <div className="bg-gradient-to-b from-primary-50 to-primary-100 min-h-screen w-full">
-    <div className="w-full pt-2">
+    <div className="w-full p-2 md:p-4">
      <HeroSections/>
     </div>
   </div>

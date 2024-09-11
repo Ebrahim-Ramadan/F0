@@ -5,7 +5,6 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
-// import { Plans } from '../payment/Plans'
 const Plans = dynamic(() => import('../payment/Plans'), {
   ssr: false,
 });

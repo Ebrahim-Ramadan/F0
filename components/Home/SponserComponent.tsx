@@ -52,7 +52,7 @@ export default function SponserComponent() {
     }
 
     const timeout = setTimeout(() => {
-      router.push('https://github.com/Ebrahim-Ramadan/cmds-find-ctrlb')
+      router.push('https://github.com/Ebrahim-Ramadan/F0')
     }, 500)
 
     setRedirectTimeout(timeout)
