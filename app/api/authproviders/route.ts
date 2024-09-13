@@ -1,5 +1,6 @@
 import { addUser, createUserSession } from "@/app/actions";
 import { generateHashString, generateRandomString } from "@/utils/utils";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -54,6 +55,7 @@ export async function GET(req: Request) {
         }
         
         await createUserSession(id, false)
+        revalidatePath('/')
         const redirectUrl = new URL('/', url.origin);
         // return NextResponse.redirect(redirectUrl);
         return NextResponse.json({ id: id }, { status: 200 });

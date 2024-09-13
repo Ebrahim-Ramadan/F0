@@ -7,6 +7,7 @@
   import LoadingDots from './Globals/LoadingDots';
 
   export const ImageUpload = ({user}) => {
+    
     const [processedImages, setProcessedImages] = React.useState([]);
     const [isProcessing, setIsProcessing] = React.useState(false);
     const [error, setError] = React.useState<string | null>(null);
@@ -113,7 +114,7 @@
     }
 
     return (
-      <div className='mt-24 flex flex-col items-center justify-center min-h-screen p-2 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
+      <div className=' flex flex-col items-center justify-center h-1/2 w-full'>
         <div className="mb-8 w-full border-gray-700 flex flex-col items-center justify-center"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
@@ -146,18 +147,22 @@
             }
         </div>
         <div className="border-gray-700 w-full">
-        <div className='flex justify-end w-full'>
-              <button className='flex flex-row items-center gap-1 bg-primary-200 hover:bg-primary-300 rounded-3xl px-2 py-1'>
-                <Bookmark size='14'/>
-                Create Collection
-              </button>
-              </div> 
+
+        
+            {processedImages.length>0 &&
+             <div className='flex justify-end w-full'>
+             <button className='flex flex-row items-center gap-1 bg-primary-200 hover:bg-primary-300 rounded-3xl px-2 py-1'>
+               <Bookmark size='14'/>
+               Create Collection
+             </button>
+             </div> }
+            {processedImages.length>0 &&
               <div className="relative my-8">
-                <h1 className="relative ml-2 z-10 inline-block bg-black px-2 font-bold text-xl md:text-2xl text-white">My Images</h1>
-                  <div className="absolute inset-0 flex items-center ">
-                    <div className="w-full border-t border-neutral-600 "></div>
-                  </div>
-              </div>
+              <h1 className="relative ml-2 z-10 inline-block bg-black px-2 font-bold text-xl md:text-2xl text-white">New Images</h1>
+                <div className="absolute inset-0 flex items-center ">
+                  <div className="w-full border-t border-neutral-600 "></div>
+                </div>
+            </div>}
 
 
           <div>
@@ -183,7 +188,7 @@
                     {copiedId === (img.id || index.toString()) ? <Check size='16' /> : <Copy size='16' />}
                   </button>
                 </div>
-                <div className="text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center  left-2 bg-black/80 backdrop-blur-xl  transition-opacity duration-300 items-start justify-center rounded-md px-2 py-1">
+                <div className="text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center  bg-black/80 backdrop-blur-xl  transition-opacity duration-300 items-start justify-center rounded-md px-2 py-1">
                   <p className={`${img.isUploading ? 'text-yellow-400':'text-primary-950'}`}> {img.isUploading ?'Uploading...' :'#'+img.id}</p>
                   <p className='text-primary-700'>{img.processedAt && formatDate(img.processedAt)}</p>
                   {img.uploadError && <p className="text-red-400">Upload failed</p>}

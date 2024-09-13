@@ -27,6 +27,7 @@ export async function POST(req:Request) {
     
     await createUserSession(id, false)
     revalidatePath('/')
+    revalidatePath('/images')
     return NextResponse.json({ id: id }, { status: 200 });
   } catch (error) {
     return NextResponse.json(

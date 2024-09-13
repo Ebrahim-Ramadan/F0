@@ -149,3 +149,33 @@ export async function deleteImage(imageId: number) {
     .returning(); // Optional: Return the deleted record
   return deletedImage;
 }
+export const getUserWithImages = async (id: string | number) => {
+  console.log('id', id);
+  
+  try {
+    const userId = typeof id === 'string' ? parseInt(id, 10) : id;
+    if (isNaN(userId)) {
+      console.error('Invalid user ID:', id);
+      return null;
+    }
+
+    const userData = await db.select().from(users).where(eq(users.id, userId));
+    
+    if (userData.length === 0) {
+      return null;
+    }
+
+    const user = userData[0];
+
+    const userImages = await db.select().from(images).where(eq(images.userId, userId));
+    
+    return {
+      ...user,
+      images: userImages
+    };
+
+  } catch (error) {
+    console.error('Error fetching user with images:', error);
+    return null;
+  }
+};
