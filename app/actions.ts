@@ -3,7 +3,7 @@
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/drizzle";
-import { users } from "@/lib/schema";
+import { images, users } from "@/lib/schema";
 import { cookies } from 'next/headers';
 
 
@@ -125,3 +125,27 @@ export const deleteUser = async (id: number) => {
   await db.delete(users).where(eq(users.id, id));
   revalidatePath("/");
 };
+
+
+
+
+export async function createImage(userId: number,  afterBgRemoval: string) {
+  const newImage = await db.insert(images).values({
+    userId,
+    afterBgRemoval,
+    processedAt: new Date(), // Set the current time for `processedAt`
+  }).returning();
+  return newImage; // Returns the inserted image data
+}
+
+export async function getImagesByUser(userId: number) {
+  const userImages = await db.select().from(images).where(eq(images.userId, userId));
+  return userImages; // Returns all images for the specified user
+}
+
+export async function deleteImage(imageId: number) {
+  const deletedImage = await db.delete(images)
+    .where(eq(images.id, imageId))
+    .returning(); // Optional: Return the deleted record
+  return deletedImage;
+}

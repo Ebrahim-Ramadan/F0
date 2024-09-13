@@ -9,11 +9,11 @@ export const HeroSections = () => {
     { src: '/examples/1-no-bg.jpg', alt: 'Pitching', likes: 466 },
     { src: '/examples/2-no-bg.jpg', alt: 'Pitching', likes: 223 },
     { src: '/examples/3-no-bg.jpg', alt: 'Pitching', likes: 656 },
+    { src: '/examples/9-no-bg.jpg', alt: 'Pitching', likes: 631 },
     { src: '/examples/4-no-bg.jpg', alt: 'Pitching', likes: 647 },
-    { src: '/examples/10-no-bg.jpg', alt: 'Pitching', likes: 974 },
+    // { src: '/examples/10-no-bg.jpg', alt: 'Pitching', likes: 974 },
     { src: '/examples/6-no-bg.jpg', alt: 'Pitching', likes: 870 },
     { src: '/examples/7-no-bg.jpg', alt: 'Pitching', likes: 214 },
-    { src: '/examples/9-no-bg.jpg', alt: 'Pitching', likes: 631 }
   ];
   const [selectedColors, setSelectedColors] = React.useState(Array(images.length).fill('bg-gradient-to-b from-primary-100 to-primary-50'));
   

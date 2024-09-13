@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { toast } from 'sonner';
-import LoadingDots from './LoadingDots';
+import LoadingDots from './Globals/LoadingDots';
 
 export const Join = () => {
   const router = useRouter()

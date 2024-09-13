@@ -1,18 +1,18 @@
 import { createHash } from 'crypto';
 
+
 export const copyToClipboard = async (dataUrl) => {
   try {
-    // Convert the Data URL to a Blob
     const response = await fetch(dataUrl);
     const blob = await response.blob();
     
-    // Check if the image is in a supported format, convert if necessary
     let pngBlob = blob;
     if (blob.type !== 'image/png') {
-      // Convert to PNG if necessary
-      const img = new Image()
+      const img = new Image();
       img.src = URL.createObjectURL(blob);
-      await new ((resolve) => {
+
+      // Create a promise that resolves when the image is loaded
+      await new Promise((resolve) => {
         img.onload = () => resolve();
       });
 
@@ -23,7 +23,7 @@ export const copyToClipboard = async (dataUrl) => {
       if (ctx) {
         ctx.drawImage(img, 0, 0);
 
-        // Convert the image to PNG Blob
+        // Convert the canvas to a PNG blob
         pngBlob = await new Promise((resolve) => {
           canvas.toBlob((blob) => {
             resolve(blob);
@@ -36,10 +36,8 @@ export const copyToClipboard = async (dataUrl) => {
       }
     }
 
-    // Create a ClipboardItem with the Blob
+    // Create a ClipboardItem and write it to the clipboard
     const clipboardItem = new ClipboardItem({ [pngBlob.type]: pngBlob });
-
-    // Write the ClipboardItem to the clipboard
     await navigator.clipboard.write([clipboardItem]);
 
     console.log("Image copied to clipboard");
@@ -49,10 +47,29 @@ export const copyToClipboard = async (dataUrl) => {
 };
 
 export function generateHashString(text) {
-  const hash = createHash('sha256'); // Choose your hashing algorithm
+  const hash = createHash('sha256');
   hash.update(text);
-  return hash.digest('hex'); // Return the hash as a hexadecimal string
+  return hash.digest('hex');
 }
+
 export function generateRandomString(length = 10) {
   return [...Array(length)].map(() => Math.random().toString(36)[2]).join('');
 }
+
+
+
+export const blobToBuffer = async (blob) => {
+  const arrayBuffer = await blob.arrayBuffer();
+  // Convert ArrayBuffer to a base64 string
+  const base64String = arrayBufferToBase64(arrayBuffer);
+  return base64String;
+};
+
+export const arrayBufferToBase64 = (arrayBuffer) => {
+  const bytes = new Uint8Array(arrayBuffer);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+};
