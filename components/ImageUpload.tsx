@@ -7,6 +7,7 @@
   import LoadingDots from './Globals/LoadingDots';
 
   export const ImageUpload = ({user}) => {
+  const PaidUser = user.paymentDate ? true : false;
     
     const [processedImages, setProcessedImages] = React.useState([]);
     const [isProcessing, setIsProcessing] = React.useState(false);
@@ -14,37 +15,54 @@
     const [draggedState, setDraggedState] = React.useState<boolean>(false);
     const [copiedId, setCopiedId] = React.useState<string | null>(null);
     
-    const handleFileUpload = async (file: File) => {
+    const handleFileUpload = async (files: FileList) => {
       setIsProcessing(true);
-      try {
-        const formData = new FormData();
-        formData.append('image', file);
-        const response = await fetch('http://localhost:3000/remove-bg', {
-          method: 'POST',
-          body: formData 
-        });
-  
-        if (!response.ok) {
-          throw new Error('Failed to remove background');
-        }
+      setError(null);
+      const filesArray = Array.from(files);
     
-        const blob = await response.blob(); 
-        const imageUrl = URL.createObjectURL(blob);
-        
-        // Add the processed image to the state immediately
-        const newImageIndex = processedImages.length;
-        setProcessedImages(prev => [...prev, { afterBgRemoval: imageUrl, isUploading: true }]);
-        
-        // Upload the image to the server in the background
-        uploadImageToServer(blob, newImageIndex);
-        
-      } catch (err) {
-        console.error('Error processing image:', err);
-        setError('Failed to process image');
-      } finally {
-        setIsProcessing(false);
+      for (const [index, file] of filesArray.entries()) {
+        try {
+          const formData = new FormData();
+          formData.append('image', file);
+    
+          const response = await fetch('http://localhost:3000/remove-bg', {
+            method: 'POST',
+            body: formData
+          });
+    
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+    
+          const blob = await response.blob();
+          const imageUrl = URL.createObjectURL(blob);
+    
+          // Add a unique id to the image object
+          const newImage = { 
+            id: `img_${Date.now()}_${index}`, 
+            afterBgRemoval: imageUrl, 
+            isUploading: true 
+          };
+    
+          setProcessedImages(prev => [...prev, newImage]);
+          setIsProcessing(false);
+    
+          await uploadImageToServer(blob, index);
+    
+          setProcessedImages(prev => 
+            prev.map(img => 
+              img.id === newImage.id ? { ...img, isUploading: false } : img
+            )
+          );
+    
+        } catch (err) {
+          console.error('Error processing image:', err);
+          setError(`Failed to process image ${index + 1}: ${err.message}`);
+        }
       }
+    
     };
+    
     const formatDate = (dateString: string) => {
       return new Date(dateString).toLocaleDateString();
     };
@@ -81,17 +99,17 @@
             userId: user.id
           }),
         });
-  
+    
         if (!res.ok) {
           throw new Error('Failed to upload image');
         }
-  
+    
         const result = await res.json();
         console.log('Upload result:', result.newImageCreated[0]);
         
         // Update the image info in the state with the server response
         setProcessedImages(prev => prev.map((img, i) => 
-          i === index ? { ...result.newImageCreated[0], isUploading: false } : img
+          i === index ? { ...img, ...result.newImageCreated[0], isUploading: false } : img
         ));
       } catch (err) {
         console.error('Error uploading image:', err);
@@ -139,8 +157,9 @@
                   id="dropzone-file"
                   type="file"
                   className="hidden"
-                  onChange={(e) => e.target.files && handleFileUpload(e.target.files[0])}
+                  onChange={(e) => e.target.files && handleFileUpload(e.target.files)}
                   accept="image/*"
+                  multiple={PaidUser}
                   disabled={isProcessing}
                 />
               </label>
@@ -166,36 +185,40 @@
 
 
           <div>
-            <div className="p-2 md:p-4 columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-4">
-            {processedImages.map((img, index) => (
-              <div key={index} className="group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2 border-primary-300">
-                <Image
-                  width={500}
-                  height={500}
-                  alt={`Processed Image ${index + 1}`}
-                  src={img.afterBgRemoval}
-                  className="object-cover w-full h-36 md:h-72 transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="text-xs md:text-sm absolute top-2 right-2 bg-primary-200 backdrop-blur-3xl  transition-opacity duration-300 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <button
-                    onClick={() => {
-                      copyToClipboard(img.afterBgRemoval);
-                      setCopiedId(img.id || index.toString());
-                      setTimeout(() => setCopiedId(null), 2000);
-                    }}
-                    className="flex items-center p-2 gap-2 text-xs md:text-sm "
-                  >
-                    {copiedId === (img.id || index.toString()) ? <Check size='16' /> : <Copy size='16' />}
-                  </button>
-                </div>
-                <div className="text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center  bg-black/80 backdrop-blur-xl  transition-opacity duration-300 items-start justify-center rounded-md px-2 py-1">
-                  <p className={`${img.isUploading ? 'text-yellow-400':'text-primary-950'}`}> {img.isUploading ?'Uploading...' :'#'+img.id}</p>
-                  <p className='text-primary-700'>{img.processedAt && formatDate(img.processedAt)}</p>
-                  {img.uploadError && <p className="text-red-400">Upload failed</p>}
-                </div>
-              </div>
-            ))}
+          <div className="p-2 md:p-4 columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-4">
+        {processedImages.map((img, index) => (
+          <div key={img.id || index} className="group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2 border-primary-200">
+            {img.afterBgRemoval && (
+              <Image
+                width={500}
+                height={500}
+                alt={`Processed Image ${index + 1}`}
+                src={img.afterBgRemoval}
+                className="object-cover w-full h-36 md:h-72 transition-transform duration-300 group-hover:scale-110"
+              />
+            )}
+            <div className="text-xs md:text-sm absolute top-2 right-2 bg-primary-200 backdrop-blur-3xl transition-opacity duration-300 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <button
+                onClick={() => {
+                  copyToClipboard(img.afterBgRemoval);
+                  setCopiedId(img.id || index.toString());
+                  setTimeout(() => setCopiedId(null), 2000);
+                }}
+                className="flex items-center p-2 gap-2 text-xs md:text-sm "
+              >
+                {copiedId === (img.id || index.toString()) ? <Check size='16' /> : <Copy size='16' />}
+              </button>
             </div>
+            <div className="text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center bg-black/80 backdrop-blur-xl transition-opacity duration-300 items-start justify-center rounded-md px-2 py-1">
+              <p className={`${img.isUploading ? 'text-yellow-400':'text-primary-950'}`}>
+                {img.isUploading ? 'Uploading...' : (img.id ? '#'+img.id : 'Processing...')}
+              </p>
+              <p className='text-primary-700'>{img.processedAt && formatDate(img.processedAt)}</p>
+              {img.uploadError && <p className="text-red-400">Upload failed</p>}
+            </div>
+          </div>
+        ))}
+</div>
           </div>
         </div>
       </div>
