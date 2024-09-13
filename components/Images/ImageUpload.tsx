@@ -3,12 +3,13 @@
   // import { copyToClipboard } from '@/utils/utils';
   import { Bookmark, Check, Copy, Folder, Upload } from 'lucide-react';
   import Image from 'next/image';
+import { useRouter } from 'next/navigation';
   import React from 'react';
-  import LoadingDots from './Globals/LoadingDots';
+  import LoadingDots from '../Globals/LoadingDots';
 
   export const ImageUpload = ({user}) => {
   const PaidUser = user.paymentDate ? true : false;
-    
+    const router = useRouter();
     const [processedImages, setProcessedImages] = React.useState([]);
     const [isProcessing, setIsProcessing] = React.useState(false);
     const [error, setError] = React.useState<string | null>(null);
@@ -48,7 +49,7 @@
           setIsProcessing(false);
     
           await uploadImageToServer(blob, index);
-    
+    router.refresh();
           setProcessedImages(prev => 
             prev.map(img => 
               img.id === newImage.id ? { ...img, isUploading: false } : img
@@ -183,11 +184,10 @@
                 </div>
             </div>}
 
-
-          <div>
+          <div>            
           <div className="p-2 md:p-4 columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-4">
         {processedImages.map((img, index) => (
-          <div key={img.id || index} className="group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2 border-primary-200">
+          <div key={img.id || index} className="group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2 border-primary-400">
             {img.afterBgRemoval && (
               <Image
                 width={500}

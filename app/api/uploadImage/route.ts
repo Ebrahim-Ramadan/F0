@@ -1,5 +1,6 @@
 import { createImage } from "@/app/actions";
 import { blobToBuffer } from "@/utils/utils";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import sharp from "sharp";
 
@@ -26,7 +27,7 @@ export async function POST(req: Request) {
       console.log('ImgBB response:', imgbbResult);
       const newImageCreated = await createImage(userId, imgbbResult.data.display_url);
       console.log('newImageCreated', newImageCreated);
-      
+      revalidatePath('/images');
       return NextResponse.json({ newImageCreated }, { status: 200 });
     } catch (error) {
       console.error('Error in /api/uploadImage:', error);

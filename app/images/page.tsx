@@ -1,8 +1,8 @@
-import { ImageUpload } from "@/components/ImageUpload";
+import { ImageUpload } from "@/components/Images/ImageUpload";
 import { Join } from "@/components/Join";
-import { OlderImages } from "@/components/OlderImages";
+import { OlderImages } from "@/components/Images/OlderImages";
 import { cookies } from "next/headers";
-import { getUserById, getUserWithImages, logout } from "../actions";
+import {  getUserWithImages } from "../actions";
 async function getUserId() {
     const cookieStore = cookies();
     const userId = cookieStore.get('userID')?.value;

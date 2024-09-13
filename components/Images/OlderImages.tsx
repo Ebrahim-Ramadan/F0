@@ -3,9 +3,10 @@ import { copyToClipboard } from '@/utils/utils';
 import { Check, Copy, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useDeferredValue, useEffect, useState } from 'react'
 import { toast } from 'sonner';
-import LoadingDots from './Globals/LoadingDots';
+import LoadingDots from '../Globals/LoadingDots';
+import Tags from './Tags';
 
 const deleteImage = async (id) => {
   try {
@@ -33,7 +34,7 @@ export const OlderImages = ({ user }) => {
   const [copiedId, setCopiedId] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
   const [Loading, setLoading] = useState(false);
-
+  const deferredImagesSelected = useDeferredValue(selectedImages)
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString();
   };
@@ -110,22 +111,36 @@ export const OlderImages = ({ user }) => {
         </div>
       )}
       {user.images.length > 0 && 
-        <div className="mb-4 flex justify-end ">
+        <div className="mb-4 flex justify-between px-2 md:px-4 w-full gap-2">
+         
+          <p className='text-xs md:text-sm text-primary-900'>
+          {selectedImages.length > 0 &&
+          <>
+          ({selectedImages.length})
+          selected
+          </>
+          }
+          </p>
+    <div className='flex flex-row items-center gap-2'>
+    <Tags selectedImageIds={deferredImagesSelected} />
+
         <button 
-          className={`items-center gap-1 flex flex-row  ${!Loading ?'bg-red-600 hover:bg-red-700 ':'bg-transparent'} p-2 rounded-lg text-xs md:text-sm md:font-semibold disabled:bg-primary-200`} 
+          className={`items-center gap-1 flex flex-row  ${!Loading ?'bg-red-600 hover:bg-red-700 ':'bg-transparent'} p-2 rounded-full text-xs md:text-sm md:font-semibold disabled:bg-primary-100`} 
           onClick={handleDeleteSelected}
           disabled={selectedImages.length === 0}
         >
         {Loading?
-<LoadingDots/>      
-      :
-<>
-<Trash2 className=" h-4 " /> Delete {selectedImages.length > 0 && (`${selectedImages.length}`)}
-</>
-      }
+        <LoadingDots/>      
+        :
+        <>
+        <Trash2 className=" h-4 " /> Delete </>
+        }
         </button>
+  </div>
+
       </div>
 }
+
       <div className="p-2 md:p-4 columns-2 md:columns-4 gap-2 md:gap-4">
         {user.images.map((img, index) => (
           <div key={index} className={`group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2  mb-4 ${selectedImages.includes(img.id) ? 'border-primary-500' :'border-primary-300'}`}>
