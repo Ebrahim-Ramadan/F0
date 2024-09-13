@@ -167,8 +167,10 @@ export const getUserWithImages = async (id: string | number) => {
 
     const user = userData[0];
 
-    const userImages = await db.select().from(images).where(eq(images.userId, userId));
-    
+    // const userImages = await db.select().from(images).where(eq(images.userId, userId));
+    const userImages = await db.select().from(images)
+    .where(eq(images.userId, userId))
+    .limit(10); // Apply the limit here
     return {
       ...user,
       images: userImages
