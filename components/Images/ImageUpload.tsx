@@ -32,38 +32,39 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
   const [copiedId, setCopiedId] = React.useState<string | null>(null);
   const [UpgradeShow, setUpgradeShow] = React.useState<boolean >(true);
 
-  const handleFileUpload = async (files: FileList) => {
+  const handleFileUpload = async (files: FileList | File) => {
     setIsProcessing(true);
     setError(null);
-    const filesArray = Array.from(files);
-// @ts-ignore
-    for (const [index, file] of filesArray.entries()) {
+    const filesArray = files instanceof FileList ? Array.from(files) : [files];
+  
+    for (let index = 0; index < filesArray.length; index++) {
+      const file = filesArray[index];
       try {
         const formData = new FormData();
         formData.append('image', file);
-
+  
         const response = await fetch('http://localhost:3000/remove-bg', {
           method: 'POST',
           body: formData
         });
-
+  
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
+  
         const blob = await response.blob();
         const imageUrl = URL.createObjectURL(blob);
-
+  
         // Add a unique id to the image object
         const newImage: ProcessedImage = { 
           id: `img_${Date.now()}_${index}`, 
           afterBgRemoval: imageUrl, 
           isUploading: true 
         };
-
+  
         setProcessedImages(prev => [...prev, newImage]);
         setIsProcessing(false);
-
+  
         await uploadImageToServer(blob, index);
         router.refresh();
         setProcessedImages(prev => 
@@ -71,7 +72,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
             img.id === newImage.id ? { ...img, isUploading: false } : img
           )
         );
-
+  
       } catch (err) {
         console.error('Error processing image:', err);
         setError(`Failed to process image ${index + 1}: ${(err as Error).message}`);
@@ -87,17 +88,17 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
     event.preventDefault();
     event.stopPropagation();
     setDraggedState(false); // Reset dragging state
-  if(PaidUser){
-    toast.info('All Images are being uploaded');
-  }
-  else {
-toast.info('Only One Image is being uploaded, Upgrade to Upload Multiple Images at once');
-  }
-    if (event.dataTransfer.files) {
-      const files = PaidUser 
-        ? event.dataTransfer.files 
-        : [event.dataTransfer.files[0]]; // Wrap the single file in an array for unpaid users
-      handleFileUpload(files);
+    if (PaidUser) {
+      toast.info('All Images are being uploaded');
+    } else {
+      toast.info('Only One Image is being uploaded, Upgrade to Upload Multiple Images at once');
+    }
+    if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+      if (PaidUser) {
+        handleFileUpload(event.dataTransfer.files);
+      } else {
+        handleFileUpload(event.dataTransfer.files[0]);
+      }
     }
   };
   
@@ -180,14 +181,14 @@ toast.info('Only One Image is being uploaded, Upgrade to Upload Multiple Images 
               <p className="text-xs text-gray-400">PNG, JPG or GIF (MAX. 800x400px)</p>
             </div>
             <input
-              id="dropzone-file"
-              type="file"
-              className="hidden"
-              onChange={(e) => e.target.files && handleFileUpload(PaidUser? e.target.files : e.target.files[0])}
-              accept="image/*"
-              multiple={PaidUser}
-              disabled={isProcessing}
-            />
+        id="dropzone-file"
+        type="file"
+        className="hidden"
+        onChange={(e) => e.target.files && handleFileUpload(PaidUser ? e.target.files : e.target.files[0])}
+        accept="image/*"
+        multiple={PaidUser}
+        disabled={isProcessing}
+      />
           </label>
         )}
        {UpgradeShow && !PaidUser && (
