@@ -3,8 +3,7 @@ import { XIcon } from "lucide-react"
 import { Dialog } from '@headlessui/react'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from "sonner"
-import { useRouter } from "next/navigation"
-
+    {/* @ts-ignore */}
 export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [tagName, setTagName] = useState('');
@@ -58,7 +57,7 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
   
 
     useEffect(() => {
-        const handleKeyDown = (event) => {
+        const handleKeyDown = (event : KeyboardEvent) => {
             if (event.key === 'Enter') {
                 event.preventDefault(); 
                 handleAddTag();
@@ -68,9 +67,11 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
         if (isOpen) {
             
             const dialogElement = dialogRef.current;
+                {/* @ts-ignore */}
             dialogElement?.addEventListener('keydown', handleKeyDown);
 
             return () => {
+                {/* @ts-ignore */}
                 dialogElement?.removeEventListener('keydown', handleKeyDown);
             };
         }

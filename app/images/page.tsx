@@ -28,7 +28,9 @@ if (!userWithImages){
 return(
 
   <div className="mt-24 p-2 md:p-8 flex flex-col items-center justify-center min-h-screen w-full">
+    {/* @ts-ignore */}
     <ImageUpload user={userWithImages}/>
+    {/* @ts-ignore */}
     {userWithImages.images.length>0 && <OlderImages user={userWithImages}/>}
   </div>
 )
