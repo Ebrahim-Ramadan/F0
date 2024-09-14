@@ -78,7 +78,7 @@ export default function SponserComponent() {
         onMouseLeave={handleMouseLeave}
         className=" px-4 py-2 bg-blue-900/80 backdrop-blur-3xl text-xs md:text-sm text-white font-semibold rounded-3xl hover:bg-blue-900 transition-all duration-300"
       >
-        Try F0
+        Star F0
       </button>
       {hearts.map(heart => (
         <svg
