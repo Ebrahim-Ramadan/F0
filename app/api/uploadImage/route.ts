@@ -1,36 +1,53 @@
 import { createImage } from "@/app/actions";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
+import ImageKit from 'imagekit';
+interface ResultType {
+  url: string; // Adjust the property types based on the actual structure of result
+  // Add other properties if needed
+}
+
 
 export async function POST(req: Request) {
-    try {
-      const { image, userId } = await req.json();
-      
-      // Convert base64 to buffer
-      const imageBuffer = Buffer.from(image.split(',')[1], 'base64');
-  
-      const formData = new FormData();
-      formData.append('image', new Blob([imageBuffer]), 'image.png');
-  
-      const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?expiration=600&key=${process.env.IMG_BB_API_KEY}`, {
-        method: 'POST',
-        body: formData
+  try {
+    const { image, userId } = await req.json();
+console.log('image', image);
+
+    
+    const imageBuffer = Buffer.from(image.split(',')[1], 'base64');
+    const imagekit = new ImageKit({
+      publicKey: process.env.ImageKIT_PUBLIC_KEY as string,
+      privateKey: process.env.ImageKIT_PRIVATE_KEY as string,
+      urlEndpoint: process.env.ImageKIT_API_URL as string,
+    });
+
+    const uploadImage = (imageBuffer: Buffer) => {
+      return new Promise<ResultType>((resolve, reject) => {
+        imagekit.upload({
+          file: imageBuffer, 
+          fileName: "ass.jpg", 
+          tags: ["tag1", "tag2"]
+        }, (error, result) => {
+          if (error) reject(error);
+          else resolve(result as ResultType);
+        });
       });
-  
-      if (!imgbbResponse.ok) {
-        throw new Error('Failed to upload to ImgBB');
-      }
-  
-      const imgbbResult = await imgbbResponse.json();
-      console.log('ImgBB response:', imgbbResult);
-      const newImageCreated = await createImage(userId, imgbbResult.data.display_url);
-      console.log('newImageCreated', newImageCreated);
-      revalidatePath('/images');
-      return NextResponse.json({ newImageCreated }, { status: 200 });
-    } catch (error) {
-      console.error('Error in /api/uploadImage:', error);
-      return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-    }
+    };
+
+    
+    const result:ResultType  = await uploadImage(imageBuffer);
+
+    
+    const newImageCreated = await createImage(userId, result.url);
+
+    
+    revalidatePath('/images');
+
+    
+    return NextResponse.json({ newImageCreated }, { status: 200 });
+
+  } catch (error) {
+    console.error('Error in /api/uploadImage:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
-
-
+}

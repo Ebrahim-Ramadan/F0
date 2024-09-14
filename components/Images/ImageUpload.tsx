@@ -119,7 +119,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
       }
 
       const result = await res.json();
-      console.log('Upload result:', result.newImageCreated[0]);
+      console.log('Upload result:', result);
 
       // Update the image info in the state with the server response
       setProcessedImages(prev => prev.map((img, i) => 

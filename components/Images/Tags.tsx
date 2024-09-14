@@ -18,7 +18,7 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
             if (!Array.isArray(existingTags)) {
                 existingTags = [];
             }
-            if (existingTags.length > 10) {
+            if (existingTags.length > 9) {
                 toast.error('You can only have up to 10 tags.');
                 return;
             }

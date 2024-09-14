@@ -162,6 +162,23 @@ export const OlderImages = ({ user }: { user: UserType }) => {
 
   const filteredImages = filterImagesByTags(user.images, selectedTags);
 
+
+  const removeTagFromLocalStorage = (tagToRemove: string) => {
+    const storedTags = localStorage.getItem('tags') ? JSON.parse(localStorage.getItem('tags')!) : [];
+    const updatedTags = storedTags.filter((tagObj: any) => !Object.keys(tagObj).includes(tagToRemove));
+    localStorage.setItem('tags', JSON.stringify(updatedTags));
+    settags(updatedTags);
+  };
+
+  const handleRemoveTag = (tag: string): void => {
+    const newSelectedTags = selectedTags.filter(t => t !== tag);
+    const newUrl = `/images?tags=${encodeURIComponent(newSelectedTags.join(','))}`;
+    
+    router.push(newUrl, { scroll: false });
+    setSelectedTags(newSelectedTags);
+    toast.success(`Tag ${tag} removed successfully.`);
+    removeTagFromLocalStorage(tag);
+  };
   return (
     <div className='min-h-screen w-full '>
       {user.images.length > 0 && (
@@ -203,7 +220,7 @@ export const OlderImages = ({ user }: { user: UserType }) => {
             <div
               className='absolute top-0 right-0 w-fit p-0.5 hover:bg-primary-400 border-primary-400 border h-fit bg-primary-300 rounded-full'
             >
-              <XIcon size='12' className=''/>  
+              <XIcon size='12' onClick={() => handleRemoveTag(tag)}/>  
             </div>
             <p
               className={`px-4 py-2 border-2 rounded-full border-primary-300 text-sm font-medium ${selectedTags.includes(tag) ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-primary-200 text-primary-900 hover:bg-primary-300'}`}
@@ -236,7 +253,7 @@ export const OlderImages = ({ user }: { user: UserType }) => {
               className="bottombar text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center bg-black/80 backdrop-blur-xl transition-opacity duration-300 rounded-md md:px-2 py-1"
             >
               <input
-                className='w-5 h-5'
+                className='w-5 h-5 '
                 type="checkbox"
                 id={img.id}
                 checked={selectedImages.includes(img.id)}
