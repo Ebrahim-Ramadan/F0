@@ -56,9 +56,8 @@ export async function GET(req: Request) {
         
         await createUserSession(id, false)
         revalidatePath('/')
-        const redirectUrl = new URL('/', url.origin);
-        // return NextResponse.redirect(redirectUrl);
-        return NextResponse.json({ id: id }, { status: 200 });
+        const redirectUrl = new URL('/', url.origin); // Redirect to home page
+        return NextResponse.redirect(redirectUrl); // Redirect response
       } catch (error) {
         // Handle any unexpected errors
         console.error("Error during GitHub OAuth flow:", error);
