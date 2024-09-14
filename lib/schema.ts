@@ -16,3 +16,7 @@ export const images = pgTable("images", {
   afterBgRemoval: text("after_bg_removal").notNull(), 
   processedAt: timestamp("processed_at") 
 });
+export const Subscribers = pgTable("Subscribers", {
+  id: serial("id").primaryKey(), 
+  username: text("username").notNull(), 
+});

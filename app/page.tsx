@@ -12,7 +12,7 @@ export default async function Home() {
   <div className="min-h-screen  w-full flex mx-auto flex-col items-center justify-center">
 
     <DynamicVideoComponent loggedIN={userId?true:false}/>
-    <section className='pb-12 md:pb-24 flex flex-col items-center justify-center w-full h-full'>
+    <section className='pb-6 md:pb-24 flex flex-col items-center justify-center w-full h-full'>
   <div className='w-full h-full flex flex-col items-center justify-center mt-[-2rem] z-50'>
     <div className='w-full justify-center flex flex-col items-center pb-2'>
     <div className='flex flex-row gap-2 items-center justify-center bg-gradient-to-r from-primary-200 to-primary-100 rounded-full p-2 hover:bg-red-200 transition-colors'>

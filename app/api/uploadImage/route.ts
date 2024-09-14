@@ -3,8 +3,7 @@ import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import ImageKit from 'imagekit';
 interface ResultType {
-  url: string; // Adjust the property types based on the actual structure of result
-  // Add other properties if needed
+  url: string; 
 }
 
 
@@ -37,7 +36,7 @@ console.log('image', image);
     
     const result:ResultType  = await uploadImage(imageBuffer);
 
-    
+  
     const newImageCreated = await createImage(userId, result.url);
 
     

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import { Toaster, toast } from 'sonner'
+import { Toaster } from 'sonner'
 import { cookies } from "next/headers";
 import { getUserById, logout } from "./actions";
 import { Header } from "@/components/Globals/Header";
 import { Footer } from "@/components/Globals/Footer";
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+
  async function getUserId() {
     const cookieStore = cookies();
     const userId = cookieStore.get('userID')?.value;
@@ -22,16 +24,7 @@ import { Footer } from "@/components/Globals/Footer";
     await logout();
     return null;
   }
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+
 export const metadata: Metadata = {
   // title: "F0",
   description: "Remove your background within milliseconds",
@@ -114,7 +107,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary-50`}
+        className={`${GeistSans.className} ${GeistMono.className} antialiased bg-primary-50`}
       >
      <div className="-z-50 absolute w-[150px] h-[150px] bg-neutral-100 z-[-1] blur-[200px] top-0 bottom-0 left-0 right-0 m-auto rounded-full"></div>
 {/* @ts-ignore */}

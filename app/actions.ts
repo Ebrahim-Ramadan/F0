@@ -3,7 +3,7 @@
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/drizzle";
-import { images, users } from "@/lib/schema";
+import { images, Subscribers, users } from "@/lib/schema";
 import { cookies } from 'next/headers';
 
 
@@ -179,5 +179,40 @@ export const getUserWithImages = async (id: string | number) => {
   } catch (error) {
     console.error('Error fetching user with images:', error);
     return null;
+  }
+};
+
+
+export const addSubscriber = async (
+  username: string
+): Promise<{ id: number; username: string } | { error: string }> => {
+  try {
+    // Check if the subscriber already exists
+    const existingSubscriber = await db
+      .select({
+        id: Subscribers.id,
+        username: Subscribers.username,
+      })
+      .from(Subscribers)
+      .where(eq(Subscribers.username, username))
+      .limit(1);
+
+    // If the subscriber exists, return the existing subscriber's details
+    if (existingSubscriber.length > 0) {
+      return existingSubscriber[0];
+    }
+
+    // If not, insert a new subscriber
+    const result = await db
+      .insert(Subscribers)
+      .values({
+        username: username,
+      })
+      .returning({ id: Subscribers.id, username: Subscribers.username });
+
+    return result[0];
+  } catch (error) {
+    console.error("Error adding subscriber:", error);
+    return { error: "Failed to add subscriber" };
   }
 };

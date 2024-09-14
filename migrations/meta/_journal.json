@@ -36,6 +36,13 @@
       "when": 1726218377036,
       "tag": "0004_clever_tomorrow_man",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1726312548158,
+      "tag": "0005_nosy_excalibur",
+      "breakpoints": true
     }
   ]
 }
