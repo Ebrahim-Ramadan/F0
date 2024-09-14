@@ -2,14 +2,24 @@
 import { copyToClipboard } from '@/utils/utils';
 import { Check, Copy, Trash2, XIcon } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useDeferredValue, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useDeferredValue, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import LoadingDots from '../Globals/LoadingDots';
 import Tags from './Tags';
 
+// Type definitions
+interface ImageType {
+  id: string;
+  afterBgRemoval: string;
+  processedAt: string;
+}
 
-const deleteImage = async (id) => {
+interface UserType {
+  images: ImageType[];
+}
+
+const deleteImage = async (id: string): Promise<any> => {
   try {
     const response = await fetch('/api/delete-image', { 
       method: 'POST',
@@ -30,38 +40,37 @@ const deleteImage = async (id) => {
   }
 };
 
-export const OlderImages = ({ user }) => {
-  const [selectedTags, setSelectedTags] = useState([]);
-  
+export const OlderImages = ({ user }: { user: UserType }) => {
+  const [selectedTags, setSelectedTags] = useState<any[]>([]);
   const router = useRouter();
-  const [copiedId, setCopiedId] = useState(null);
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [Loading, setLoading] = useState(false);
-  const [tags, settags] = useState([]);
-  const deferredImagesSelected = useDeferredValue(selectedImages)
-  const formatDate = (dateString: string) => {
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [Loading, setLoading] = useState<boolean>(false);
+  const [tags, settags] = useState<any[]>([]);
+  const deferredImagesSelected = useDeferredValue(selectedImages);
+
+  const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleDateString();
   };
 
-
-  const handleCopy = (id, url) => {
+  const handleCopy = (id: string, url: string): void => {
     copyToClipboard(url);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const handleCheckboxChange = (id) => {
+  const handleCheckboxChange = (id: string): void => {
     setSelectedImages(prev => 
       prev.includes(id) ? prev.filter(imageId => imageId !== id) : [...prev, id]
     );
   };
 
-  const handleDeleteSelected = async () => {
-   setLoading(true);
+  const handleDeleteSelected = async (): Promise<void> => {
+    setLoading(true);
     
     const deletePromises = selectedImages.map(id => deleteImage(id));
 
-    const racePromise = new Promise((resolve, reject) => {
+    const racePromise = new Promise<any>((resolve, reject) => {
       Promise.race(deletePromises)
         .then(() => resolve('Some images deleted'))
         .catch(error => reject(error));
@@ -74,25 +83,23 @@ export const OlderImages = ({ user }) => {
     } catch (error) {
       console.error('Error deleting images:', error);
     } finally {
-   setLoading(false);
+      setLoading(false);
       setSelectedImages([]);
     }
   };
 
-  const handleSelectAll = () => {
+  const handleSelectAll = (): void => {
     if (selectedImages.length === user.images.length) {
-      // If all images are selected, deselect them
       setSelectedImages([]);
     } else {
-      // Select all images
       setSelectedImages(user.images.map(img => img.id));
     }
   };
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.ctrlKey && event.key === 'a') {
-        event.preventDefault(); // Prevent default browser select-all behavior
+        event.preventDefault();
         handleSelectAll();
       }
     };
@@ -104,15 +111,14 @@ export const OlderImages = ({ user }) => {
     };
   }, [selectedImages, user.images]);
 
-
-  
   useEffect(() => {
-    const tags = localStorage.getItem('tags') ? JSON.parse(localStorage.getItem('tags')) : [];  
+    const tags = localStorage.getItem('tags') ? JSON.parse(localStorage.getItem('tags')!) : [];  
     settags(tags); 
   }, []);
-  const handleTagsUpdate = (updatedTags) => {
-    settags(updatedTags); // Update local state with the latest tags
-};
+
+  const handleTagsUpdate = (updatedTags: any[]): void => {
+    settags(updatedTags);
+  };
 
   useEffect(() => {
     const queryTags = new URLSearchParams(window.location.search).get('tags');
@@ -121,10 +127,8 @@ export const OlderImages = ({ user }) => {
     }
   }, []);
 
-  const handleTagClick = (tag) => {
-    console.log('selectedTags', selectedTags);
-    
-    let newSelectedTags;
+  const handleTagClick = (tag: string): void => {
+    let newSelectedTags: string[];
     if (selectedTags.includes(tag)) {
       newSelectedTags = selectedTags.filter(t => t !== tag);
     } else {
@@ -133,19 +137,20 @@ export const OlderImages = ({ user }) => {
 
     const newUrl = `/images?tags=${encodeURIComponent(newSelectedTags.join(','))}`;
     
-    router.push(newUrl,  { scroll: false });
+    router.push(newUrl, { scroll: false });
     setSelectedTags(newSelectedTags);
   };
-  const tagToImageIdsMap = tags.reduce((acc, tagObj) => {
+
+  const tagToImageIdsMap = tags.reduce<any>((acc, tagObj) => {
     for (const [tag, ids] of Object.entries(tagObj)) {
       acc[tag] = ids;
     }
     return acc;
   }, {});
-  
-  const filterImagesByTags = (images, selectedTags) => {
+
+  const filterImagesByTags = (images: ImageType[], selectedTags: string[]): ImageType[] => {
     if (selectedTags.length === 0) {
-      return images; // If no tags are selected, return all images
+      return images;
     }
   
     const filteredImageIds = new Set(
@@ -154,9 +159,10 @@ export const OlderImages = ({ user }) => {
   
     return images.filter(image => filteredImageIds.has(image.id));
   };
-  const filteredImages = filterImagesByTags(user.images, selectedTags);
-  return (
 
+  const filteredImages = filterImagesByTags(user.images, selectedTags);
+
+  return (
     <div className='min-h-screen w-full '>
       {user.images.length > 0 && (
         <div className="relative my-2 md:my-8">
@@ -168,51 +174,49 @@ export const OlderImages = ({ user }) => {
       )}
       {user.images.length > 0 && 
         <div className="items-center mb-4 flex justify-between md:px-2 md:px-4 w-full gap-2">
-         
           <p className='text-xs md:text-sm text-primary-900'>
           {selectedImages.length > 0 &&
-          <>
-          ({selectedImages.length})
-          </>
+          <>{`(${selectedImages.length})`}</>
           }
           </p>
-    <div className='flex flex-row items-center gap-2'>
-    <Tags selectedImageIds={deferredImagesSelected} onTagsUpdate={handleTagsUpdate}/>
+          <div className='flex flex-row items-center gap-2'>
+            <Tags selectedImageIds={deferredImagesSelected} onTagsUpdate={handleTagsUpdate}/>
 
-        <button 
-          className={`items-center gap-1 flex flex-row  ${!Loading ?'bg-red-600 hover:bg-red-700 ':'bg-transparent'} p-2 rounded-full text-xs md:text-sm md:font-semibold disabled:bg-primary-100`} 
-          onClick={handleDeleteSelected}
-          disabled={selectedImages.length === 0}
-        >
-        {Loading?
-        <LoadingDots/>      
-        :
-        <>
-        <Trash2 size='12' /> Delete </>
-        }
-        </button>
-  </div>
-
+            <button 
+              className={`items-center gap-1 flex flex-row ${!Loading ? 'bg-red-600 hover:bg-red-700 ' : 'bg-transparent'} p-2 rounded-full text-xs md:text-sm md:font-semibold disabled:bg-primary-100`} 
+              onClick={handleDeleteSelected}
+              disabled={selectedImages.length === 0}
+            >
+              {Loading ?
+              <LoadingDots/>      
+              :
+              <>
+              <Trash2 size='12' /> Delete </>
+              }
+            </button>
+          </div>
+        </div>
+      }
+      <div className='flex overflow-x-scroll w-full gap-2 md:px-2'>
+        {Array.from(new Set(tags.flatMap(obj => Object.keys(obj)))).map(tag => (
+          <div key={tag} className='cursor-pointer flex flex-row items-center gap-2 relative'>
+            <div
+              className='absolute top-0 right-0 w-fit p-0.5 hover:bg-primary-400 border-primary-400 border h-fit bg-primary-300 rounded-full'
+            >
+              <XIcon size='12' className=''/>  
+            </div>
+            <p
+              className={`px-4 py-2 border-2 rounded-full border-primary-300 text-sm font-medium ${selectedTags.includes(tag) ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-primary-200 text-primary-900 hover:bg-primary-300'}`}
+              onClick={() => handleTagClick(tag)}
+            >
+              {tag}
+            </p>
+          </div>
+        ))}
       </div>
-}
-<div className='flex overflow-x-scroll w-full gap-2 md:px-2'>
-{Array.from(new Set(tags.flatMap(obj => Object.keys(obj)))).map(tag => (
-  <div key={tag} className='cursor-pointer flex flex-row items-center gap-2 relative'>
-    <div
-    className='absolute top-0 right-0 w-fit p-0.5 hover:bg-primary-400 border-primary-400 border h-fit bg-primary-300 rounded-full'
-    >
-    <XIcon size='12' className=''/>  
-    </div>
-    <p
-  className={`px-4 py-2   border-2 rounded-full border-primary-300 text-sm font-medium ${selectedTags.includes(tag) ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-primary-200 text-primary-900 hover:bg-primary-300'}`}
-          
-          onClick={() => handleTagClick(tag)}>{tag}</p>
-  </div>
-))}
-</div>
       <div className="py-2 md:p-4 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
         {filteredImages.map((img, index) => (
-          <div key={index} className={`group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2  mb-4 ${selectedImages.includes(img.id) ? 'border-primary-500' :'border-primary-300'}`}>
+          <div key={index} className={`group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2 mb-4 ${selectedImages.includes(img.id) ? 'border-primary-500' :'border-primary-300'}`}>
             <Image
               width={500}
               height={500}
@@ -225,25 +229,20 @@ export const OlderImages = ({ user }) => {
                 onClick={() => handleCopy(img.id, img.afterBgRemoval)}
                 className="flex items-center p-2 gap-2 text-xs md:text-sm"
               >
-                {copiedId === img.id ? <Check size='16' /> : <Copy size='16' />}
+                {copiedId === img.id ? <Check size="14" /> : <Copy size="14" />}
+                <span className='md:hidden'>Copy</span>
+              </button>
+              <button
+                onClick={() => handleCheckboxChange(img.id)}
+                className={`p-2 rounded-md ${selectedImages.includes(img.id) ? 'bg-red-600 text-white' : 'bg-primary-200 text-primary-900'}`}
+              >
+                {selectedImages.includes(img.id) ? <Check size="14" /> : <input type="checkbox" className='opacity-0' />}
               </button>
             </div>
-            <div
-              className="bottombar text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center bg-black/80 backdrop-blur-xl transition-opacity duration-300 rounded-md md:px-2 py-1"
-            >
-              <input
-                className='w-5 h-5 '
-                type="checkbox"
-                id={img.id}
-                checked={selectedImages.includes(img.id)}
-                onChange={() => handleCheckboxChange(img.id)}
-              />
-              <p className={`text-primary-950`}>{'#'+img.id}</p>
-              <p className='text-primary-700'>{img.processedAt && formatDate(img.processedAt)}</p>
-            </div>
+            <p className='text-xs text-primary-900 px-2 md:px-4 pt-1'>{formatDate(img.processedAt)}</p>
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
