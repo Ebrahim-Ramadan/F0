@@ -44,24 +44,33 @@ Start
      <HeroSections/>
     </div>
   </div>
-  <div className="relative w-full h-[40vh] flex items-center justify-center bg-gradient-to-b from-primary-50 to-primary-100">
-      <Plus className="absolute top-2 left-4 md:left-8 text-white opacity-50" size={20} />
-      <Plus className="absolute top-2 right-4 md:right-8 text-white opacity-50" size={20} />
-      <Plus className="absolute bottom-2 left-4 md:left-8 text-white opacity-50" size={20} />
-      <Plus className="absolute bottom-2 right-4 md:right-8 text-white opacity-50" size={20} />
-      
-      <div className="text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+  <div className="blur-container relative w-full h-[40vh] flex items-center justify-center bg-gradient-to-b from-primary-50 to-primary-100">
+      <Plus className="z-40 absolute top-2 left-4 md:left-8 text-white opacity-50" size={20} />
+      <Plus className="z-40 absolute top-2 right-4 md:right-8 text-white opacity-50" size={20} />
+      <Plus className="z-40 absolute bottom-2 left-4 md:left-8 text-white opacity-50" size={20} />
+      <Plus className="z-40 absolute bottom-2 right-4 md:right-8 text-white opacity-50" size={20} />
+      <div className="blur bg-black  z-10"  ></div>
+        <div className="blur bg-white z-10"  ></div>
+        <div className="blur bg-blue-600 z-10" ></div>
+        <div className="blur bg-purple-400 z-10" ></div>
+      <div className="blur bg-black  z-10"  ></div>
+        <div className="blur bg-white z-10"  ></div>
+        <div className="blur bg-blue-800 z-10" ></div>
+        <div className="blur bg-purple-600 z-10" ></div>
+        <div className="absolute top-0 bg-gradient-to-b from-black to-transparent z-20 w-full h-96"></div>
+
+      <div className="z-30 text-center bg-primary-50 bg-opacity-20 backdrop-blur-2xl flex space-y-4 flex-col justify-center items-center h-full w-full px-4 md:px-8 py-12 ">
+        <h1 className="text-4xl md:text-7xl font-bold text-white ">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-900 to-primary-950 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
             1145 people joined
           </span>
         </h1>
-        <a href={`${userId? 'images':'join'}`} className="bg-white text-blue-900 px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors duration-300">
+        <a href={`${userId? 'images':'join'}`} className="bg-white text-blue-900 px-3 py-1.5 md:px-6 md:py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors duration-300">
           {userId ? 'Get Started' : 'Join Now'}
         </a>
       </div>
-    </div>
 
+    </div>
 </div>
       </section>
     </div>
