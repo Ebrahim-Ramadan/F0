@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
     const [draggedState, setDraggedState] = React.useState<boolean>(false);
     const [copiedId, setCopiedId] = React.useState<string | null>(null);
     
-    const handleFileUpload = async (files: FileList) => {
+    const handleFileUpload = async (files) => {
       setIsProcessing(true);
       setError(null);
       const filesArray = Array.from(files);
@@ -64,10 +64,10 @@ import { useRouter } from 'next/navigation';
     
     };
     
-    const formatDate = (dateString: string) => {
+    const formatDate = (dateString) => {
       return new Date(dateString).toLocaleDateString();
     };
-    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    const handleDrop = (event) => {
       event.preventDefault();
       event.stopPropagation();
       setDraggedState(false); // Reset dragging state
@@ -76,19 +76,19 @@ import { useRouter } from 'next/navigation';
       }
     };
 
-    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    const handleDragOver = (event) => {
       setDraggedState(true); // Set dragging state
       event.preventDefault();
       event.stopPropagation();
     };
 
-    const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    const handleDragLeave = (event) => {
       setDraggedState(false); // Reset dragging state
       event.preventDefault();
       event.stopPropagation();
     };
 
-    const uploadImageToServer = async (blob: Blob, index: number) => {
+    const uploadImageToServer = async (blob, index) => {
       try {
         const res = await fetch("/api/uploadImage", {
           method: "POST",
@@ -224,10 +224,10 @@ import { useRouter } from 'next/navigation';
       </div>
     );
   };
-  const blobToBase64 = (blob: Blob): Promise<string> => {
+  const blobToBase64 = (blob) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
+      reader.onloadend = () => resolve(reader.result);
       reader.onerror = reject;
       reader.readAsDataURL(blob);
     });
