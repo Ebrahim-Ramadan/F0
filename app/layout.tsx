@@ -5,6 +5,7 @@ import { Toaster, toast } from 'sonner'
 import { cookies } from "next/headers";
 import { getUserById, logout } from "./actions";
 import { Header } from "@/components/Globals/Header";
+import { Footer } from "@/components/Globals/Footer";
  async function getUserId() {
     const cookieStore = cookies();
     const userId = cookieStore.get('userID')?.value;
@@ -116,16 +117,16 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary-50`}
       >
      <div className="-z-50 absolute w-[150px] h-[150px] bg-neutral-100 z-[-1] blur-[200px] top-0 bottom-0 left-0 right-0 m-auto rounded-full"></div>
-
+{/* @ts-ignore */}
     <Header user={user && user}/>
 
          <Toaster position="bottom-right" richColors  theme="dark"/>
 
         {children}
+        <Footer/>
       </body>
     </html>
   );
 }
 
-export const revalidate = 0; // Prevent Next.js from using a cache
-export const dynamic = 'force-dynamic'; // Force dynamic behavior
+export const revalidate = 25200; // Prevent Next.js from using a cache

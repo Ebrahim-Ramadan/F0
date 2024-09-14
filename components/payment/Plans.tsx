@@ -3,30 +3,31 @@ import { CheckIcon, XIcon } from "lucide-react"
 import { Dialog } from '@headlessui/react'
 import { useState } from 'react'
 
-export const Plans = () => {
+export const Plans = ({triggerClassName, triggerText}: {triggerClassName: string, triggerText: string}) => {
     const [isOpen, setIsOpen] = useState(false);
   
     return (
       <>
-        <div className='w-full flex justify-end'>
+        <div className={`flex justify-end ${triggerText == 'Manage Account' ? 'w-full' : 'px-2'}`}>
         <button
-        className={`font-bold w-full text-center block px-4 py-2 text-sm rounded-3xl bg-black text-white hover:bg-primary-200`}
+        className={`font-bold text-center block px-4 py-2 text-sm rounded-3xl  ${triggerClassName}`}
         role="Subscribe"
         id="manage-account"
           onClick={() => setIsOpen(true)}
         >
-       Manage Account
+       {triggerText}
         </button>
         
         </div>
-        <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="fixed inset-0 flex justify-center items-center z-50 px-2">
-          <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
-          <div className="relative  overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-black/80 backdrop-blur-xl grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl">
+        <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="fixed inset-0 flex justify-center items-center z-50 px-2 ">
+          <div className="fixed inset-0 bg-gradient-to-b from-black/40 to-black" aria-hidden="true" />
+          <div className="relative  overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-black/40 backdrop-blur-3xl grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-100">
+          
           <div className="grid gap-2 w-full">
           <div className="flex justify-between items-center">
               <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Subscription Plans</h1>
-                  <button onClick={() => setIsOpen(false)}>
-                  <XIcon className="text-primary-950"/>
+                  <button onClick={() => setIsOpen(false)} className='text-primary-950 rounded-full bg-primary-100 hover:bg-primary-200 w-8 h-8 flex items-center justify-center'>
+                  <XIcon size={20}/>
               </button>
           </div>
               <p className="text-sm text-primary-800">Choose the plan that best suits your background removal needs.</p>

@@ -8,8 +8,14 @@ import dynamic from 'next/dynamic'
 const Plans = dynamic(() => import('../payment/Plans'), {
   ssr: false,
 });
+interface User {
+  id: string;
+  username: string;
+  paymentDate?: string;
+  pic?: string;
+}
 
-export const Header = ({user}) => {
+export const Header: React.FC<{ user: User }> = ({user}) => {
   const router = useRouter()
   const handleSignOut = async () => {
     const promise = fetch('/api/signout');
@@ -70,7 +76,7 @@ export const Header = ({user}) => {
       </MenuItem>
 
       <MenuItem>
-      <Plans/>
+      <Plans triggerClassName='bg-black text-white hover:bg-primary-200 w-full' triggerText='Manage Account'/>
       </MenuItem>
 
       <MenuItem>
@@ -78,7 +84,7 @@ export const Header = ({user}) => {
        onClick={handleSignOut}
        className={`font-semibold block px-4 py-2 text-sm rounded-3xl hover:bg-red-600 bg-red-700 text-white`}
        role="menuitem"
-       tabIndex="-1"
+       tabIndex={-1}
        id="sign-out"
      >
        Log out

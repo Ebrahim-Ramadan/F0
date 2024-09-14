@@ -183,7 +183,7 @@ export const OlderImages = ({ user }: { user: UserType }) => {
     <div className='min-h-screen w-full '>
       {user.images.length > 0 && (
         <div className="relative my-2 md:my-8">
-          <h1 className="relative ml-2 z-10 inline-block bg-black px-2 font-bold text-xl md:text-2xl text-white">Older Images</h1>
+          <h1 className="relative ml-2 z-10 inline-block bg-black px-2 font-bold text-xl md:text-2xl text-white">ALL IMAGES</h1>
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-neutral-600"></div>
           </div>
