@@ -91,7 +91,7 @@ export const metadata: Metadata = {
         alt: "F0",
       },
     ],
-    site_name: "F0",
+    // site_name: "F0",
     url: "https://f0.pics",
     type: "website",
   },

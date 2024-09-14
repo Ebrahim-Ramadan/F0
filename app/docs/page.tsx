@@ -2,6 +2,7 @@ export default async function Home() {
     return (
       <div className="relative flex h-full flex-col px-4 py-24 sm:px-6 lg:px-8">
         <div className="absolute left-1/2 top-0 ml-[-50%] h-[25rem] w-full max-w-[81.25rem] dark:[mask-image:linear-gradient(white,transparent)]">
+            
           <div className="absolute inset-0 bg-gradient-to-r from-[#222D9C] to-[#7f1d1d] opacity-40 [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] dark:from-[#222D9C]/30 dark:to-[#450a0a]/30 dark:opacity-100">
             <svg
               aria-hidden="true"
@@ -40,7 +41,7 @@ export default async function Home() {
         </div>
         <div className="mb-16 flex-auto flex justify-center w-full items-center flex-col">
           <h1 className="text-4xl font-bold tracking-tight text-white">
-            Welcome to F0
+            F0
           </h1>
           <p className="mt-4 text-lg text-white">
             F0 is a platform that allows you to remove your background from images

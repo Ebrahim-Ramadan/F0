@@ -57,7 +57,8 @@ Start
         <div className="blur bg-white z-10"  ></div>
         <div className="blur bg-blue-800 z-10" ></div>
         <div className="blur bg-purple-600 z-10" ></div>
-        <div className="absolute top-0 bg-gradient-to-b from-black to-transparent z-20 w-full h-96"></div>
+        <div className="absolute top-0 bg-gradient-to-b from-black to-transparent z-20 w-full h-56"></div>
+        <div className="absolute bottom-0 bg-gradient-to-t from-black to-transparent z-20 w-full h-56"></div>
 
       <div className="z-30 text-center bg-primary-50 bg-opacity-20 backdrop-blur-2xl flex space-y-4 flex-col justify-center items-center h-full w-full px-4 md:px-8 py-12 ">
         <h1 className="text-4xl md:text-7xl font-bold text-white ">
