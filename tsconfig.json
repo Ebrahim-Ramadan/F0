@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/VideoComponent.jsx", "utils/utils.js", "lib/session.server.js", "app/api/addUser/route.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/VideoComponent.jsx", "utils/utils.js", "lib/session.server.js", "app/api/addUser/route.js", "components/Images/ImageUpload.jsx"],
   "exclude": ["node_modules"]
 }

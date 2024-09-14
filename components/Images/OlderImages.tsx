@@ -215,8 +215,8 @@ export const OlderImages = ({ user }: { user: UserType }) => {
         ))}
       </div>
       <div className="py-2 md:p-4 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
-        {filteredImages.map((img, index) => (
-          <div key={index} className={`group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2 mb-4 ${selectedImages.includes(img.id) ? 'border-primary-500' :'border-primary-300'}`}>
+      {filteredImages.map((img, index) => (
+          <div key={index} className={`group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2  mb-4 ${selectedImages.includes(img.id) ? 'border-primary-500' :'border-primary-300'}`}>
             <Image
               width={500}
               height={500}
@@ -229,17 +229,22 @@ export const OlderImages = ({ user }: { user: UserType }) => {
                 onClick={() => handleCopy(img.id, img.afterBgRemoval)}
                 className="flex items-center p-2 gap-2 text-xs md:text-sm"
               >
-                {copiedId === img.id ? <Check size="14" /> : <Copy size="14" />}
-                <span className='md:hidden'>Copy</span>
-              </button>
-              <button
-                onClick={() => handleCheckboxChange(img.id)}
-                className={`p-2 rounded-md ${selectedImages.includes(img.id) ? 'bg-red-600 text-white' : 'bg-primary-200 text-primary-900'}`}
-              >
-                {selectedImages.includes(img.id) ? <Check size="14" /> : <input type="checkbox" className='opacity-0' />}
+                {copiedId === img.id ? <Check size='16' /> : <Copy size='16' />}
               </button>
             </div>
-            <p className='text-xs text-primary-900 px-2 md:px-4 pt-1'>{formatDate(img.processedAt)}</p>
+            <div
+              className="bottombar text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center bg-black/80 backdrop-blur-xl transition-opacity duration-300 rounded-md md:px-2 py-1"
+            >
+              <input
+                className='w-5 h-5'
+                type="checkbox"
+                id={img.id}
+                checked={selectedImages.includes(img.id)}
+                onChange={() => handleCheckboxChange(img.id)}
+              />
+              {/* <p className={`text-primary-950`}>{'#'+img.id}</p> */}
+              <p className='text-primary-700'>{img.processedAt && formatDate(img.processedAt)}</p>
+            </div>
           </div>
         ))}
       </div>
