@@ -83,8 +83,8 @@ export const OlderImages = ({ user }: { user: UserType }) => {
     } catch (error) {
       console.error('Error deleting images:', error);
     } finally {
-      setLoading(false);
       setSelectedImages([]);
+      setLoading(false);
     }
   };
 
@@ -208,7 +208,7 @@ export const OlderImages = ({ user }: { user: UserType }) => {
               <LoadingDots/>      
               :
               <>
-              <Trash2 size='12' /> Delete </>
+              <Trash2 size='12' className='h-4' /> DELETE </>
               }
             </button>
           </div>
@@ -253,7 +253,7 @@ export const OlderImages = ({ user }: { user: UserType }) => {
               className="bottombar text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center bg-black/80 backdrop-blur-xl transition-opacity duration-300 rounded-md md:px-2 py-1"
             >
               <input
-                className='w-5 h-5 '
+                className='w-5 h-5 w-5 h-5 appearance-none cursor-pointer border border-primary-300 bg-primary-300  rounded-md mr-2 hover:border-primary-500  checked:bg-no-repeat checked:bg-center checked:border-primary-600 checked:bg-primary-950'
                 type="checkbox"
                 id={img.id}
                 checked={selectedImages.includes(img.id)}

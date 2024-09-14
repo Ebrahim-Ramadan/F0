@@ -1,6 +1,5 @@
 // app/api/addUser/route.ts
 import { addUser, createUserSession } from "@/app/actions";
-import { generateHashString } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
@@ -9,19 +8,18 @@ export async function POST(req:Request) {
   try {
     const { username, password, pic } = await req.json();
 
-    if (!username) {
+    if (!username && !password) {
       return NextResponse.json(
         { message: "Username and password are required" },
         { status: 400 }
       );
     }
     // @ts-ignore
-    const {id} = await addUser(username, generateHashString(password), pic);
-    console.log('userReturnedID', id);
+    const {id, error} = await addUser(username, password, pic);
 
-    if(id.error){
+    if(error){
       return NextResponse.json(
-        { message: id.error  },
+        { message: error  },
         { status: 500 }
       );
     }

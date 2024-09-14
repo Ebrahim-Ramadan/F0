@@ -32,8 +32,8 @@ export const Join = () => {
     
           if (!res.ok) {
             const errMessage = await res.json();
-            toast.error('Shit happens, Check Internet connection and Try again later')
-            throw new Error(errMessage.message || "Error adding user");
+            toast.error(errMessage.message)
+            return;
           }
           toast.success('Successfully joined F0, redirecting...');
           router.refresh(); 

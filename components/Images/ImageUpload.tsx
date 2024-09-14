@@ -29,6 +29,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
   const [error, setError] = React.useState<string | null>(null);
   const [draggedState, setDraggedState] = React.useState<boolean>(false);
   const [copiedId, setCopiedId] = React.useState<string | null>(null);
+  const [UpgradeShow, setUpgradeShow] = React.useState<boolean >(true);
 
   const handleFileUpload = async (files: FileList) => {
     setIsProcessing(true);
@@ -178,17 +179,26 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
             />
           </label>
         )}
-        <div className="flex items-center justify-between px-3 py-1.5 text-xs text-primary-800 md:text-sm relative rounded-b-xl bg-primary-100 md:w-1/2 w-full">
-          <span className="flex w-full justify-between pr-1">
-            Subscribe for more than 1 image per time. 
-      <Plans triggerClassName='disabled:border-primary-300 border-primary-400 hover:border-primary-400 focus-visible:ring-offset-background inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap text-nowrap border  outline-none ring-blue-600 transition-all focus-visible:ring-2 focus-visible:ring-offset-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-primary-100 disabled:text-primary-400 disabled:ring-0 has-[:focus-visible]:ring-2 [&>svg]:pointer-events-none [&>svg]:size-4 [&_svg]:shrink-0 !h-auto border-none bg-transparent !p-0 text-blue-600 hover:border-none hover:bg-transparent hover:underline hover:underline-offset-2 focus:border-primary-100 focus:bg-transparent focus-visible:border-primary-100 focus-visible:bg-transparent px-3 has-[>kbd]:gap-2 has-[>svg]:px-2 has-[>kbd]:pr-[6px] rounded-lg h-5 text-xs md:text-sm' triggerText='Upgrade Plan'/>
+       {UpgradeShow && !PaidUser && (
+  <div className={`flex items-center justify-between px-3 py-1.5 text-xs text-primary-800 md:text-sm relative rounded-b-xl bg-primary-100 md:w-1/2 w-full transition duration-300 h-fit ${UpgradeShow ? '' : 'h-0'}`}>
+    <span className="flex w-full justify-between pr-1">
+      Subscribe for more than 1 image per time. 
+      <Plans
+        triggerClassName="disabled:border-primary-300 border-primary-400 hover:border-primary-400 focus-visible:ring-offset-background inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap text-nowrap border outline-none ring-blue-600 transition-all focus-visible:ring-2 focus-visible:ring-offset-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-primary-100 disabled:text-primary-400 disabled:ring-0 has-[:focus-visible]:ring-2 [&>svg]:pointer-events-none [&>svg]:size-4 [&_svg]:shrink-0 !h-auto border-none bg-transparent !p-0 text-blue-600 hover:border-none hover:bg-transparent hover:underline hover:underline-offset-2 focus:border-primary-100 focus:bg-transparent focus-visible:border-primary-100 focus-visible:bg-transparent px-3 has-[>kbd]:gap-2 has-[>svg]:px-2 has-[>kbd]:pr-[6px] rounded-lg h-5 text-xs md:text-sm"
+        triggerText="Upgrade Plan"
+      />
+    </span>
+    <button
+      onClick={() => setUpgradeShow(false)}
+      className="focus-visible:ring-offset-background inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap text-nowrap border font-medium outline-none ring-blue-600 transition-all focus-visible:ring-2 focus-visible:ring-offset-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:ring-0 has-[:focus-visible]:ring-2 [&>svg]:pointer-events-none [&>svg]:size-4 [&_svg]:shrink-0 hover:bg-primary-300 focus:bg-primary-200 focus-visible:bg-primary-200 border-transparent bg-transparent hover:border-transparent focus:border-transparent focus-visible:border-transparent disabled:border-transparent disabled:bg-transparent disabled:text-gray-400 text-sm has-[>kbd]:gap-3 has-[>kbd]:pr-[6px] rounded-full aspect-square h-5 px-0 text-gray-500 has-[>svg]:px-0"
+      aria-label="Close"
+    >
+      <XIcon/>
+    </button>
+  </div>
+)}
 
-
-          </span>
-          <button className="focus-visible:ring-offset-background inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap text-nowrap border font-medium outline-none ring-blue-600 transition-all focus-visible:ring-2 focus-visible:ring-offset-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:ring-0 has-[:focus-visible]:ring-2 [&>svg]:pointer-events-none [&>svg]:size-4 [&_svg]:shrink-0 hover:bg-primary-300 focus:bg-primary-200 focus-visible:bg-primary-200 border-transparent bg-transparent hover:border-transparent focus:border-transparent focus-visible:border-transparent disabled:border-transparent disabled:bg-transparent disabled:text-gray-400 text-sm has-[>kbd]:gap-3 has-[>kbd]:pr-[6px] rounded-full aspect-square h-5 px-0 text-gray-500 has-[>svg]:px-0" aria-label="Close">
-            <XIcon/>
-          </button>
-        </div>
+       
       </div>
       <div className="border-gray-700 w-full">
         {processedImages.length > 0 && (

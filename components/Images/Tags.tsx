@@ -86,15 +86,16 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
                 id="create-tag"
                 onClick={() => setIsOpen(true)}
             >
-                Create Tag
+                CREATE TAG
             </button>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="fixed inset-0 flex justify-center items-center z-50 px-2">
-                <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
-                <div ref={dialogRef} className="relative overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-black/80 backdrop-blur-xl grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl">
+            <div className="fixed inset-0 bg-gradient-to-b from-black/40 to-black" aria-hidden="true" onClick={() => setIsOpen(false)}/>
+
+                <div ref={dialogRef} className="border-2 border-primary-200 relative overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-black/80 backdrop-blur-sm grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl">
                     <div className="flex justify-between items-center">
-                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Create A New Tag</h1>
-                        <button onClick={() => setIsOpen(false)}>
-                            <XIcon className="text-primary-950"/>
+                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight">CREATE A NEW TAG</h1>
+                        <button onClick={() => setIsOpen(false)} className='rounded-full bg-primary-300 hover:bg-primary-400 w-8 h-8 flex items-center justify-center'>
+                            <XIcon size='16'/>
                         </button>
                     </div>
 
@@ -111,7 +112,7 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
                             onClick={handleAddTag}
                             disabled={tagName.trim() === ''}
                         >
-                            Add Tag
+                            ADD TAG
                         </button>
                     </div>
                 </div>

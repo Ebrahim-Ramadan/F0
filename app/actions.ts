@@ -1,4 +1,5 @@
 "server only";
+import { generateHashString } from "@/utils/utils";
 
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -90,22 +91,36 @@ export const addUser = async (
       .select({
         id: users.id,
         username: users.username,
+        password: users.password,
       })
       .from(users)
       .where(eq(users.username, email))
       .limit(1);
 
-    // If the user exists, return the user object
-    if (existingUser.length > 0) {
-      return existingUser[0];
+   // If the user exists, compare the password
+   if (existingUser.length > 0) {
+    const user = existingUser[0];
+
+    // Compare the provided password with the stored hashed password
+    const isPasswordMatch = generateHashString(password) == user.password;
+
+    if (!isPasswordMatch) {
+      return { error: "Incorrect Email and Password Combination" };
     }
+
+    // If the password matches, return the user object
+    return {
+      id: user.id,
+      username: user.username,
+    };
+  }
 
     // Insert a new user if the email does not exist
     const result = await db
       .insert(users)
       .values({
         username: email,
-        password: password, // Ensure password is hashed
+        password: generateHashString(password), // Ensure password is hashed
         pic: pic,
         paymentDate: null
       })

@@ -41,51 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "F0",
     description: "Remove your background within milliseconds",
-    images: [
-      {
-        url: "https://f0.pics/meta.png",
-        width: 1200,
-        height: 630,
-        alt: "F0",
-      },
-      {
-        url: "https://f0.pics/meta.png",
-        width: 800,
-        height: 450,
-        alt: "F0",
-      },
-      {
-        url: "https://f0.pics/meta.png",
-        width: 700,
-        height: 400,
-        alt: "F0",
-      },
-      {
-        url: "https://f0.pics/meta.png",
-        width: 600,
-        height: 300,
-        alt: "F0",
-      },
-      {
-        url: "https://f0.pics/meta.png",
-        width: 500,
-        height: 200,
-        alt: "F0",
-      },
-      {
-        url: "https://f0.pics/meta.png",
-        width: 375,
-        height: 150,
-        alt: "F0",
-      },
-      {
-        url: "https://f0.pics/meta.png",
-        width: 250,
-        height: 100,
-        alt: "F0",
-      },
-    ],
-    // site_name: "F0",
+ 
     url: "https://f0.pics",
     type: "website",
   },
