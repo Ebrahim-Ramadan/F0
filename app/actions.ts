@@ -8,7 +8,7 @@ import { images, Subscribers, users } from "@/lib/schema";
 import { cookies } from 'next/headers';
 
 
-// Server-side only functions
+
 export async function getUserId() {
   const cookieStore = cookies();
   const userId = cookieStore.get('userID')?.value;
@@ -49,7 +49,7 @@ export async function requireUser() {
 export async function createUserSession(userId: string, remember: boolean) {
   const cookieStore = cookies();
   cookieStore.set('userID', userId, {
-    maxAge: remember ? 60 * 60 * 24 * 30 : undefined, // 30 days if remember
+    maxAge: remember ? 60 * 60 * 24 * 30 : undefined, 
     path: '/',
     httpOnly: true,
   });
@@ -97,30 +97,30 @@ export const addUser = async (
       .where(eq(users.username, email))
       .limit(1);
 
-   // If the user exists, compare the password
+   
    if (existingUser.length > 0) {
     const user = existingUser[0];
 
-    // Compare the provided password with the stored hashed password
+    
     const isPasswordMatch = generateHashString(password) == user.password;
 
     if (!isPasswordMatch) {
       return { error: "Incorrect Email and Password Combination" };
     }
 
-    // If the password matches, return the user object
+    
     return {
       id: user.id,
       username: user.username,
     };
   }
 
-    // Insert a new user if the email does not exist
+    
     const result = await db
       .insert(users)
       .values({
         username: email,
-        password: generateHashString(password), // Ensure password is hashed
+        password: generateHashString(password), 
         pic: pic,
         paymentDate: null
       })
@@ -148,20 +148,20 @@ export async function createImage(userId: number,  afterBgRemoval: string) {
   const newImage = await db.insert(images).values({
     userId,
     afterBgRemoval,
-    processedAt: new Date(), // Set the current time for `processedAt`
+    processedAt: new Date(), 
   }).returning();
-  return newImage; // Returns the inserted image data
+  return newImage; 
 }
 
 export async function getImagesByUser(userId: number) {
   const userImages = await db.select().from(images).where(eq(images.userId, userId));
-  return userImages; // Returns all images for the specified user
+  return userImages; 
 }
 
 export async function deleteImage(imageId: number) {
   const deletedImage = await db.delete(images)
     .where(eq(images.id, imageId))
-    .returning(); // Optional: Return the deleted record
+    .returning(); 
   return deletedImage;
 }
 export const getUserWithImages = async (id: string | number) => {
@@ -182,10 +182,10 @@ export const getUserWithImages = async (id: string | number) => {
 
     const user = userData[0];
 
-    // const userImages = await db.select().from(images).where(eq(images.userId, userId));
+    
     const userImages = await db.select().from(images)
     .where(eq(images.userId, userId))
-    .limit(10); // Apply the limit here
+    .limit(10); 
     return {
       ...user,
       images: userImages
@@ -202,7 +202,6 @@ export const addSubscriber = async (
   username: string
 ): Promise<{ id: number; username: string } | { error: string }> => {
   try {
-    // Check if the subscriber already exists
     const existingSubscriber = await db
       .select({
         id: Subscribers.id,
@@ -212,12 +211,12 @@ export const addSubscriber = async (
       .where(eq(Subscribers.username, username))
       .limit(1);
 
-    // If the subscriber exists, return the existing subscriber's details
+    
     if (existingSubscriber.length > 0) {
       return existingSubscriber[0];
     }
 
-    // If not, insert a new subscriber
+    
     const result = await db
       .insert(Subscribers)
       .values({

@@ -5,6 +5,7 @@ import { Bookmark, Check, Copy, Upload, XIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { toast } from 'sonner';
 import LoadingDots from '../Globals/LoadingDots';
 import Plans from '../payment/Plans';
 
@@ -86,10 +87,20 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
     event.preventDefault();
     event.stopPropagation();
     setDraggedState(false); // Reset dragging state
+  if(PaidUser){
+    toast.info('All Images are being uploaded');
+  }
+  else {
+toast.info('Only One Image is being uploaded, Upgrade to Upload Multiple Images at once');
+  }
     if (event.dataTransfer.files) {
-      handleFileUpload(event.dataTransfer.files);
+      const files = PaidUser 
+        ? event.dataTransfer.files 
+        : [event.dataTransfer.files[0]]; // Wrap the single file in an array for unpaid users
+      handleFileUpload(files);
     }
   };
+  
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     setDraggedState(true); // Set dragging state
@@ -138,7 +149,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="min-h-screen  text-white flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-4xl mb-2">ERROR</h2>
           <p>{error}</p>
@@ -172,7 +183,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
               id="dropzone-file"
               type="file"
               className="hidden"
-              onChange={(e) => e.target.files && handleFileUpload(e.target.files)}
+              onChange={(e) => e.target.files && handleFileUpload(PaidUser? e.target.files : e.target.files[0])}
               accept="image/*"
               multiple={PaidUser}
               disabled={isProcessing}

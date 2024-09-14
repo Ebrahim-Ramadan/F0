@@ -10,8 +10,6 @@ interface ResultType {
 export async function POST(req: Request) {
   try {
     const { image, userId } = await req.json();
-console.log('image', image);
-
     
     const imageBuffer = Buffer.from(image.split(',')[1], 'base64');
     const imagekit = new ImageKit({
