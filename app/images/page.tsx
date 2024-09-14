@@ -1,8 +1,14 @@
 import { ImageUpload } from "@/components/Images/ImageUpload";
 import { Join } from "@/components/Join";
-import { OlderImages } from "@/components/Images/OlderImages";
+// import { OlderImages } from "@/components/Images/OlderImages";
 import { cookies } from "next/headers";
 import {  getUserWithImages } from "../actions";
+import { Suspense } from "react";
+import LoadingDots from "@/components/Globals/LoadingDots";
+import dynamic from "next/dynamic";
+const OlderImages = dynamic(() => import("@/components/Images/OlderImages"), {
+  ssr: true,
+});
 async function getUserId() {
     const cookieStore = cookies();
     const userId = cookieStore.get('userID')?.value;
@@ -29,7 +35,9 @@ return(
 
   <div className="mt-24 p-2 md:p-8 flex flex-col items-center justify-center min-h-screen w-full">
     {/* @ts-ignore */}
+    <Suspense fallback={<LoadingDots/>}>
     <ImageUpload user={userWithImages}/>
+    </Suspense>
     {/* @ts-ignore */}
     {userWithImages.images.length>0 && <OlderImages user={userWithImages}/>}
   </div>

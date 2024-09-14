@@ -251,3 +251,4 @@ export const OlderImages = ({ user }: { user: UserType }) => {
     </div>
   );
 };
+export default OlderImages;

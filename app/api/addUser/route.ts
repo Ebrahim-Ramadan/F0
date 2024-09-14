@@ -28,7 +28,7 @@ export async function POST(req:Request) {
     
     await createUserSession(id, false)
     revalidatePath('/')
-    revalidatePath('/images')
+    // revalidatePath('/images')
     const redirectUrl = new URL('/', url.origin); // Redirect to home page
     return NextResponse.redirect(redirectUrl); // Redirect response
     // return NextResponse.json({ id: id }, { status: 200 });

@@ -35,9 +35,10 @@ export const Join = () => {
             toast.error('Shit happens, Check Internet connection and Try again later')
             throw new Error(errMessage.message || "Error adding user");
           }
-          toast.success('You have successfully joined the community!')
+          toast.success('Successfully joined F0, redirecting...');
           router.refresh(); 
-          router.push('/');
+          setTimeout(() => router.push('/'), 1000);
+          // router.push('/');
         } catch (error) {
           console.log('error', error);
         } finally {

@@ -24,11 +24,16 @@ export default async function Home() {
     </div>
     <div className='w-full h-full flex flex-row items-center px-4 md:px-8 py-2 justify-between'>
       <div className='flex gap-2 items-center'>
-      <div className='w-2 h-8 md:h-10 bg-blue-500 rounded-lg'>
+      <div className='w-2 h-10 md:h-12 bg-blue-500 rounded-lg'>
       </div>
+        <div className='flex flex-col'>
         <span className='text-xl md:text-2xl font-bold text-white'>
            What People Did
         </span>
+        <p className='text-primary-700 text-xs md:text-sm'>
+          See Youself
+        </p>
+        </div>
         
       </div>
       <div className='flex gap-2 flex-row items-center text-primary-800 hover:text-primary-900 transition-colors duration-300 cursor-pointer'>
