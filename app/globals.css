@@ -28,14 +28,12 @@ font-family: Arial, Helvetica, sans-serif;
 /* Track */
 ::-webkit-scrollbar-track {
   height: 0;
-
   border-radius: 0;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   height: 0;
-
   border-radius: 0;
 }
 

@@ -1,8 +1,6 @@
 import { createImage } from "@/app/actions";
-import { blobToBuffer } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
-import sharp from "sharp";
 
 export async function POST(req: Request) {
     try {
@@ -36,19 +34,3 @@ export async function POST(req: Request) {
   }
 
 
-
-
- async function compressImage(imageBuffer, width = 800, quality = 70) {
-    try {
-      const compressedImage = await sharp(imageBuffer)
-        .resize({ width })
-        .jpeg({ quality })
-        .toBuffer();
-  
-      return compressedImage;
-    } catch (error) {
-      console.error('Error during image compression:', error);
-      throw error;
-    }
-  }
-  
