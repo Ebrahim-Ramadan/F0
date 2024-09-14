@@ -211,7 +211,7 @@ import { useRouter } from 'next/navigation';
             </div>
             <div className="text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center bg-black/80 backdrop-blur-xl transition-opacity duration-300 items-start justify-center rounded-md px-2 py-1">
               <p className={`${img.isUploading ? 'text-yellow-400':'text-primary-950'}`}>
-                {img.isUploading ? 'Uploading...' : (img.id ? '#'+img.id : 'Processing...')}
+                {img.isUploading ? 'UPLOADING...' : (img.id ? '#'+img.id : 'PROCESSING...')}
               </p>
               <p className='text-primary-700'>{img.processedAt && formatDate(img.processedAt)}</p>
               {img.uploadError && <p className="text-red-400">Upload failed</p>}

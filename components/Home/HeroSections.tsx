@@ -29,7 +29,7 @@ export const HeroSections = () => {
     'bg-pink-500',
   ]
   return (
-    <div className="p-2 md:p-4 columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-4">
+    <div className="md:p-4 columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-4">
     {images.map((image, index) => (
       <div
         key={index}

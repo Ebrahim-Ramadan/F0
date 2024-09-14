@@ -21,22 +21,21 @@ font-family: Arial, Helvetica, sans-serif;
 
 /* width */
 ::-webkit-scrollbar {
+  height: 0;
   width: 0;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #8787879d;
+  height: 0;
+
   border-radius: 0;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #5f89ec;
+  height: 0;
+
   border-radius: 0;
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #9dcbffe8;
-}

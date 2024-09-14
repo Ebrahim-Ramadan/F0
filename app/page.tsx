@@ -1,4 +1,4 @@
-import {  ArrowRightIcon,  StarsIcon  } from 'lucide-react';
+import {  ArrowRightIcon,  Plus,  StarsIcon  } from 'lucide-react';
 import DynamicVideoComponent from '@/components/Home/VideoComponent';
 import { HeroSections } from '@/components/Home/HeroSections';
 
@@ -39,12 +39,28 @@ Start
 
 
 
-      <div className="bg-gradient-to-b from-primary-50 to-primary-100 min-h-screen w-full">
+      <div className="bg-gradient-to-b from-black to-primary-50  h-1/2 w-full">
     <div className="w-full p-2 md:p-4">
      <HeroSections/>
     </div>
   </div>
-
+  <div className="relative w-full h-[40vh] flex items-center justify-center bg-gradient-to-b from-primary-50 to-primary-100">
+      <Plus className="absolute top-2 left-4 md:left-8 text-white opacity-50" size={20} />
+      <Plus className="absolute top-2 right-4 md:right-8 text-white opacity-50" size={20} />
+      <Plus className="absolute bottom-2 left-4 md:left-8 text-white opacity-50" size={20} />
+      <Plus className="absolute bottom-2 right-4 md:right-8 text-white opacity-50" size={20} />
+      
+      <div className="text-center">
+        <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+            1145 people joined
+          </span>
+        </h1>
+        <a href={`${userId? 'images':'join'}`} className="bg-white text-blue-900 px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors duration-300">
+          {userId ? 'Get Started' : 'Join Now'}
+        </a>
+      </div>
+    </div>
 
 </div>
       </section>

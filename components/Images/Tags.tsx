@@ -3,59 +3,58 @@ import { XIcon } from "lucide-react"
 import { Dialog } from '@headlessui/react'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
-export const Tags = ({ selectedImageIds }) => {
+export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [tagName, setTagName] = useState('');
     const dialogRef = useRef(null);
 
     const handleAddTag = () => {
-      if (tagName.trim() === '') return;
-  
-      
-      let existingTags;
-      try {
-          existingTags = JSON.parse(localStorage.getItem('tags') || '[]');
-          if (!Array.isArray(existingTags)) {
-              existingTags = [];
-          }
-  
-          
-          const tagIndex = existingTags.findIndex(tag => {
-              return Object.keys(tag).includes(tagName.trim());
-          });
-  
-          if (tagIndex !== -1) {
-              
-              existingTags[tagIndex] = {
-                  [tagName.trim()]: selectedImageIds
-              };
-              toast.success('Tag ' + tagName + ' updated successfully.');
-          } else {
-              
-              const newTag = {
-                  [tagName.trim()]: selectedImageIds
-              };
-              existingTags.push(newTag);
-              toast.success('Tag ' + tagName + ' added successfully.');
-          }
-  
-          
-          try {
-              localStorage.setItem('tags', JSON.stringify(existingTags));
-          } catch (error) {
-              console.error('Error saving tags to localStorage:', error);
-          }
-          
-      } catch (error) {
-          console.error('Error parsing tags from localStorage:', error);
-          existingTags = [];
-      }
-  
-      
-      setTagName('');
-      setIsOpen(false);
-  };
+        if (tagName.trim() === '') return;
+
+        let existingTags;
+        try {
+            existingTags = JSON.parse(localStorage.getItem('tags') || '[]');
+            if (!Array.isArray(existingTags)) {
+                existingTags = [];
+            }
+            if (existingTags.length > 10) {
+                toast.error('You can only have up to 10 tags.');
+                return;
+            }
+
+            const tagIndex = existingTags.findIndex(tag => {
+                return Object.keys(tag).includes(tagName.trim());
+            });
+
+            if (tagIndex !== -1) {
+                existingTags[tagIndex] = {
+                    [tagName.trim()]: selectedImageIds
+                };
+                toast.success('Tag ' + tagName + ' updated successfully.');
+            } else {
+                const newTag = {
+                    [tagName.trim()]: selectedImageIds
+                };
+                existingTags.push(newTag);
+                toast.success('Tag ' + tagName + ' added successfully.');
+            }
+
+            try {
+                localStorage.setItem('tags', JSON.stringify(existingTags));
+                onTagsUpdate(existingTags); // Notify parent about the update
+            } catch (error) {
+                console.error('Error saving tags to localStorage:', error);
+            }
+        } catch (error) {
+            console.error('Error parsing tags from localStorage:', error);
+            existingTags = [];
+        }
+        setTagName('');
+        setIsOpen(false);
+    };
+
   
 
     useEffect(() => {

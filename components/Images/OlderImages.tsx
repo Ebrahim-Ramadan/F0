@@ -1,12 +1,13 @@
 'use client'
 import { copyToClipboard } from '@/utils/utils';
-import { Check, Copy, Trash2 } from 'lucide-react';
+import { Check, Copy, Trash2, XIcon } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useDeferredValue, useEffect, useState } from 'react'
 import { toast } from 'sonner';
 import LoadingDots from '../Globals/LoadingDots';
 import Tags from './Tags';
+
 
 const deleteImage = async (id) => {
   try {
@@ -30,10 +31,13 @@ const deleteImage = async (id) => {
 };
 
 export const OlderImages = ({ user }) => {
+  const [selectedTags, setSelectedTags] = useState([]);
+  
   const router = useRouter();
   const [copiedId, setCopiedId] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
   const [Loading, setLoading] = useState(false);
+  const [tags, settags] = useState([]);
   const deferredImagesSelected = useDeferredValue(selectedImages)
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString();
@@ -100,7 +104,59 @@ export const OlderImages = ({ user }) => {
     };
   }, [selectedImages, user.images]);
 
+
+  
+  useEffect(() => {
+    const tags = localStorage.getItem('tags') ? JSON.parse(localStorage.getItem('tags')) : [];  
+    settags(tags); 
+  }, []);
+  const handleTagsUpdate = (updatedTags) => {
+    settags(updatedTags); // Update local state with the latest tags
+};
+
+  useEffect(() => {
+    const queryTags = new URLSearchParams(window.location.search).get('tags');
+    if (queryTags) {
+      setSelectedTags(queryTags.split(','));
+    }
+  }, []);
+
+  const handleTagClick = (tag) => {
+    console.log('selectedTags', selectedTags);
+    
+    let newSelectedTags;
+    if (selectedTags.includes(tag)) {
+      newSelectedTags = selectedTags.filter(t => t !== tag);
+    } else {
+      newSelectedTags = [...selectedTags, tag];
+    }
+
+    const newUrl = `/images?tags=${encodeURIComponent(newSelectedTags.join(','))}`;
+    
+    router.push(newUrl,  { scroll: false });
+    setSelectedTags(newSelectedTags);
+  };
+  const tagToImageIdsMap = tags.reduce((acc, tagObj) => {
+    for (const [tag, ids] of Object.entries(tagObj)) {
+      acc[tag] = ids;
+    }
+    return acc;
+  }, {});
+  
+  const filterImagesByTags = (images, selectedTags) => {
+    if (selectedTags.length === 0) {
+      return images; // If no tags are selected, return all images
+    }
+  
+    const filteredImageIds = new Set(
+      selectedTags.flatMap(tag => tagToImageIdsMap[tag] || [])
+    );
+  
+    return images.filter(image => filteredImageIds.has(image.id));
+  };
+  const filteredImages = filterImagesByTags(user.images, selectedTags);
   return (
+
     <div className='min-h-screen w-full '>
       {user.images.length > 0 && (
         <div className="relative my-2 md:my-8">
@@ -111,18 +167,17 @@ export const OlderImages = ({ user }) => {
         </div>
       )}
       {user.images.length > 0 && 
-        <div className="mb-4 flex justify-between px-2 md:px-4 w-full gap-2">
+        <div className="items-center mb-4 flex justify-between md:px-2 md:px-4 w-full gap-2">
          
           <p className='text-xs md:text-sm text-primary-900'>
           {selectedImages.length > 0 &&
           <>
           ({selectedImages.length})
-          selected
           </>
           }
           </p>
     <div className='flex flex-row items-center gap-2'>
-    <Tags selectedImageIds={deferredImagesSelected} />
+    <Tags selectedImageIds={deferredImagesSelected} onTagsUpdate={handleTagsUpdate}/>
 
         <button 
           className={`items-center gap-1 flex flex-row  ${!Loading ?'bg-red-600 hover:bg-red-700 ':'bg-transparent'} p-2 rounded-full text-xs md:text-sm md:font-semibold disabled:bg-primary-100`} 
@@ -133,16 +188,30 @@ export const OlderImages = ({ user }) => {
         <LoadingDots/>      
         :
         <>
-        <Trash2 className=" h-4 " /> Delete </>
+        <Trash2 size='12' /> Delete </>
         }
         </button>
   </div>
 
       </div>
 }
-
-      <div className="p-2 md:p-4 columns-2 md:columns-4 gap-2 md:gap-4">
-        {user.images.map((img, index) => (
+<div className='flex overflow-x-scroll w-full gap-2 md:px-2'>
+{Array.from(new Set(tags.flatMap(obj => Object.keys(obj)))).map(tag => (
+  <div key={tag} className='cursor-pointer flex flex-row items-center gap-2 relative'>
+    <div
+    className='absolute top-0 right-0 w-fit p-0.5 hover:bg-primary-400 border-primary-400 border h-fit bg-primary-300 rounded-full'
+    >
+    <XIcon size='12' className=''/>  
+    </div>
+    <p
+  className={`px-4 py-2   border-2 rounded-full border-primary-300 text-sm font-medium ${selectedTags.includes(tag) ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-primary-200 text-primary-900 hover:bg-primary-300'}`}
+          
+          onClick={() => handleTagClick(tag)}>{tag}</p>
+  </div>
+))}
+</div>
+      <div className="py-2 md:p-4 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+        {filteredImages.map((img, index) => (
           <div key={index} className={`group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2  mb-4 ${selectedImages.includes(img.id) ? 'border-primary-500' :'border-primary-300'}`}>
             <Image
               width={500}
@@ -160,7 +229,7 @@ export const OlderImages = ({ user }) => {
               </button>
             </div>
             <div
-              className="bottombar text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center bg-black/80 backdrop-blur-xl transition-opacity duration-300 rounded-md px-2 py-1"
+              className="bottombar text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center bg-black/80 backdrop-blur-xl transition-opacity duration-300 rounded-md md:px-2 py-1"
             >
               <input
                 className='w-5 h-5 '
