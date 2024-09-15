@@ -1,9 +1,7 @@
-import {Plans} from "@/components/payment/Plans";
+import { Pay } from "@/components/payment/Pay";
 
 export default async function Home() {
 return(
-    <div>
-        ass pay
-    </div>
+    <Pay/>
 )
 }

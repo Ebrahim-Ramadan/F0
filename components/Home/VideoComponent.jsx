@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { VolumeX, Volume2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 const videoAvailable = ['/f0-1.mp4', '/f0-2.mp4'];
 const SponserComponent = dynamic(() => import('./SponserComponent'), {
   ssr: false,
@@ -49,12 +50,12 @@ const VideoComponent = ({loggedIN}) => {
                 The fastest cheapest Background removal service, Ever
               </p>
               <button className="mt-2 md:mt-4 flex justify-end w-full">
-                <a href={loggedIN?`/images`:'/join'} className='px-5 py-2 md:px-8 md:py-3 bg-primary-950 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-900 transition-all duration-300'>
+                <Link href={loggedIN?`/images`:'/join'} className='px-5 py-2 md:px-8 md:py-3 bg-primary-950 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-900 transition-all duration-300'>
                   {loggedIN ?
                 'Try Now':
                 'Sign Up'  
                 }
-                  </a>
+                  </Link>
               </button>
             </div>
     </div>

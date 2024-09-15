@@ -1,10 +1,16 @@
 import {  ArrowRightIcon,  Plus,  StarsIcon  } from 'lucide-react';
-import DynamicVideoComponent from '@/components/Home/VideoComponent';
-import { HeroSections } from '@/components/Home/HeroSections';
+// import DynamicVideoComponent from '@/components/Home/VideoComponent';
+// import { HeroSections } from '@/components/Home/HeroSections';
 
 import {  getUserId } from './actions';
-
-
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+const HeroSections = dynamic(() => import('@/components/Home/HeroSections'), {
+  ssr: false,
+});
+const DynamicVideoComponent = dynamic(() => import('@/components/Home/VideoComponent'), {
+  ssr: false,
+});
 export default async function Home() {
   const userId = await getUserId();
 
@@ -17,7 +23,7 @@ export default async function Home() {
     <div className='w-full justify-center flex flex-col items-center pb-2'>
     <div className='flex flex-row gap-2 items-center justify-center bg-gradient-to-r from-primary-200 to-primary-100 rounded-full p-2 hover:bg-red-200 transition-colors'>
     <StarsIcon className='w-8 h-8 md:w-10 md:h-10 bg-blue-900 flex items-center justify-center p-2 rounded-full'/>
-    <span className='font-semibold'>Inspired by 
+    <span className='font-semibold'>Inspired by
       <a href='https://pic.ping.gg/' className="px-1 tracking-tight">pic<span className="text-[#E24B8C]">thing</span></a>
     </span>
   </div>
@@ -71,9 +77,9 @@ Start
             1145 people joined
           </span>
         </h1>
-        <a href={`${userId? 'images':'join'}`} className="bg-white text-blue-900 px-3 py-1.5 md:px-6 md:py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors duration-300">
+        <Link href={`${userId? 'images':'join'}`} className="bg-white text-blue-900 px-3 py-1.5 md:px-6 md:py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors duration-300">
           {userId ? 'Get Started' : 'Join Now'}
-        </a>
+        </Link>
       </div>
 
     </div>

@@ -13,9 +13,19 @@ const config: Config = {
         mono: ['var(--font-geist-mono)'],
       },
       animation: {
+        fadeIn: 'fadeIn 0.3s ease-out',
+        fadeOut: 'fadeOut 0.3s ease-out',
         'float-move': 'float-move 1s ease-out forwards',
       },
       keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
         'float-move': {
           '0%': { opacity: '0', transform: 'translate(0, 0) scale(0.5)' },
           '10%': { opacity: '1', transform: 'translate(0, -5px) scale(0.8)' },

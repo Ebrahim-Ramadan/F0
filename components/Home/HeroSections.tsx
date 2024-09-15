@@ -68,3 +68,5 @@ export const HeroSections = () => {
   </div>
   )
 }
+
+export default HeroSections
