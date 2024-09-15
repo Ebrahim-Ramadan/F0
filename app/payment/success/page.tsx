@@ -1,6 +1,6 @@
 import { ClientComponentSuccessfulPayment } from "@/components/payment/Pay"
 import Image from "next/image"
-export  function SuccessfulPayment() {
+export default function Home() {
   return (
     <div className="flex items-center justify-center h-[50vh] ">
       <div className="w-full max-w-md">
@@ -22,4 +22,3 @@ export  function SuccessfulPayment() {
     </div>
   )
 }
-export default SuccessfulPayment
