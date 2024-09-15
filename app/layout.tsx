@@ -36,15 +36,26 @@ export const metadata: Metadata = {
     title: "F0",
     description: "Remove your background within milliseconds",
  
-    url: "https://f0.pics",
+    url: "https://f0-the-project.vercel.app/",
+    images: [
+      {
+        url: "https://f0-the-project.vercel.app/og",
+        alt: "Remove your background within milliseconds",
+      },
+    ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@f0pics",
+    site: "@scoopsahoykid",
     title: "F0",
     description: "Remove your background within milliseconds",
-    images: ["https://f0.pics/meta.png"],
+    images: [
+      {
+        url: "https://f0-the-project.vercel.app//og",
+        alt: "Remove your background within milliseconds",
+      },
+    ],
   },
 };
 

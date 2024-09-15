@@ -56,7 +56,7 @@ export const Header: React.FC<{ user: User }> = ({user}) => {
         height={40}
         src={user?.pic ? user?.pic : 'https://placewaifu.com/image/50'}
         alt="user"
-        className="rounded-full bg-primary-300"
+        className="rounded-full bg-neutral-500 border-2 border-primary-200"
       />
     </MenuButton>
 
@@ -66,11 +66,11 @@ export const Header: React.FC<{ user: User }> = ({user}) => {
             <Image
               width={40}
               height={40}
-              className="rounded-full w-8 h-8 bg-neutral-500"
+              className="rounded-full w-8 h-8 bg-neutral-500 "
               src={user?.pic ? user?.pic : 'https://placewaifu.com/image/50'}
               alt="User avatar"
             />
-              <p className="text-sm font-semibold">{user?.username}</p>
+              <p className="text-sm font-semibold truncate">{user?.username}</p>
               </div>
 
               <Check className='text-primary-400 w-4 h-4'/>

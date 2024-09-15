@@ -11,7 +11,7 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
       <>
-        <div className={`flex justify-end ${triggerText == 'Manage Account' ? 'w-full' : ''}`}>
+        <div className={`flex justify-end ${triggerText == 'Manage Account' &&'w-full' } ${triggerText == 'Upgrade Plan' &&'px-2' }`}>
         <button
         className={`font-bold text-center   ${triggerClassName}`}
         role="Subscribe"

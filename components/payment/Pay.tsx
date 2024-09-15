@@ -1,11 +1,14 @@
 'use client'
 
 import { useState } from 'react';
-import { WalletIcon, CreditCardIcon, XIcon, CheckIcon } from 'lucide-react';
-import Plans from './Plans';
+import {  CreditCardIcon,  CheckIcon, ArrowRight } from 'lucide-react';
+// import Plans from './Plans';
 import LoadingDots from '../Globals/LoadingDots';
 import { useRouter, useSearchParams } from 'next/navigation';
-
+import dynamic from 'next/dynamic';
+const Plans = dynamic(() => import('./Plans'), {
+  ssr: true,
+});
 const plans = [{'Hoppy':'90'}, {'Go-nuts':'135'}, {'Go-super-nuts':'600'}];
 interface UserType {
   id: string;
@@ -17,9 +20,11 @@ const paymentOptions = [
 ];
 
 export function Pay({user}: {user: UserType}) {
+  console.log('user', user);
+  
   const searchParams = useSearchParams();
-const passedPlan = searchParams.get('plan');
-console.log('passedPlan', passedPlan);
+  const passedPlan = searchParams.get('plan') || 'Hoppy';
+  console.log('passedPlan', passedPlan);
 
   const [paymentMethod, setPaymentMethod] = useState<number | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
@@ -60,11 +65,11 @@ console.log('passedPlan', passedPlan);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center  h-[50vh] w-full">
+    <div className="flex flex-col items-center justify-center  min-h-screen w-full">
       <div className='relative mb-12'>
         <p className={`text-3xl md:text-4xl border-2 border-primary-300 border-dashed px-4 py-2 text-center rounded-sm ${passedPlan == 'Go-super-nuts'&&'border-green-800'} ${passedPlan == 'Go-nuts'&&'border-green-900'} `}>
         {/* @ts-ignore */}
-          {plans.find(plan => plan.hasOwnProperty(passedPlan)) ? passedPlan?.replace(/-/g, ' ') : 'Hoppy'} Plan
+          {plans.find(plan => plan.hasOwnProperty(passedPlan)) ? passedPlan?.replace(/-/g, ' ') : 'Hoppy'} <span className='text-primary-900'>Plan</span>
         </p>
         <div className='absolute -top-2 -right-1 backdrop-blur-3xl rounded-xl'>
           <Plans triggerClassName='bg-blue-500 text-white p-0.5 rounded-full w-6 h-6 flex items-center justify-center' triggerText='?' />
@@ -120,7 +125,7 @@ console.log('passedPlan', passedPlan);
                 <div className='w-full flex items-center justify-center'><LoadingDots /></div>
               ) : (
         //  @ts-ignore
-                `Pay EGP ${plans.find(plan => passedPlan in plan)[passedPlan]}.00`
+        `Pay EGP ${plans.find(plan => passedPlan in plan)?.[passedPlan] || '90'}.00`
               )}
             </button>
           )}
@@ -128,6 +133,13 @@ console.log('passedPlan', passedPlan);
       </div>
       <div className={`max-w-md mx-auto flex items-center justify-between px-3 py-1.5 text-xs text-primary-800 md:text-sm relative rounded-b-xl bg-primary-100 w-fit transition duration-300 h-fit justify-center text-center`}>
       The only supported payment method for this subscription is the Online Card (Visa/ MasterCard).
+  </div>
+
+  <div className='max-w-md mx-auto py-2 mt-4'>
+<a href='/images' className='flex flex-row gap-2 items-center text-center w-full py-2 px-4 rounded-xl text-white font-semibold bg-primary-100 hover:bg-primary-200 text-sm md:text-base'>
+Proceed without subscription
+<ArrowRight size='16'/>
+</a>
   </div>
     </div>
   );

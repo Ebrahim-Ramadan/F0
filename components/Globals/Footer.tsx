@@ -45,7 +45,7 @@ export const Footer = () => {
   return (
     <footer className="text-white">
       <div className="flex flex-col items-center justify-center h-[50vh] backdrop-blur-3xl bg-gradient-to-b from-transparent to-primary-100 p-4">
-        <div className="w-full max-w-md backdrop-blur-3xl  md:p-6 space-y-6">
+        <div className="w-full max-w-md  md:p-6 space-y-6">
         
           <div className="text-center space-y-2">
             <h2 className="text-2xl font-bold text-primary-950">F0 Newsletter</h2>
