@@ -7,6 +7,8 @@ export const users = pgTable("users", {
   password: text("password").notNull(), 
   pic: text("pic"), 
   paymentDate: timestamp("payment_date"), 
+  SubscriptionID: text("subscription_id"),
+  planName: text("planName"),
 });
 
 

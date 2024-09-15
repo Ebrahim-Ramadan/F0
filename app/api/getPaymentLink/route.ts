@@ -5,8 +5,10 @@ export async function POST(req:Request) {
   if (req.method !== 'POST') {
     return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
   }
-  const {paymentMethod} = await req.json()
-  console.log('paymentMethod', paymentMethod);
+  const {paymentMethod, username, userID,plan, amount} = await req.json()
+  console.log('plan', plan);
+  // console.log('username', username);
+  // console.log('userID', userID);
   
   if(!paymentMethod){
     return NextResponse.json({ error: 'paymentMethod not valid' }, { status: 405 });
@@ -27,7 +29,7 @@ export async function POST(req:Request) {
     });
     
     const authResult = await authResponse.json();
-    console.log('authResult', authResult)
+    // console.log('authResult', authResult)
 
     if (!authResult.token) {
       throw new Error('Failed to obtain auth token');
@@ -45,7 +47,7 @@ export async function POST(req:Request) {
       "retrial_days": null,
       "plan_type": "rent",
       "number_of_deductions": null,
-      "amount_cents": 9000,
+      "amount_cents": Number(amount),
       "use_transaction_amount": true,
       "is_active": true,
       "integration": Number(paymentMethod), // Your Moto Integration ID
@@ -59,7 +61,7 @@ export async function POST(req:Request) {
     });
 
     const subscriptionResult = await subscriptionResponse.json();
-    console.log('subscriptionResult', subscriptionResult)
+    // console.log('subscriptionResult', subscriptionResult)
     
     if (!subscriptionResult.id) {
       throw new Error('Failed to create subscription plan');
@@ -70,7 +72,7 @@ export async function POST(req:Request) {
     paymentLinkHeaders.append("Content-Type", "application/json");
 
     const paymentLinkBody = JSON.stringify({
-      "amount": 9000,
+      "amount":  Number(amount),
       "currency": "EGP",
       "payment_methods": [
         Number(paymentMethod), // Your Moto Integration ID
@@ -81,20 +83,20 @@ export async function POST(req:Request) {
       "items": [
         {
           "name": "Item name 1",
-          "amount": 9000,
+          "amount":  Number(amount),
           "description": "Watch",
           "quantity": 1
         }
       ],
       "billing_data": {
         "apartment": "6",
-        "first_name": "Ammar",
-        "last_name": "Sadek",
+        "first_name": userID,
+        "last_name": plan,
         "street": "938, Al-Jadeed Bldg",
         "building": "939",
         "phone_number": "+96824480228",
         "country": "EGYPT",
-        "email": "AmmarSadek@gmail.com",
+        "email": username,
         "floor": "1",
         "state": "Alkhuwair"
       },
@@ -118,7 +120,7 @@ export async function POST(req:Request) {
     });
 
     const paymentLinkResult = await paymentLinkResponse.json();
-    console.log('paymentLinkResult', paymentLinkResult);
+    // console.log('paymentLinkResult', paymentLinkResult);
     
     return NextResponse.json({ paymentLinkResult }, { status: 200 });
 

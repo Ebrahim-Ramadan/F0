@@ -1,13 +1,17 @@
 'use client'
 import { copyToClipboard } from '@/utils/utils';
 import { Check, Copy, Trash2, XIcon } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useDeferredValue, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import LoadingDots from '../Globals/LoadingDots';
-import Tags from './Tags';
+// import Tags from './Tags';
 
+const Tags = dynamic(() => import('./Tags'), {
+  ssr: false,
+});
 // Type definitions
 interface ImageType {
   id: string;

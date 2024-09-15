@@ -8,7 +8,6 @@ import { images, Subscribers, users } from "@/lib/schema";
 import { cookies } from 'next/headers';
 
 
-
 export async function getUserId() {
   const cookieStore = cookies();
   const userId = cookieStore.get('userID')?.value;
@@ -226,5 +225,38 @@ export const addSubscriber = async (
   } catch (error) {
     console.error("Error adding subscriber:", error);
     return { error: "Failed to add subscriber" };
+  }
+};
+
+export const updateUserPayment = async (
+  userId: number,
+  newPaymentDate: Date,
+  subscriptionID: string,
+  planName: string
+): Promise<{ success: boolean; error?: string }> => {
+  try {
+    const result = await db
+      .update(users)
+      .set({ 
+        paymentDate: newPaymentDate,
+        SubscriptionID: subscriptionID,
+        planName: planName
+      })
+      .where(eq(users.id, userId))
+      .returning({ 
+        id: users.id, 
+        paymentDate: users.paymentDate, 
+        subscriptionID: users.SubscriptionID,
+        planName: users.planName
+      });
+
+    if (result.length === 0) {
+      return { success: false, error: "User not found" };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating user payment details:", error);
+    return { success: false, error: "Failed to update payment details" };
   }
 };

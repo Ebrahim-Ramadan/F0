@@ -80,7 +80,7 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
     return (
         <>
             <button
-                className={`font-bold text-center block px-4 py-2 text-sm rounded-3xl text-white ${selectedImageIds.length === 0 ? 'bg-primary-100' : 'bg-primary-300 hover:bg-primary-400'}`}
+                className={`font-bold text-center block px-4 py-2 text-sm rounded-3xl text-white ${selectedImageIds.length === 0 ? 'bg-primary-200/50' : 'bg-primary-300 hover:bg-primary-400'}`}
                 role="button"
                 disabled={selectedImageIds.length === 0}
                 id="create-tag"

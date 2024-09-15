@@ -1,7 +1,4 @@
 import {  ArrowRightIcon,  Plus,  StarsIcon  } from 'lucide-react';
-// import DynamicVideoComponent from '@/components/Home/VideoComponent';
-// import { HeroSections } from '@/components/Home/HeroSections';
-
 import {  getUserId } from './actions';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';

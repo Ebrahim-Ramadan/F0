@@ -1,15 +1,9 @@
 import { Pay } from "@/components/payment/Pay";
-import { cookies } from "next/headers";
-import { getUserById, logout } from "../actions";
+import { getUserById, getUserId, logout } from "../actions";
 import { Join } from "@/components/Join";
 import PaidSuccessfully from "@/components/payment/PaidSuccessfully";
 
 
-async function getUserId() {
-    const cookieStore = cookies();
-    const userId = cookieStore.get('userID')?.value;
-    return userId;
-  }
   
    async function getUser() {
     const userId = await getUserId();

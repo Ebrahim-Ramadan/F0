@@ -167,18 +167,18 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
         onDragLeave={handleDragLeave}
       >
         {isProcessing ? (
-          <div className={`flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-black/70 hover:bg-black/90 transition-all duration-300`}>
+          <div className={`flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2 border-primary-600 border-dashed rounded-lg cursor-pointer bg-black/70 hover:bg-black/90 transition-all duration-300`}>
             <LoadingDots />
           </div>
         ) : (
           <label
             htmlFor="dropzone-file"
-            className={`bg-black/80 flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2 border-dashed rounded-lg cursor-pointer transition-all duration-300 ${draggedState ? 'border-blue-500' : 'border-neutral-600'}`}
+            className={`bg-black/80 flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2  border-dashed rounded-lg cursor-pointer transition-all duration-300 ${draggedState ? 'border-blue-500' : 'border-neutral-600 hover:border-primary-600'}`}
           >
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
-              <Upload className={`w-10 h-10 mb-3 text-gray-400 transition duration-300 ${draggedState && 'scale-110 text-gray-300 '}`} />
-              <p className="mb-2 text-sm text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-              <p className="text-xs text-gray-400">PNG, JPG or GIF (MAX. 800x400px)</p>
+              <Upload className={`w-10 h-10 mb-3 text-primary-700 transition duration-300 ${draggedState && 'scale-110 text-primary-800 '}`} />
+              <p className="mb-2 text-sm text-primary-700"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+              <p className="text-xs text-primary-700">PNG, JPG or GIF (MAX. 800x400px)</p>
             </div>
             <input
         id="dropzone-file"
@@ -213,14 +213,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
        
       </div>
       <div className="border-gray-700 w-full">
-        {processedImages.length > 0 && (
-          <div className='flex justify-end w-full'>
-            <button className='flex flex-row items-center gap-1 bg-primary-200 hover:bg-primary-300 rounded-3xl px-2 py-1'>
-              <Bookmark size='14'/>
-              Create Collection
-            </button>
-          </div>
-        )}
+      
         {processedImages.length > 0 && (
           <div className="relative my-8">
             <h1 className="relative ml-2 z-10 inline-block bg-black px-2 font-bold text-xl md:text-2xl text-white">NEW IMAGES</h1>
@@ -232,7 +225,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
         <div>
           <div className="p-2 md:p-4 columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-4">
             {processedImages.map((img, index) => (
-              <div key={img.id || index} className="group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg border-2 border-primary-400">
+              <div key={img.id || index} className="group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg  bg-primary-100">
                 {img.afterBgRemoval && (
                   <Image
                     width={500}

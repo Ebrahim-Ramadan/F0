@@ -43,10 +43,8 @@ export const Join = () => {
           setTimeout(() => router.push('/images'), 500);
           }
           else{
-            setTimeout(() => router.push('/payment'), 500);
-
+            setTimeout(() => router.push('/payment?plan=Hoppy'), 500);
           }
-          // router.push('/');
         } catch (error) {
           console.log('error', error);
         } finally {
@@ -57,16 +55,13 @@ export const Join = () => {
   return (
     <div className='min-h-screen flex flex-col items-center justify-center gap-8 md:p-0 p-4 w-full'>
 
-        <div className='font-semibold text-3xl md:text-4xl'>Join Now</div>
-    <div className=' flex flex-col items-center justify-center w-full  gap-2'>
-      <div className='flex flex-col items-center justify-center w-full '>
-        <a  className='w-full md:w-fit justify-center flex flex-row items-center bg-primary-300 hover:bg-primary-200 transition duration-300 font-semibold rounded-full px-4 py-2  gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
+        <div className='font-bold text-3xl md:text-4xl'>Join Now</div>
+        <div className='flex flex-col items-center justify-center w-full space-y-2'>
+        <a  className='w-full md:w-fit justify-center flex flex-row items-center bg-primary-100 hover:bg-primary-300 transition duration-300 font-semibold rounded-full px-4 py-2 border-2 border-primary-300 gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
           Sign In with Github
           <Github size='18'/>
             </a>
-          </div>
-        <div className='flex flex-col items-center justify-center w-full '>
-            <a  className='w-full md:w-fit justify-center flex text-black flex-row items-center bg-primary-950 hover:bg-primary-900 transition duration-300 font-semibold rounded-full px-4 py-2  gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
+            <a  className='w-full md:w-fit justify-center flex px-4 flex-row items-center gap-2 py-2 border-2 border-primary-300 rounded-full bg-primary-100 hover:bg-primary-300 text-white' href={``}>
             Sign In with Google
               <Image
               width={24}
@@ -76,12 +71,14 @@ export const Join = () => {
               alt="google"
             />
           </a>
-      </div>
-    </div>
+          </div>
+          <div className="flex flex-row justify-center w-full md:w-1/2 text-center">
+            <div className="bg-gradient-to-r from-black via-primary-400 to-transparent w-full  h-[2px] "></div>
+          </div>
         <div className='flex flex-col items-center justify-center w-full md:w-1/2'>
         <form onSubmit={handleSubmit} className=" w-full md:w-1/2">
     <div className="mb-4">
-      <label className="block mb-2 font-bold text-primary-900">Username</label>
+      <label className="block mb-2 font-bold text-primary-950">Username</label>
       <input
         type="email"
         value={username}
@@ -96,7 +93,7 @@ export const Join = () => {
     </div>
 
     <div className="mb-8">
-      <label className="block mb-2 font-bold text-primary-900">Password</label>
+      <label className="block mb-2 font-bold text-primary-950">Password</label>
       <input
         type="password"
         value={password}
@@ -112,14 +109,14 @@ export const Join = () => {
     </div>
 
     {loading  ? (
-      <p className="w-full flex justify-center"><LoadingDots/></p>
+      <div className="w-full flex justify-center"><LoadingDots/></div>
     ) : (
       <button
       disabled={loading}
         type="submit"
         className="w-full justify-center "
       >
-        <span className='md:text-lg px-4 py-2 font-bold text-black bg-primary-950 rounded-xl hover:bg-primary-800 transition-all duration-300'>Join Now</span>
+        <span className='md:text-xl text-lg px-4 py-2 font-bold text-black bg-primary-950 rounded-xl hover:bg-primary-800 transition-all duration-300'>Join Now</span>
       </button>
     )}
 

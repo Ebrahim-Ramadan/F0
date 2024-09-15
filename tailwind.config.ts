@@ -26,18 +26,18 @@ const config: Config = {
       },
       colors: {
         primary: {
-          50:  '#000000', // Lightest shade
-          100: '#121212', // Lightest shade
+          50:  '#000000', 
+          100: '#121212', 
           200: '#1A1A1A',
           300: '#333333',
           400: '#4D4D4D',
-          500: '#666666', // Darkest shade
-          600: '#808080', // Main color
+          500: '#666666', 
+          600: '#808080', 
           700: '#999999',
           800: '#B3B3B3',
           900: '#CCCCCC',
-          950: '#E6E6E6', // Dark shade
-          // switchPalette: '#474554', // You can adjust this as needed
+          950: '#E6E6E6', 
+          
         },        
       },
     },

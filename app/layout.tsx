@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from 'sonner'
-import { cookies } from "next/headers";
-import { getUserById, logout } from "./actions";
+import { getUserById, getUserId, logout } from "./actions";
 import { Header } from "@/components/Globals/Header";
 import { Footer } from "@/components/Globals/Footer";
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 
- async function getUserId() {
-    const cookieStore = cookies();
-    const userId = cookieStore.get('userID')?.value;
-    return userId;
-  }
   
    async function getUser() {
     const userId = await getUserId();

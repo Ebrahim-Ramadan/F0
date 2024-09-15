@@ -1,23 +1,26 @@
 'use client'
 
 import { useState } from 'react';
-import { WalletIcon, CreditCardIcon } from 'lucide-react';
+import { WalletIcon, CreditCardIcon, XIcon, CheckIcon } from 'lucide-react';
 import Plans from './Plans';
 import LoadingDots from '../Globals/LoadingDots';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-
+const plans = [{'Hoppy':'90'}, {'Go-nuts':'135'}, {'Go-super-nuts':'600'}];
 interface UserType {
   id: string;
 username:string
 }
 const paymentOptions = [
-  { value: 'movie-wallet', label: 'Mobile Wallet', icon: WalletIcon, envVar: process.env.NEXT_PUBLIC_paymob_mobile_wallet },
+  // { value: 'movie-wallet', label: 'Mobile Wallet', icon: WalletIcon, envVar: process.env.NEXT_PUBLIC_paymob_mobile_wallet },
   { value: 'card', label: 'Credit/Debit Card', icon: CreditCardIcon, envVar: process.env.NEXT_PUBLIC_paymob_online_card }
 ];
 
 export function Pay({user}: {user: UserType}) {
-  console.log('Pay', user);
-  
+  const searchParams = useSearchParams();
+const passedPlan = searchParams.get('plan');
+console.log('passedPlan', passedPlan);
+
   const [paymentMethod, setPaymentMethod] = useState<number | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
   const [redirectLink, setRedirectLink] = useState<string>('');
@@ -41,7 +44,13 @@ export function Pay({user}: {user: UserType}) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ paymentMethod }),
+        body: JSON.stringify({ paymentMethod , 
+          username:user.username, 
+          userID:user.id, 
+          // @ts-ignore
+          plan:plans.find(plan => plan.hasOwnProperty(passedPlan)) ? passedPlan?.replace(/-/g, ' ') : 'Hoppy',
+          // @ts-ignore
+          amount : plans.find(plan => passedPlan in plan)[passedPlan]*100}),
       });
       const { paymentLinkResult } = await response.json();
 
@@ -51,16 +60,17 @@ export function Pay({user}: {user: UserType}) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 md:gap-12 min-h-screen w-full">
-      <div className='relative'>
-        <p className='text-3xl md:text-4xl border-2 border-primary-300 border-dashed px-4 py-2 text-center rounded-sm'>
-          Go nuts Plan
+    <div className="flex flex-col items-center justify-center  h-[50vh] w-full">
+      <div className='relative mb-12'>
+        <p className={`text-3xl md:text-4xl border-2 border-primary-300 border-dashed px-4 py-2 text-center rounded-sm ${passedPlan == 'Go-super-nuts'&&'border-green-800'} ${passedPlan == 'Go-nuts'&&'border-green-900'} `}>
+        {/* @ts-ignore */}
+          {plans.find(plan => plan.hasOwnProperty(passedPlan)) ? passedPlan?.replace(/-/g, ' ') : 'Hoppy'} Plan
         </p>
         <div className='absolute -top-2 -right-1 backdrop-blur-3xl rounded-xl'>
           <Plans triggerClassName='bg-blue-500 text-white p-0.5 rounded-full w-6 h-6 flex items-center justify-center' triggerText='?' />
         </div>
       </div>
-      <div className="w-full max-w-md mx-auto p-4 border-2 backdrop-blur-3xl rounded-xl border-primary-100 bg-primary-100/50">
+      <div className="w-full max-w-md mx-auto p-4 md:p-8 border-2 backdrop-blur-3xl rounded-xl border-primary-300/50 bg-primary-200">
         <div className="mb-4">
           <h2 className="text-xl md:text-3xl font-bold">Choose Payment Method</h2>
           <p className="text-primary-700 text-xs md:text-sm mt-2">Select how you'd like to pay for your subscription</p>
@@ -71,7 +81,7 @@ export function Pay({user}: {user: UserType}) {
             const isSelected = paymentMethod === option.envVar;
             return (
               <div 
-                className={`flex items-center space-x-4 rounded-xl px-4 py-2 ${isSelected ? 'bg-primary-300' : 'hover:bg-primary-300'} ${paymentStarted ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                className={`relative flex items-center space-x-4 rounded-xl px-4 py-2 ${isSelected ? 'bg-primary-300' : 'hover:bg-primary-300'} ${paymentStarted ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 key={option.value}
                 onClick={() => !paymentStarted && handlePaymentMethodChange({ target: { value: option.envVar } } as React.ChangeEvent<HTMLInputElement>)}
               >
@@ -89,6 +99,10 @@ export function Pay({user}: {user: UserType}) {
                   <Icon className="mr-2 h-5 w-5 text-primary-700" />
                   {option.label}
                 </label>
+                {isSelected && <div className="absolute top-1/2 right-2 transform -translate-y-1/2 w-4 h-4   flex items-center justify-center">
+                  <CheckIcon size='16' className="text-primary-900"/>
+                </div>
+          }
               </div>
             );
           })}
@@ -105,14 +119,34 @@ export function Pay({user}: {user: UserType}) {
               {loading ? (
                 <div className='w-full flex items-center justify-center'><LoadingDots /></div>
               ) : (
-                'Pay EGP 90.00'
+        //  @ts-ignore
+                `Pay EGP ${plans.find(plan => passedPlan in plan)[passedPlan]}.00`
               )}
             </button>
           )}
         </div>
       </div>
+      <div className={`max-w-md mx-auto flex items-center justify-between px-3 py-1.5 text-xs text-primary-800 md:text-sm relative rounded-b-xl bg-primary-100 w-fit transition duration-300 h-fit justify-center text-center`}>
+      The only supported payment method for this subscription is the Online Card (Visa/ MasterCard).
+  </div>
     </div>
   );
 }
 
 export default Pay;
+
+
+export const ClientComponentSuccessfulPayment = () => {
+  const router = useRouter()
+
+const handleGetStarted = () => {
+  router.push('/images')
+}
+return (
+  <div className='flex justify-center items-center'>
+        <button className="bg-primary-950 text-black px-4 py-2 rounded-3xl text-base md:text-lg font-bold" onClick={handleGetStarted}>
+          Get Started
+        </button>
+      </div>
+)
+}
