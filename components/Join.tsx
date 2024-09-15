@@ -35,9 +35,17 @@ export const Join = () => {
             toast.error(errMessage.message)
             return;
           }
+          const userData = await res.json();
+          
           toast.success('Successfully joined F0, redirecting...');
           router.refresh(); 
-          setTimeout(() => router.push('/'), 1000);
+          if(userData.user.paymentDate){
+          setTimeout(() => router.push('/images'), 500);
+          }
+          else{
+            setTimeout(() => router.push('/payment'), 500);
+
+          }
           // router.push('/');
         } catch (error) {
           console.log('error', error);

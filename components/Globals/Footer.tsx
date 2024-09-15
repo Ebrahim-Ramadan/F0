@@ -48,7 +48,6 @@ export const Footer = () => {
         <div className="w-full max-w-md backdrop-blur-3xl  md:p-6 space-y-6">
           <div className="flex justify-center">
             f0
-            {/* <Monitor className="w-16 h-16 text-primary-400" /> */}
           </div>
           <div className="text-center space-y-2">
             <h2 className="text-2xl font-bold text-primary-950">F0 Newsletter</h2>

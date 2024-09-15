@@ -3,8 +3,12 @@ import { CheckIcon, XIcon } from "lucide-react"
 import { Dialog } from '@headlessui/react'
 import { useState } from 'react'
 import Link from "next/link"
+interface PlansProps {
+  triggerClassName: string;
+  triggerText: string | React.ReactNode; // Update the type here
+}
 
-export const Plans = ({triggerClassName, triggerText}: {triggerClassName: string, triggerText: string}) => {
+export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
     const [isOpen, setIsOpen] = useState(false);
   
     return (

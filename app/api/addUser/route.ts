@@ -15,21 +15,22 @@ export async function POST(req:Request) {
       );
     }
     // @ts-ignore
-    const {id, error} = await addUser(username, password, pic);
+    const result  = await addUser(username, password, pic);
+console.log('result', result);
 
-    if(error){
+    if('error' in result){
       return NextResponse.json(
-        { message: error  },
+        { message: result.error  },
         { status: 500 }
       );
     }
-    
-    await createUserSession(id, false)
+    // @ts-ignore
+    await createUserSession(result.id, false)
     revalidatePath('/')
     // revalidatePath('/images')
     const redirectUrl = new URL('/', url.origin); // Redirect to home page
-    return NextResponse.redirect(redirectUrl); // Redirect response
-    // return NextResponse.json({ id: id }, { status: 200 });
+    // return NextResponse.redirect(redirectUrl); // Redirect response
+    return NextResponse.json({ user: result }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: (error as Error).message || "Error adding user" },

@@ -5,7 +5,12 @@ export async function POST(req:Request) {
   if (req.method !== 'POST') {
     return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
   }
-
+  const {paymentMethod} = await req.json()
+  console.log('paymentMethod', paymentMethod);
+  
+  if(!paymentMethod){
+    return NextResponse.json({ error: 'paymentMethod not valid' }, { status: 405 });
+  }
   try {
     // Fetch authentication token
     const authHeaders = new Headers();
@@ -40,10 +45,10 @@ export async function POST(req:Request) {
       "retrial_days": null,
       "plan_type": "rent",
       "number_of_deductions": null,
-      "amount_cents": 4000,
+      "amount_cents": 9000,
       "use_transaction_amount": true,
       "is_active": true,
-      "integration": 4834342, // Your Moto Integration ID
+      "integration": Number(paymentMethod), // Your Moto Integration ID
       "fee": null
     });
 
@@ -65,10 +70,10 @@ export async function POST(req:Request) {
     paymentLinkHeaders.append("Content-Type", "application/json");
 
     const paymentLinkBody = JSON.stringify({
-      "amount": 4000,
+      "amount": 9000,
       "currency": "EGP",
       "payment_methods": [
-        4834342, // Your Moto Integration ID
+        Number(paymentMethod), // Your Moto Integration ID
         "card",
       ],
       "subscription_plan_id": subscriptionResult.id, 
@@ -76,7 +81,7 @@ export async function POST(req:Request) {
       "items": [
         {
           "name": "Item name 1",
-          "amount": 10,
+          "amount": 9000,
           "description": "Watch",
           "quantity": 1
         }

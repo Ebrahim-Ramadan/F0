@@ -92,6 +92,7 @@ export const addUser = async (
         id: users.id,
         username: users.username,
         password: users.password,
+        paymentDate : users.paymentDate
       })
       .from(users)
       .where(eq(users.username, email))
@@ -109,10 +110,7 @@ export const addUser = async (
     }
 
     
-    return {
-      id: user.id,
-      username: user.username,
-    };
+    return user;
   }
 
     
@@ -127,8 +125,8 @@ export const addUser = async (
       .returning({ id: users.id, username: users.username , pic: users.pic, paymentDate: users.paymentDate });
 
     revalidatePath("/");
-
-    return result[0];
+const user = result[0]
+    return user;
   } catch (error) {
     console.error("Error adding user:", error);
     return { error: "Failed to add user" };

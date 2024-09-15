@@ -25,7 +25,7 @@ async function getUserId() {
   }
 export default async function Home() {
   const userWithImages  = await getUser()
-  console.log('userWithImages', userWithImages);
+
   
 if (!userWithImages){
     return(
