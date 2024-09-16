@@ -74,7 +74,7 @@ export function Pay({user}: {user: UserType}) {
           {plans.find(plan => plan.hasOwnProperty(passedPlan)) ? passedPlan?.replace(/-/g, ' ') : 'Hoppy'} <span className='text-primary-900'>Plan</span>
         </p>
         <div className='absolute -top-2 -right-1 backdrop-blur-3xl rounded-xl'>
-          <Plans triggerClassName='bg-blue-500 text-white p-0.5 rounded-full w-6 h-6 flex items-center justify-center' triggerText='?' />
+          <Plans triggerClassName='bg-blue-900 text-blue-100 p-0.5 rounded-full w-6 h-6 flex items-center justify-center' triggerText='?' />
         </div>
       </div>
       <div className="w-full max-w-md mx-auto p-4 md:p-8 border-2 backdrop-blur-3xl rounded-xl border-primary-300/50 bg-primary-200">
