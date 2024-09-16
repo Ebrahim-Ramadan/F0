@@ -45,16 +45,17 @@ export async function GET(req: Request) {
         const userData = await userResponse.json();
         console.log('userData', userData);
         // @ts-ignore
-        const {id} = await addUser(userData.login.replace(/[^a-zA-Z0-9]/g, ' '), generateHashString(generateRandomString()), userData.avatar_url);
+        const result = await addUser(userData.login.replace(/[^a-zA-Z0-9]/g, ' '), generateHashString(generateRandomString()), userData.avatar_url, true);
+    console.log('result', result);
     
-        if(id.error){
-          return NextResponse.json(
-            { message: id.error  },
-            { status: 500 }
-          );
-        }
-        
-        await createUserSession(id, false)
+        if('error' in result){
+            return NextResponse.json(
+              { message: result.error  },
+              { status: 500 }
+            );
+          }
+        // @ts-ignore
+        await createUserSession(result.id, false)
         revalidatePath('/')
         const redirectUrl = new URL('/', url.origin); // Redirect to home page
         return NextResponse.redirect(redirectUrl); // Redirect response

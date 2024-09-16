@@ -16,7 +16,9 @@ interface User {
   id: string;
   paymentDate?: string;
 }
-
+const urlOption1 = process.env.NEXT_PUBLIC_URL_F0_BG_REMOVAL_1 as string;
+const urlOption2 = process.env.NEXT_PUBLIC_URL_F0_BG_REMOVAL_2 as string;
+const selectedUrl = Math.random() > 0.5 ? urlOption1 : urlOption2;
 interface ProcessedImage {
   id: string;
   afterBgRemoval?: string;
@@ -46,7 +48,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('secretToken', (process.env.NEXT_PUBLIC_SECRETTOKEN_F0_BG_REMOVAL as string));
-        const response = await fetch(process.env.NEXT_PUBLIC_URL_F0_BG_REMOVAL as string, {
+        const response = await fetch(selectedUrl, {
           method: 'POST',
           body: formData
         });

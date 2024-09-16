@@ -1,5 +1,5 @@
 'use client'
-import { Check } from 'lucide-react'
+import { Check, Github } from 'lucide-react'
 import Image from 'next/image'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { toast } from 'sonner'
@@ -72,8 +72,13 @@ export const Header: React.FC<{ user: User }> = ({user}) => {
             />
               <p className="text-sm font-semibold truncate">{user?.username}</p>
               </div>
-
-              <Check className='text-primary-400 w-4 h-4'/>
+          {
+            /@/.test(user?.username) ? 
+            <Check className='text-primary-400 w-4 h-4'/>
+            
+            : 
+            <Github className='text-primary-400 w-4 h-4'/>
+          }
       </MenuItem>
 
       <MenuItem>
@@ -95,7 +100,7 @@ export const Header: React.FC<{ user: User }> = ({user}) => {
     </MenuItems>
   </Menu>
   :
-    <Link className='bg-neutral-100 text-center block px-4 py-2 text-sm md:text-base rounded-3xl hover:bg-neutral-200 text-black font-semibold' href="/join">Login</Link>
+    <Link className='bg-neutral-100 text-center block px-2 md:px-4 py-1 md:py-2 text-xs md:text-sm rounded-3xl hover:bg-neutral-200 text-black font-semibold' href="/join">Login</Link>
   }
   
     </div>

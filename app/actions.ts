@@ -83,7 +83,8 @@ export const getUserById = async (id: string | number) => {
 export const addUser = async (
   email: string,
   password: string,
-  pic: string
+  pic: string,
+  authprovider: boolean
 ): Promise<{ id: number; username: string } | { error: string }> => {
   try {
     const existingUser = await db
@@ -98,7 +99,7 @@ export const addUser = async (
       .limit(1);
 
    
-   if (existingUser.length > 0) {
+   if (existingUser.length > 0 && !authprovider) {
     const user = existingUser[0];
 
     

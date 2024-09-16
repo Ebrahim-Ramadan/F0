@@ -99,14 +99,14 @@ export function Pay({user}: {user: UserType}) {
                   value={option.envVar}
                   checked={isSelected}
                   onChange={handlePaymentMethodChange}
-                  className="form-radio w-4 h-4 text-primary-600"
+                  className="form-radio w-4 h-4 text-primary-600 disabled:cursor-not-allowed disabled:bg-primary-50 disabled:text-primary-500 disabled:border-primary-200 disabled:shadow-none"
                   disabled={paymentStarted}
                 />
                 <label htmlFor={option.value} className="flex items-center w-full">
                   <Icon className="mr-2 h-5 w-5 text-primary-700" />
                   {option.label}
                 </label>
-                {isSelected && <div className="absolute top-1/2 right-2 transform -translate-y-1/2 w-4 h-4   flex items-center justify-center">
+                {isSelected && <div className="absolute top-1/2 right-3 transform -translate-y-1/2 w-4 h-4   flex items-center justify-center">
                   <CheckIcon size='16' className="text-primary-900"/>
                 </div>
           }

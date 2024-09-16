@@ -43,16 +43,16 @@ const VideoComponent = ({loggedIN}) => {
                   <path d="M13.7688 19.0956L0 3.68759H5.53933L13.6231 12.7337V3.68759H17.7535V17.5746C17.7535 19.6705 15.1654 20.6584 13.7688 19.0956Z"></path>
                 </svg>
               </div>
-              <h1 className="text-primary-800 text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl ">
+              <h1 className="text-primary-900 text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl ">
                 Welcome to <span className="text-primary-950">F0</span>
               </h1>
-              <p className="mt-2 text-primary-900 text-lg md:text-xl">
-              Remove your background within milliseconds.
+              <p className="mt-2 text-primary-800 text-lg md:text-xl">
+              remove your background within milliseconds.
               </p>
               <button className="mt-2 md:mt-4 flex justify-end w-full">
                 <Link href={loggedIN?`/images`:'/join'} className='shadow-sm shadow-white/50 px-5 py-2 md:px-8 md:py-3 bg-primary-950 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-900 transition-all duration-300'>
                   {loggedIN ?
-                'Try Now':
+                'Upload Images':
                 'Sign Up'  
                 }
                   </Link>
@@ -78,14 +78,14 @@ const VideoComponent = ({loggedIN}) => {
         </video>
         <button 
           onClick={toggleMute}
-          className="absolute bottom-16 right-6 z-30 p-2 bg-primary-100 backdrop-blur-lg rounded-full text-white hover:bg-opacity-75 transition-all duration-300"
+          className="absolute bottom-20 right-6 z-30 p-2 bg-primary-100 backdrop-blur-lg rounded-full text-white hover:bg-opacity-75 transition-all duration-300"
         >
           {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
         </button>
       </>
     )}
     <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-primary-50 to-transparent z-10"></div>
-    <div className="absolute bottom-16 left-6  z-20 text-lg md:text-xl">
+    <div className="absolute bottom-20 left-6  z-20 text-lg md:text-xl">
                   <SponserComponent/>
                 </div>
   </div>

@@ -23,7 +23,7 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
         
         </div>
         <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={`fixed inset-0 flex justify-center items-center z-50 px-2 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
-          <div  className={`fixed inset-0 bg-gradient-to-b from-black/40 to-black ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}aria-hidden="true" onClick={() => setIsOpen(false)}/>
+          <div  className={`fixed inset-0 bg-gradient-to-b from-black/80 to-black ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}aria-hidden="true" onClick={() => setIsOpen(false)}/>
           <div className={`relative overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-primary-200/50 backdrop-blur-3xl grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-200 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
           
           <div className="grid gap-2 w-full">
