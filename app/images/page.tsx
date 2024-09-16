@@ -1,8 +1,6 @@
 import { ImageUpload } from "@/components/Images/ImageUpload";
 import { Join } from "@/components/Join";
-// import { OlderImages } from "@/components/Images/OlderImages";
-import { cookies } from "next/headers";
-import {  getUserWithImages } from "../actions";
+import {   getUserId, getUserWithImages } from "../actions";
 import { Suspense } from "react";
 import LoadingDots from "@/components/Globals/LoadingDots";
 import dynamic from "next/dynamic";
@@ -10,11 +8,7 @@ import { Metadata } from "next";
 const OlderImages = dynamic(() => import("@/components/Images/OlderImages"), {
   ssr: true,
 });
-async function getUserId() {
-    const cookieStore = cookies();
-    const userId = cookieStore.get('userID')?.value;
-    return userId;
-  }
+
   
    async function getUser() {
     const userId = await getUserId();
@@ -25,6 +19,7 @@ async function getUserId() {
   }
 export default async function Home() {
   const userWithImages  = await getUser()
+console.log('userWithImages',userWithImages)
 
   
 if (!userWithImages){

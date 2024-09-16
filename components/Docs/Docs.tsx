@@ -3,7 +3,7 @@ import Image from "next/image"
 
 const timelineItems = [
   {
-    date: "January 2023",
+    date: "September 2024",
     title: "Project Inception",
     description: "Identified the need for an efficient background removal tool in the market. Conducted initial market analysis and competitor research. Defined the unique value proposition: a fast, accurate, and user-friendly background removal service.",
     icon: CalendarIcon,
@@ -11,7 +11,7 @@ const timelineItems = [
     imageAlt: "Market analysis graph showing demand for background removal tools",
   },
   {
-    date: "February 2023",
+    date: "February 2024",
     title: "Research and Planning",
     description: "Dove deep into various image segmentation algorithms and machine learning models. Evaluated different tech stacks and cloud services for scalability. Created a detailed project roadmap and allocated resources for development.",
     icon: CodeIcon,
@@ -19,7 +19,7 @@ const timelineItems = [
     imageAlt: "Whiteboard with project architecture and tech stack decisions",
   },
   {
-    date: "March 2023",
+    date: "March 2024",
     title: "Prototype Development",
     description: "Developed a basic prototype using a U-Net architecture for image segmentation. Implemented initial API endpoints for image upload and processing. Achieved a baseline accuracy of 85% on test images.",
     icon: ImageIcon,
@@ -27,7 +27,7 @@ const timelineItems = [
     imageAlt: "Screenshot of the prototype UI with a sample image being processed",
   },
   {
-    date: "April 2023",
+    date: "April 2024",
     title: "Alpha Testing",
     description: "Conducted rigorous internal testing with a diverse set of images. Refined the algorithm to handle edge cases like hair and transparent objects. Improved processing speed by 40% through GPU optimization.",
     icon: BugIcon,
@@ -35,7 +35,7 @@ const timelineItems = [
     imageAlt: "Comparison of original algorithm results vs improved results after alpha testing",
   },
   {
-    date: "May 2023",
+    date: "May 2024",
     title: "UI/UX Development",
     description: "Designed and implemented a user-friendly interface for the web application. Incorporated features like drag-and-drop upload, preview mode, and batch processing. Conducted usability tests with a focus group.",
     icon: UsersIcon,
@@ -43,7 +43,7 @@ const timelineItems = [
     imageAlt: "Mockup of the user interface showing key features",
   },
   {
-    date: "June 2023",
+    date: "June 2024",
     title: "Beta Launch",
     description: "Released a beta version to 500 selected users. Implemented A/B testing for different pricing models. Collected and analyzed user feedback, achieving a satisfaction rate of 88%.",
     icon: RocketIcon,
@@ -51,7 +51,7 @@ const timelineItems = [
     imageAlt: "Graph showing user engagement and feedback during beta testing",
   },
   {
-    date: "July 2023",
+    date: "July 2024",
     title: "Performance Optimization",
     description: "Based on beta feedback, optimized the service for faster processing times. Implemented a caching system to reduce load times by 60%. Improved the algorithm's accuracy to 95% on standard test sets.",
     icon: BarChartIcon,
@@ -59,7 +59,7 @@ const timelineItems = [
     imageAlt: "Before and after comparison of processing times and accuracy improvements",
   },
   {
-    date: "August 2023",
+    date: "August 2024",
     title: "Official Launch",
     description: "Launched the background removal service to the public. Implemented a freemium model with tiered pricing. Achieved 10,000 sign-ups in the first week with a 5% conversion rate to paid plans.",
     icon: AwardIcon,

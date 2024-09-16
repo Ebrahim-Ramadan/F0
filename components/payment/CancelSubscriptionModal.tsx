@@ -7,18 +7,13 @@ import LoadingDots from '../Globals/LoadingDots'
 interface PlansProps {
   triggerClassName: string;
   triggerText: string | React.ReactNode;
+  Subscription_id: string;
 }
 
-export const CancelSubscriptionModal: React.FC<PlansProps> = ({ triggerClassName, triggerText }) => {
+export const CancelSubscriptionModal: React.FC<PlansProps> = ({Subscription_id, triggerClassName, triggerText }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setloading] = useState<boolean>(false)
 
-  const handleCancel = async () => {
-    // Logic for canceling the subscription goes here
-    // e.g., send a request to the server to cancel the subscription
-    console.log('Subscription canceled');
-    setIsOpen(false);
-  };
 
   return (
     <>
@@ -49,10 +44,15 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({ triggerClassName
 <button 
     onClick={async()=>{
         setloading(true)
-        setTimeout(() => {
-            console.log('Cancel Subscription')
-            setloading(false)
-        }, 1000);
+        const res = await fetch('/api/cancelSubscription', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ Subscription_id }),
+        });
+     console.log('res', res);
+     setloading(false)
      
     }}
     disabled={loading}

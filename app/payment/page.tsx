@@ -1,20 +1,20 @@
 import { Pay } from "@/components/payment/Pay";
-import { getUserById, getUserId, logout } from "../actions";
+import { getUser, getUserById, getUserId, logout } from "../actions";
 import { Join } from "@/components/Join";
 import PaidSuccessfully from "@/components/payment/PaidSuccessfully";
 
 
   
-   async function getUser() {
-    const userId = await getUserId();
-    if (!userId) return null;
+  //  async function getUser() {
+  //   const userId = await getUserId();
+  //   if (!userId) return null;
   
-    const user = await getUserById(userId);
-    if (user) return user;
+  //   const user = await getUserById(userId);
+  //   if (user) return user;
   
-    await logout();
-    return null;
-  }
+  //   await logout();
+  //   return null;
+  // }
 export default async function Home() {
      const user  = await getUser()
     if (!user){

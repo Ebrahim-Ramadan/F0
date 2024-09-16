@@ -2,13 +2,16 @@
 
 import { copyToClipboard } from '@/utils/utils';
 import { Bookmark, Check, Copy, Upload, XIcon } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'sonner';
 import LoadingDots from '../Globals/LoadingDots';
-import Plans from '../payment/Plans';
-
+// import Plans from '../payment/Plans';
+const Plans = dynamic(() => import('../payment/Plans'), {
+  ssr: true,
+});
 interface User {
   id: string;
   paymentDate?: string;
@@ -41,9 +44,9 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
       const file = filesArray[index];
       try {
         const formData = new FormData();
-        formData.append('image', file);
-  
-        const response = await fetch('http://localhost:3000/remove-bg', {
+        formData.append('file', file);
+        formData.append('secretToken', (process.env.NEXT_PUBLIC_SECRETTOKEN_F0_BG_REMOVAL as string));
+        const response = await fetch(process.env.NEXT_PUBLIC_URL_F0_BG_REMOVAL as string, {
           method: 'POST',
           body: formData
         });
@@ -192,7 +195,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
           </label>
         )}
        {UpgradeShow && !PaidUser && (
-  <div className={`flex items-center justify-between px-3 py-1.5 text-xs text-primary-800 md:text-sm relative rounded-b-xl bg-primary-100 md:w-1/2 w-full transition duration-300 h-fit ${UpgradeShow ? '' : 'h-0'}`}>
+  <div className={`flex items-center justify-between px-3 py-1.5 text-xs text-primary-600 md:text-sm relative rounded-b-xl bg-primary-100 md:w-1/2 w-full transition duration-300 h-fit ${UpgradeShow ? '' : 'h-0'}`}>
     <span className="flex w-full justify-between pr-1">
       Subscribe for more than 1 image per time. 
       <Plans

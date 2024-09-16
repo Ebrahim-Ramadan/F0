@@ -40,14 +40,7 @@ export default async function Home() {
             <path d="M.016 439.5s-9.5-300 434-300S882.516 20 882.516 20V0h230.004v439.5H.016Z"></path>
           </svg>
         </div>
-        {/* <div className="mb-16 flex-auto flex justify-center w-full items-center flex-col">
-          <h1 className="md:text-8xl text-4xl font-bold tracking-tight text-white">
-            F0
-          </h1>
-          <p className="mt-4 text-lg text-white">
-            here goes some docs
-          </p>
-        </div> */}
+       
         <Docs/>
       </div>
     );

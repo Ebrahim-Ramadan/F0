@@ -28,7 +28,7 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
           
           <div className="grid gap-2 w-full">
           <div className="flex justify-between items-center">
-              <h1 className="text-xl md:text-3xl font-bold tracking-tight">Subscription Plan</h1>
+              <h1 className="text-xl md:text-3xl font-bold tracking-tight">Subscription Plans</h1>
                   <button onClick={() => setIsOpen(false)} className='rounded-full bg-primary-300 hover:bg-primary-400 w-6 md:w-8 h-6 md:h-8 flex items-center justify-center'>
                   <XIcon className="w-4 md:w-6 h-4 md:h-6"/>
               </button>
@@ -97,7 +97,7 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
                    
                   </div>
                 </div>
-                <a href='/payment?plan=Go-nuts' onClick={() => setIsOpen(false)} className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full">
+                <a href='/payment?plan=GoNuts' onClick={() => setIsOpen(false)} className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full">
                   Subscribe Now
                 </a>
               </div>
@@ -122,7 +122,7 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
                     </div>
                   </div>
                 </div>
-                <a href='/payment?plan=Go-super-nuts' onClick={() => setIsOpen(false)} className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full">
+                <a href='/payment?plan=GoSuperNuts' onClick={() => setIsOpen(false)} className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full">
                   Subscribe Now
                 </a>
               </div>

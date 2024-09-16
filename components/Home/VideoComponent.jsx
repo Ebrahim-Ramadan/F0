@@ -50,7 +50,7 @@ const VideoComponent = ({loggedIN}) => {
               Remove your background within milliseconds.
               </p>
               <button className="mt-2 md:mt-4 flex justify-end w-full">
-                <Link href={loggedIN?`/images`:'/join'} className='px-5 py-2 md:px-8 md:py-3 bg-primary-950 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-900 transition-all duration-300'>
+                <Link href={loggedIN?`/images`:'/join'} className='shadow-sm shadow-white/50 px-5 py-2 md:px-8 md:py-3 bg-primary-950 text-lg md:text-xl text-black font-semibold rounded-3xl mt-4 hover:bg-primary-900 transition-all duration-300'>
                   {loggedIN ?
                 'Try Now':
                 'Sign Up'  

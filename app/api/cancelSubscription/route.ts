@@ -1,7 +1,62 @@
 import { NextResponse } from "next/server";
 
-export async function POST(req:Request) {
-    console.log('req', await req.json())
+export async function POST(req: Request) {
+  try {
+    const { Subscription_id } = await req.json();
+    console.log('Subscription_id', Subscription_id);
+
+    if (!Subscription_id) {
+      return new Response('Invalid or missing Subscription_id', { status: 400 });
+    }
+ // Fetch authentication token
+    const authHeaders = new Headers();
+    authHeaders.append("Content-Type", "application/json");
+
+    const authBody = JSON.stringify({
+        "api_key": process.env.PAYMOB_API_KEY, // Ensure this is set in your environment
+    });
+
+    const authResponse = await fetch("https://accept.paymob.com/api/auth/tokens", {
+        method: 'POST',
+        headers: authHeaders,
+        body: authBody,
+    });
     
-return NextResponse.json({ message: 'Subscription Cancelled' })
+    const authResult = await authResponse.json();
+
+    if (!authResult.token) {
+    throw new Error('Failed to obtain auth token');
+    }
+
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', `Bearer ${authResult.token}`);
+    myHeaders.append('Content-Type', 'application/json'); // Optional, if you need to specify content type
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      redirect: 'follow',
+    };
+
+    const response = await fetch(
+      `https://accept.paymob.com/api/acceptance/subscriptions/${Subscription_id}/cancel`,
+    //   @ts-ignore
+      requestOptions
+    );
+
+    const cancelSubResult = await response.json();
+    console.log('cancelSubResult', cancelSubResult);
+    if (response.status === 404) {
+        return NextResponse.json({ error: 'Subscription not found', details: cancelSubResult }, { status: 404 });
+      }
+    if (response.ok) {
+      return NextResponse.json({ message: 'Subscription Cancelled Successfully' }, { status: 200 });
+    } else {
+      return NextResponse.json({ error: 'Failed to cancel subscription', details: cancelSubResult }, { status: response.status });
+    }
+
+  } catch (error) {
+    console.error('Error Canceling Subscription:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
 }

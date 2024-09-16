@@ -1,115 +1,82 @@
-
 import { NextResponse } from 'next/server';
 
-export async function POST(req:Request) {
+// Assume you have these IDs stored somewhere, like in environment variables or a database
+const SUBSCRIPTION_PLAN_IDS = {
+  Hoppy: process.env.HoppyPlan_Sub_Plan_ID,
+  GoNuts: process.env.GoNuts_Sub_Plan_ID,
+  GoSuperNuts: process.env.GoSuperNuts_Sub_Plan_ID,
+};
+
+const now = new Date();
+const oneDayFromNow = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Add 1 day in milliseconds
+
+// Format as 'YYYY-MM-DD'
+const year = oneDayFromNow.getFullYear();
+const month = String(oneDayFromNow.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+const day = String(oneDayFromNow.getDate()).padStart(2, '0');
+
+const subscriptionStartDate = `${year}-${month}-${day}`;
+
+export async function POST(req: Request) {
   if (req.method !== 'POST') {
     return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
   }
-  const {paymentMethod, username, userID,plan, amount} = await req.json()
-  console.log('plan', plan);
-  // console.log('username', username);
-  // console.log('userID', userID);
+  const { paymentMethod, username, userID, plan, amount } = await req.json();
+  console.log( paymentMethod, username, userID, plan, amount);
   
-  if(!paymentMethod){
+  if (!paymentMethod) {
     return NextResponse.json({ error: 'paymentMethod not valid' }, { status: 405 });
   }
+
+  // Get the correct subscription plan ID based on the selected plan
+  const subscription_id = SUBSCRIPTION_PLAN_IDS[plan as keyof typeof SUBSCRIPTION_PLAN_IDS];
+  console.log('subscription_id', subscription_id);
+  
+  if (!subscription_id) {
+    return NextResponse.json({ error: 'Invalid subscription plan' }, { status: 400 });
+  }
+
   try {
-    // Fetch authentication token
-    const authHeaders = new Headers();
-    authHeaders.append("Content-Type", "application/json");
-
-    const authBody = JSON.stringify({
-      "api_key": process.env.PAYMOB_API_KEY, // Ensure this is set in your environment
-    });
-
-    const authResponse = await fetch("https://accept.paymob.com/api/auth/tokens", {
-      method: 'POST',
-      headers: authHeaders,
-      body: authBody,
-    });
-    
-    const authResult = await authResponse.json();
-    // console.log('authResult', authResult)
-
-    if (!authResult.token) {
-      throw new Error('Failed to obtain auth token');
-    }
-
-    // Create Subscription Plan
-    const subscriptionHeaders = new Headers();
-    subscriptionHeaders.append("Content-Type", "application/json");
-    subscriptionHeaders.append("Authorization", `Bearer ${authResult.token}`);
-
-    const subscriptionBody = JSON.stringify({
-      "frequency": 7, // Example frequency
-      "name": "Testplan 3",
-      "reminder_days": null,
-      "retrial_days": null,
-      "plan_type": "rent",
-      "number_of_deductions": null,
-      "amount_cents": Number(amount),
-      "use_transaction_amount": true,
-      "is_active": true,
-      "integration": Number(paymentMethod), // Your Moto Integration ID
-      "fee": null
-    });
-
-    const subscriptionResponse = await fetch("https://accept.paymob.com/api/acceptance/subscription-plans", {
-      method: 'POST',
-      headers: subscriptionHeaders,
-      body: subscriptionBody,
-    });
-
-    const subscriptionResult = await subscriptionResponse.json();
-    // console.log('subscriptionResult', subscriptionResult)
-    
-    if (!subscriptionResult.id) {
-      throw new Error('Failed to create subscription plan');
-    }
-
     const paymentLinkHeaders = new Headers();
-    paymentLinkHeaders.append("Authorization", `Bearer ${process.env.PAYMOB_SECRET_KEY}`); 
+    paymentLinkHeaders.append("Authorization", `Bearer ${process.env.PAYMOB_SECRET_KEY}`);
     paymentLinkHeaders.append("Content-Type", "application/json");
 
     const paymentLinkBody = JSON.stringify({
-      "amount":  Number(amount),
+      "amount": Number(amount),
       "currency": "EGP",
       "payment_methods": [
-        Number(paymentMethod), // Your Moto Integration ID
+        Number(paymentMethod),
         "card",
       ],
-      "subscription_plan_id": subscriptionResult.id, 
-      "subscription_start_date": "2024-10-20",
+      "subscription_plan_id": Number(subscription_id), // Use the correct subscription plan ID
+      "subscription_start_date": subscriptionStartDate, // Add 1 hour in milliseconds Format as 'YYYY-MM-DD'
       "items": [
         {
-          "name": "Item name 1",
-          "amount":  Number(amount),
-          "description": "Watch",
+          "name": `${plan} Subscription`,
+          "amount": Number(amount),
+          "description": `${plan} Plan Subscription`,
           "quantity": 1
         }
       ],
       "billing_data": {
-        "apartment": "6",
+        "apartment": "N/A",
         "first_name": userID,
         "last_name": plan,
-        "street": "938, Al-Jadeed Bldg",
-        "building": "939",
-        "phone_number": "+96824480228",
+        "street": "N/A",
+        "building": "N/A",
+        "phone_number": "+20000000000", // You might want to collect this from the user
         "country": "EGYPT",
         "email": username,
-        "floor": "1",
-        "state": "Alkhuwair"
+        "floor": "N/A",
+        "state": "N/A"
       },
       "customer": {
-        "first_name": "Ammar",
-        "last_name": "Sadek",
-        "email": "AmmarSadek@gmail.com",
-        "extras": {
-          "re": "22"
-        }
+        "first_name": userID,
+        "last_name": plan,
+        "email": username,
       },
       "extras": {
-        "ee": 22
+        "plan_type": plan
       }
     });
 
@@ -120,7 +87,7 @@ export async function POST(req:Request) {
     });
 
     const paymentLinkResult = await paymentLinkResponse.json();
-    // console.log('paymentLinkResult', paymentLinkResult);
+    console.log('paymentLinkResult', paymentLinkResult);
     
     return NextResponse.json({ paymentLinkResult }, { status: 200 });
 

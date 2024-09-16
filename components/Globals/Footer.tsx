@@ -17,25 +17,24 @@ export const Footer = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (subscribed) return 
+    if (subscribed) return;
+    const res =  fetch('/api/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+      toast.promise(res, {
+        loading: 'Subscriping...',
+        success: 'Subscribed successfully',
+        error: 'Error while signing out',
+      });
 
     try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      })
-
-      if (res.ok) {
-        localStorage.setItem('subscribed', 'true')
-        setSubscribed(true)
-        toast.success('Subscribed successfully')
-      } else {
-        toast.error('Failed to subscribe')
-      }
+      await res;
+      localStorage.setItem('subscribed', 'true')
+      setSubscribed(true)
     } catch (error) {
       console.error('Error subscribing:', error)
       toast.error('An error occurred')
@@ -48,7 +47,7 @@ export const Footer = () => {
         <div className="w-full max-w-md  md:p-6 space-y-6">
         
           <div className="text-center space-y-2">
-            <h2 className="text-2xl font-bold text-primary-950">F0 Newsletter</h2>
+            <h2 className="text-2xl font-bold text-primary-950">F0 NEWSLETTER</h2>
             <p className="text-sm text-primary-700">
               A weekly newsletter to help you be better at things tech.
             </p>

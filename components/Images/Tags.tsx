@@ -1,5 +1,5 @@
 'use client'
-import { XIcon } from "lucide-react"
+import { Tag, XIcon } from "lucide-react"
 import { Dialog } from '@headlessui/react'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from "sonner"
@@ -31,13 +31,13 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
                 existingTags[tagIndex] = {
                     [tagName.trim()]: selectedImageIds
                 };
-                toast.success('Tag ' + tagName + ' updated successfully.');
+                toast.success('Tag ' + tagName + ' updated.');
             } else {
                 const newTag = {
                     [tagName.trim()]: selectedImageIds
                 };
                 existingTags.push(newTag);
-                toast.success('Tag ' + tagName + ' added successfully.');
+                toast.success('Tag ' + tagName + ' added.');
             }
 
             try {
@@ -80,12 +80,13 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
     return (
         <>
             <button
-                className={`font-bold text-center block px-4 py-2 text-sm rounded-3xl text-white ${selectedImageIds.length === 0 ? 'bg-primary-200/50' : 'bg-primary-300 hover:bg-primary-400'}`}
+                className={`flex items-center gap-2 font-bold text-center block px-4 py-2 text-xs md:text-sm rounded-3xl text-white ${selectedImageIds.length === 0 ? 'bg-primary-200/50' : 'bg-primary-300 hover:bg-primary-400'}`}
                 role="button"
                 disabled={selectedImageIds.length === 0}
                 id="create-tag"
                 onClick={() => setIsOpen(true)}
             >
+                <Tag  size='12' className='h-4'/>
                 CREATE TAG
             </button>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="fixed inset-0 flex justify-center items-center z-50 px-2">
@@ -93,7 +94,11 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
 
                 <div ref={dialogRef} className="border-2 border-primary-200 relative overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-black/80 backdrop-blur-sm grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl">
                     <div className="flex justify-between items-center">
-                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight">CREATE A NEW TAG</h1>
+                        <h1 className="flex flex-row items-center gap-2 md:gap-4 text-xl md:text-3xl font-bold tracking-tight">
+                <Tag size='20'/>
+                CREATE A NEW TAG
+                        
+                        </h1>
                         <button onClick={() => setIsOpen(false)} className='rounded-full bg-primary-300 hover:bg-primary-400 w-8 h-8 flex items-center justify-center'>
                             <XIcon size='16'/>
                         </button>

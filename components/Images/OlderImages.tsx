@@ -58,8 +58,12 @@ export const OlderImages = ({ user }: { user: UserType }) => {
   };
 
   const handleCopy = (id: string, url: string): void => {
-    copyToClipboard(url);
     setCopiedId(id);
+    toast.promise(copyToClipboard(url), {
+      loading: 'Copying...',
+      success: 'Image Copied to clipboard',
+      error: 'Error while copying',
+    });
     setTimeout(() => setCopiedId(null), 2000);
   };
 

@@ -6,13 +6,15 @@ import React from 'react'
 export const HeroSections = () => {
 
   const images = [
-    { src: '/examples/1-no-bg.jpg', alt: 'Pitching', likes: 466 },
     { src: '/examples/2-no-bg.jpg', alt: 'Pitching', likes: 223 },
-    { src: '/examples/3-no-bg.jpg', alt: 'Pitching', likes: 656 },
     { src: '/examples/9-no-bg.jpg', alt: 'Pitching', likes: 631 },
+
+    { src: '/examples/3-no-bg.jpg', alt: 'Pitching', likes: 656 },
     { src: '/examples/4-no-bg.jpg', alt: 'Pitching', likes: 647 },
-    // { src: '/examples/10-no-bg.jpg', alt: 'Pitching', likes: 974 },
     { src: '/examples/6-no-bg.jpg', alt: 'Pitching', likes: 870 },
+
+    { src: '/examples/1-no-bg.webp', alt: 'Pitching', likes: 466 },
+
     { src: '/examples/7-no-bg.jpg', alt: 'Pitching', likes: 214 },
   ];
   const [selectedColors, setSelectedColors] = React.useState(Array(images.length).fill('bg-gradient-to-b from-primary-100 to-primary-50'));
@@ -44,7 +46,7 @@ export const HeroSections = () => {
             src={image.src}
           />
           
-          <div className='absolute bottom-8 left-2 flex flex-row items-center gap-1'>
+          <div className='absolute bottom-6 left-2 flex flex-row items-center gap-1'>
           <div className="flex justify-start gap-2 ">
                       {bgOptions.map((color, colorIndex) => (
                         <div

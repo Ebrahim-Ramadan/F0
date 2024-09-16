@@ -71,11 +71,11 @@ Start
       <div className="z-30 text-center bg-primary-50 bg-opacity-20 backdrop-blur-2xl flex space-y-4 flex-col justify-center items-center h-full w-full px-4 md:px-8 py-12 ">
         <h1 className="text-4xl md:text-7xl font-bold text-white ">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-900 to-primary-950 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
-            1145 people joined
+            1145 PEOPLE JOINED
           </span>
         </h1>
         <Link href={`${userId? 'images':'join'}`} className="bg-white text-blue-900 px-3 py-1.5 md:px-6 md:py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors duration-300">
-          {userId ? 'Get Started' : 'Join Now'}
+          {userId ? 'GET STARTED' : 'JOIN NOW'}
         </Link>
       </div>
 

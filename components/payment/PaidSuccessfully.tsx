@@ -8,6 +8,7 @@ interface UserType {
   username: string;
   paymentDate: Date;
   planName: string;
+  SubscriptionID: string; 
 }
 
 function addMonth(date: Date): Date {
@@ -34,7 +35,7 @@ export function PaidSuccessfully({ user }: { user: UserType }) {
     <div className="mx-auto max-w-3xl md:py-4 md:px-8 px-2 py-4 border-2 backdrop-blur-3xl rounded-xl border-primary-100 bg-primary-100/50 flex flex-col items-center justify-center gap-4 ">
       <div className='relative'>
         <p className='text-2xl md:text-4xl border-2 border-primary-300 border-dashed px-4 py-2 text-center rounded-sm'>
-          {user.planName} Plan
+          MY PLAN
         </p>
         <div className='absolute -top-2 -right-1 backdrop-blur-3xl rounded-xl'>
           <Plans triggerClassName='bg-blue-500 text-white p-0.5 rounded-full w-6 h-6 flex items-center justify-center' triggerText='?' />
@@ -61,6 +62,7 @@ export function PaidSuccessfully({ user }: { user: UserType }) {
         </div>
         <div className="flex justify-end py-4">
     <CancelSubscriptionModal
+    Subscription_id={user.SubscriptionID}
         triggerClassName='flex items-center  hover:bg-red-600 bg-red-500 gap-2 px-2 py-2 rounded-xl transition duration-300 md:px-4 disabled:text-primary-700 disabled:bg-primary-100'
         triggerText='Cancel Subscription'
     />

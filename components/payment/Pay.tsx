@@ -6,16 +6,16 @@ import {  CreditCardIcon,  CheckIcon, ArrowRight } from 'lucide-react';
 import LoadingDots from '../Globals/LoadingDots';
 import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 const Plans = dynamic(() => import('./Plans'), {
   ssr: true,
 });
-const plans = [{'Hoppy':'90'}, {'Go-nuts':'135'}, {'Go-super-nuts':'600'}];
+const plans = [{'Hoppy':'90'}, {'GoNuts':'135'}, {'GoSuperNuts':'600'}];
 interface UserType {
   id: string;
-username:string
+  username:string
 }
 const paymentOptions = [
-  // { value: 'movie-wallet', label: 'Mobile Wallet', icon: WalletIcon, envVar: process.env.NEXT_PUBLIC_paymob_mobile_wallet },
   { value: 'card', label: 'Credit/Debit Card', icon: CreditCardIcon, envVar: process.env.NEXT_PUBLIC_paymob_online_card }
 ];
 
@@ -43,7 +43,7 @@ export function Pay({user}: {user: UserType}) {
 
     setLoading(true);
     if (paymentMethod) {
-      console.log(`Proceeding to payment with ${paymentMethod}`);
+
       const response = await fetch('/api/getPaymentLink', {
         method: 'POST',
         headers: {
@@ -53,9 +53,11 @@ export function Pay({user}: {user: UserType}) {
           username:user.username, 
           userID:user.id, 
           // @ts-ignore
+          paymentMethod: process.env.NEXT_PUBLIC_paymob_online_card,
+          // @ts-ignore
           plan:plans.find(plan => plan.hasOwnProperty(passedPlan)) ? passedPlan?.replace(/-/g, ' ') : 'Hoppy',
           // @ts-ignore
-          amount : plans.find(plan => passedPlan in plan)[passedPlan]*100}),
+          amount : plans.find(plan => passedPlan in plan)?.[passedPlan] * 100 || 9000}),
       });
       const { paymentLinkResult } = await response.json();
 
@@ -136,10 +138,10 @@ export function Pay({user}: {user: UserType}) {
   </div>
 
   <div className='max-w-md mx-auto py-2 mt-4'>
-<a href='/images' className='flex flex-row gap-2 items-center text-center w-full py-2 px-4 rounded-xl text-white font-semibold bg-primary-100 hover:bg-primary-200 text-sm md:text-base'>
+<Link href='/images' className='group flex flex-row gap-2 items-center text-center w-full py-2 px-4 rounded-3xl text-white font-semibold bg-primary-200 hover:bg-primary-300/70 text-sm md:text-base transition-all duration-300 '>
 Proceed without subscription
-<ArrowRight size='16'/>
-</a>
+<ArrowRight size='16' className='text-primary-700 group-hover:text-primary-800 transition-all duration-300 '/>
+</Link>
   </div>
     </div>
   );

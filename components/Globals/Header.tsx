@@ -56,11 +56,11 @@ export const Header: React.FC<{ user: User }> = ({user}) => {
         height={40}
         src={user?.pic ? user?.pic : 'https://placewaifu.com/image/50'}
         alt="user"
-        className="rounded-full bg-neutral-500 border-2 border-primary-200"
+        className="rounded-full bg-neutral-500 border border-primary-600"
       />
     </MenuButton>
 
-    <MenuItems className="flex gap-2 flex-col [&>*]:w-full absolute right-0 mt-2 w-56 md:w-72 bg-white text-black  rounded-3xl p-2 shadow-lg z-50">
+    <MenuItems className="flex gap-2 flex-col [&>*]:w-full absolute right-0 mt-2 w-56 md:w-72 bg-white text-black  rounded-3xl p-2 shadow-lg z-50 shadow-md shadow-black/50">
       <MenuItem as='div' className={`flex rounded-3xl justify-between items-center p-2 md:p-4 w-full truncate bg-primary-950`}>
       <div className='flex items-center gap-2'>
             <Image

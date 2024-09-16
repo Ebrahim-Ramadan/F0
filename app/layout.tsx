@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from 'sonner'
-import { getUserById, getUserId, logout } from "./actions";
+import { getUser, getUserById, getUserId, logout } from "./actions";
 import { Header } from "@/components/Globals/Header";
 import { Footer } from "@/components/Globals/Footer";
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 
   
-   async function getUser() {
-    const userId = await getUserId();
-    if (!userId) return null;
+  //  async function getUser() {
+  //   const userId = await getUserId();
+  //   if (!userId) return null;
   
-    const user = await getUserById(userId);
-    if (user) return user;
+  //   const user = await getUserById(userId);
+  //   if (user) return user;
   
-    await logout();
-    return null;
-  }
+  //   await logout();
+  //   return null;
+  // }
 
 export const metadata: Metadata = {
   // title: "F0",

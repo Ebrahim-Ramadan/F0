@@ -1,4 +1,4 @@
-import { GithubIcon, Star, TwitterIcon } from 'lucide-react'
+import { GithubIcon,  TwitterIcon } from 'lucide-react'
 import Link from 'next/link'
 
 export const FooterFollowUp = () => {
@@ -8,9 +8,8 @@ export const FooterFollowUp = () => {
     <div className="px-2 py-4 md:px-4 border-t border-primary-300 flex w-full md:justify-between justify-center flex-col md:flex-row items-center">
       <p className="text-sm text-primary-600">&copy; 2025 F0. All rights reserved.</p>
       <div className="flex space-x-4 mt-4 sm:mt-0">
-        <Link
-        prefetch={true}
-        href="docs" className="text-sm text-primary-600 hover:text-blue-500 transition-colors">Docs</Link>
+        <a
+        href="docs" className="text-sm text-primary-600 hover:text-blue-500 transition-colors">Docs</a>
         <Link
         prefetch={true}
         href="#" className="text-sm text-primary-600 hover:text-blue-500 transition-colors">Privacy</Link>
