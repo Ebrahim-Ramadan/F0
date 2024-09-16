@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 import {  CreditCardIcon,  CheckIcon, ArrowRight } from 'lucide-react';
-// import Plans from './Plans';
 import LoadingDots from '../Globals/LoadingDots';
-import { useRouter, useSearchParams } from 'next/navigation';
+import {  useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 const Plans = dynamic(() => import('./Plans'), {
@@ -150,17 +149,3 @@ Proceed without subscription
 export default Pay;
 
 
-export const ClientComponentSuccessfulPayment = () => {
-  const router = useRouter()
-
-const handleGetStarted = () => {
-  router.push('/images')
-}
-return (
-  <div className='flex justify-center items-center'>
-        <button className="bg-primary-950 text-black px-4 py-2 rounded-3xl text-base md:text-lg font-bold" onClick={handleGetStarted}>
-          Get Started
-        </button>
-      </div>
-)
-}

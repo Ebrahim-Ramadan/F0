@@ -2,6 +2,7 @@ import {  ArrowRightIcon,  Plus,  StarsIcon  } from 'lucide-react';
 import {  getUserId } from './actions';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { Bento } from '@/components/Home/Bento';
 const HeroSections = dynamic(() => import('@/components/Home/HeroSections'), {
   ssr: false,
 });
@@ -82,6 +83,7 @@ Start
     </div>
 </div>
       </section>
+      <Bento/>
     </div>
   );
 }
