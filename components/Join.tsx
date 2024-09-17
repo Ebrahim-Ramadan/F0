@@ -32,7 +32,7 @@ export const Join = () => {
     
           if (!res.ok) {
             const errMessage = await res.json();
-            toast.error(errMessage.message)
+            toast.error(errMessage.message+' try better internet connectio')
             return;
           }
           const userData = await res.json();
@@ -54,10 +54,9 @@ export const Join = () => {
       
   return (
     <div className='min-h-screen flex flex-col items-center justify-center gap-8 md:p-0 p-4 w-full'>
-
         <div className='font-bold text-3xl md:text-4xl'>Join Now</div>
         <div className='flex flex-col items-center justify-center w-full space-y-2'>
-        <a  className='w-full md:w-fit justify-center flex flex-row items-center bg-primary-100 hover:bg-primary-300 transition duration-300 font-semibold rounded-full px-4 py-2 border-2 border-primary-300 gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
+        <a  className='w-full md:w-fit justify-center flex flex-row items-center bg-primary-300 hover:bg-primary-200 transition duration-300 font-semibold rounded-full px-4 py-2 border-2 border-primary-300 gap-2' href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`}>
           Sign In with Github
           <Github size='18'/>
             </a>

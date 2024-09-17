@@ -5,7 +5,7 @@ export const FooterFollowUp = () => {
   return (
     <div className="bg-gradient-to-b from-primary-100 to-primary-200 w-full">
     
-    <div className="px-2 py-4 md:px-4 border-t border-primary-300 flex w-full md:justify-between justify-center flex-col md:flex-row items-center">
+    <div className="px-2  py-4 md:px-8 border-t border-primary-300 flex w-full md:justify-between justify-center flex-col md:flex-row items-center">
       <p className="text-sm text-primary-600">&copy; 2025 F0. All rights reserved.</p>
       <div className="flex space-x-4 mt-4 sm:mt-0">
         <a

@@ -1,4 +1,4 @@
-import { createImage } from "@/app/actions";
+import { createImage, setHavingTriedOnce } from "@/app/actions";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import ImageKit from 'imagekit';
@@ -8,8 +8,12 @@ interface ResultType {
 
 
 export async function POST(req: Request) {
+  const { image, userId } = await req.json();
+
   try {
-    const { image, userId } = await req.json();
+    const UpdatedUserWithHavingTriedOnce = await setHavingTriedOnce(userId);
+    console.log('UpdatedUserWithHavingTriedOnce', UpdatedUserWithHavingTriedOnce);
+    revalidatePath('/images');
     
     const imageBuffer = Buffer.from(image.split(',')[1], 'base64');
     const imagekit = new ImageKit({
@@ -30,6 +34,7 @@ export async function POST(req: Request) {
         });
       });
     };
+
 
     
     const result:ResultType  = await uploadImage(imageBuffer);

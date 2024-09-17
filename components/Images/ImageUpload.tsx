@@ -15,6 +15,7 @@ const Plans = dynamic(() => import('../payment/Plans'), {
 interface User {
   id: string;
   paymentDate?: string;
+  havingtriedOnce:boolean;
 }
 const urlOption1 = process.env.NEXT_PUBLIC_URL_F0_BG_REMOVAL_1 as string;
 const urlOption2 = process.env.NEXT_PUBLIC_URL_F0_BG_REMOVAL_2 as string;
@@ -38,6 +39,10 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
   const [UpgradeShow, setUpgradeShow] = React.useState<boolean >(true);
 
   const handleFileUpload = async (files: FileList | File) => {
+    if(user.havingtriedOnce && user.paymentDate == null){
+      toast.error('You have already tried to upload images twice, please upgrade your plan to upload more than 1 image at once');
+      return;
+    }
     setIsProcessing(true);
     setError(null);
     const filesArray = files instanceof FileList ? Array.from(files) : [files];
@@ -69,7 +74,6 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
   
         setProcessedImages(prev => [...prev, newImage]);
         setIsProcessing(false);
-  
         await uploadImageToServer(blob, index);
         router.refresh();
         setProcessedImages(prev => 
@@ -102,7 +106,9 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
       if (PaidUser) {
         handleFileUpload(event.dataTransfer.files);
       } else {
-        handleFileUpload(event.dataTransfer.files[0]);
+        if(user.havingtriedOnce){
+          handleFileUpload(event.dataTransfer.files[0]);
+        }
       }
     }
   };
@@ -275,3 +281,5 @@ const blobToBase64 = (blob: Blob): Promise<string> => {
     reader.readAsDataURL(blob);
   });
 };
+
+

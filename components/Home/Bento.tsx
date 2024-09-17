@@ -9,7 +9,6 @@ export const Bento = () => {
 <div className="bg-[#f5f5f5] rounded-[24px] overflow-hidden relative cursor-pointer sm:h-full h-[16rem]">
     <div className="relative z-10 p-8 grid justify-between">
         <h3 className="text-xl font-bold text-darkgray mb-2 text-white ">Limitless</h3>
-        {/* <img alt="Integrations" loading="lazy" width="2648" height="456" decoding="async" data-nimg="1" className="w-full h-full absolute top-24 object-cover" /> */}
     </div>
     <img alt="ipad" loading="lazy" width="5548" height="2520" decoding="async" data-nimg="1" className="transparent h-full inset-0 absolute z-0 object-cover undefined"  src='/bento/bento-01.jpg'/>
     </div>

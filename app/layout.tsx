@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from 'sonner'
-import { getUser, getUserById, getUserId, logout } from "./actions";
+import {  getUser, getUserById, getUserId, logout } from "./actions";
 import { Header } from "@/components/Globals/Header";
 import { Footer } from "@/components/Globals/Footer";
 import { GeistSans } from 'geist/font/sans';
@@ -26,7 +26,6 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/favicon.ico",
-    // "apple-touch-icon": "/favicon.ico",
   },
   title: {
     default: 'F0',

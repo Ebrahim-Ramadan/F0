@@ -3,6 +3,8 @@ import {  getUserId } from './actions';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { Bento } from '@/components/Home/Bento';
+import { Suspense } from 'react';
+import LoadingDots from '@/components/Globals/LoadingDots';
 const HeroSections = dynamic(() => import('@/components/Home/HeroSections'), {
   ssr: false,
 });
@@ -41,8 +43,8 @@ export default async function Home() {
         
       </div>
       <Link href={`/${userId? 'images':'join'}`} className='flex gap-2 flex-row items-center text-primary-800 hover:text-primary-900 transition-colors duration-300 cursor-pointer'>
-Start 
-<ArrowRightIcon size='16' className='w-4 h-4'/>
+        Go 
+        <ArrowRightIcon size='16' className='w-4 h-4'/>
         </Link>
       </div>
 
@@ -50,7 +52,14 @@ Start
 
       <div className="bg-gradient-to-b from-black to-primary-50  h-1/2 w-full">
     <div className="w-full p-2 md:p-4">
-     <HeroSections/>
+      <Suspense fallback={
+        <div className='min-h-screen w-full flex-justify-center items-center'>
+          <LoadingDots/>
+        </div>
+      }>
+      <HeroSections/>
+
+      </Suspense>
     </div>
   </div>
   <div className="blur-container relative w-full h-[40vh] flex items-center justify-center bg-gradient-to-b from-primary-50 to-primary-100">

@@ -11,7 +11,7 @@ export default function SponserComponent() {
   const [redirectTimeout, setRedirectTimeout] = useState<NodeJS.Timeout | null>(null)
 
   const createHeart = useCallback(() => {
-    if (hearts.length >= 4) return // Limit to 4 hearts
+    if (hearts.length >= 6) return // Limit to 4 hearts
 
     const id = Date.now()
     const x = Math.random() * 40 - 20 // Random x position between -20 and 20
@@ -33,7 +33,7 @@ export default function SponserComponent() {
 
   const handleMouseEnter = () => {
     triggerHearts()
-    timeoutRef.current = setInterval(triggerHearts, 1000)
+    timeoutRef.current = setInterval(triggerHearts, 500)
   }
 
   const handleMouseLeave = () => {

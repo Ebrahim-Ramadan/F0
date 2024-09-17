@@ -57,7 +57,10 @@ export async function GET(req: Request) {
         // @ts-ignore
         await createUserSession(result.id, false)
         revalidatePath('/')
-        const redirectUrl = new URL('/', url.origin); // Redirect to home page
+        const redirectUrl = process.env.NODE_ENV === 'development'
+        ? new URL('http://localhost:3001/')
+        : new URL('/', url.origin); 
+
         return NextResponse.redirect(redirectUrl); // Redirect response
       } catch (error) {
         // Handle any unexpected errors

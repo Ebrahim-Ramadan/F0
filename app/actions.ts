@@ -261,3 +261,25 @@ export const updateUserPayment = async (
     return { success: false, error: "Failed to update payment details" };
   }
 };
+
+
+export const setHavingTriedOnce = async (userId: number): Promise<{ success: boolean } | { error: string }> => {
+  try {
+    // Perform the update operation
+    const result = await db
+      .update(users)
+      .set({ havingtriedOnce: true })
+      .where(eq(users.id, userId))
+      .returning();
+
+    // Check if any rows were affected
+    if (result.length === 0) {
+      return { error: "User not found or update failed" };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return { error: "Failed to update user" };
+  }
+};
