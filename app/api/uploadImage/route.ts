@@ -1,4 +1,4 @@
-import { createImage, setHavingTriedOnce } from "@/app/actions";
+import { createImage, incrementTrialCount } from "@/app/actions";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import ImageKit from 'imagekit';
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   const { image, userId } = await req.json();
 
   try {
-    const UpdatedUserWithHavingTriedOnce = await setHavingTriedOnce(userId);
+    const UpdatedUserWithHavingTriedOnce = await incrementTrialCount(userId);
     console.log('UpdatedUserWithHavingTriedOnce', UpdatedUserWithHavingTriedOnce);
     revalidatePath('/images');
     

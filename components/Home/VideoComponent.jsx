@@ -68,7 +68,7 @@ const VideoComponent = ({loggedIN}) => {
       <>
         <video 
           ref={videoRef}
-          autoPlay 
+          // autoPlay 
           loop 
           muted={isMuted}
           onCanPlay={handleCanPlay}

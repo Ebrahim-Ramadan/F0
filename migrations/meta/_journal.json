@@ -5,71 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1725859337253,
-      "tag": "0000_curly_oracle",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1725860096021,
-      "tag": "0001_milky_vulture",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1725995456153,
-      "tag": "0002_jazzy_the_captain",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1726031467792,
-      "tag": "0003_handy_sway",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1726218377036,
-      "tag": "0004_clever_tomorrow_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1726312548158,
-      "tag": "0005_nosy_excalibur",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1726409773111,
-      "tag": "0006_small_robin_chapel",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1726410117370,
-      "tag": "0007_superb_george_stacy",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1726414319870,
-      "tag": "0008_icy_mauler",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "7",
-      "when": 1726585191704,
-      "tag": "0009_brown_darkhawk",
+      "when": 1726752880899,
+      "tag": "0000_workable_blacklash",
       "breakpoints": true
     }
   ]

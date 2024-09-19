@@ -9,7 +9,7 @@ export const users = pgTable("users", {
   paymentDate: timestamp("payment_date"), 
   SubscriptionID: text("subscription_id"),
   planName: text("planName"),
-  havingtriedOnce:boolean("havingtriedOnce").default(false),
+  trialCount: integer("trial_count").default(0),
 });
 
 

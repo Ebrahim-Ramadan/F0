@@ -5,15 +5,15 @@ import React from 'react'
 
 export const HeroSections = () => {
   const images = [
-    { src: '/examples/2-no-bg.jpg', alt: 'Pitching', likes: 223 },
-    { src: '/examples/9-no-bg.jpg', alt: 'Pitching', likes: 631 },
-    { src: '/examples/3-no-bg.jpg', alt: 'Pitching', likes: 656 },
-    { src: '/examples/4-no-bg.jpg', alt: 'Pitching', likes: 647 },
-    { src: '/examples/6-no-bg.jpg', alt: 'Pitching', likes: 870 },
-    { src: '/examples/1-no-bg.webp', alt: 'Pitching', likes: 466 },
-    { src: '/examples/7-no-bg.jpg', alt: 'Pitching', likes: 214 },
+    { src: '/examples/2-no-bg.jpg', alt: 'Pitching', likes: 223 , defaultColor:'bg-blue-500'},
+    { src: '/examples/9-no-bg.jpg', alt: 'Pitching', likes: 631 , defaultColor:'bg-purple-500'},
+    { src: '/examples/3-no-bg.jpg', alt: 'Pitching', likes: 656 , defaultColor:'bg-blue-500'},
+    { src: '/examples/4-no-bg.jpg', alt: 'Pitching', likes: 647 , defaultColor:'bg-purple-500'},
+    { src: '/examples/6-no-bg.jpg', alt: 'Pitching', likes: 870 , defaultColor:'bg-yellow-500'},
+    { src: '/examples/1-no-bg.webp', alt: 'Pitching', likes: 466 , defaultColor:'bg-yellow-500'},
+    { src: '/examples/7-no-bg.jpg', alt: 'Pitching', likes: 214 , defaultColor:'bg-purple-500'},
   ];
-  const [selectedColors, setSelectedColors] = React.useState(Array(images.length).fill('bg-gradient-to-b from-primary-100 to-primary-50'));
+  const [selectedColors, setSelectedColors] = React.useState(Array(images.length).fill(''));
   
   // Function to handle color selection
   const handleColorChange = (index: number, color: string) => {
@@ -37,7 +37,7 @@ export const HeroSections = () => {
         >
           <div className="flex flex-col relative">
             <Image
-              className={`rounded-lg transition-all duration-500 ease-in-out ${selectedColors[index]}`}
+              className={`rounded-lg transition-all hover:bg-opacity-80 ${!selectedColors[index] && image.defaultColor} duration-500 ease-in-out ${selectedColors[index]}`}
               width={1000}
               height={1000}
               alt={image.alt}
@@ -45,11 +45,11 @@ export const HeroSections = () => {
             />
             
             <div className='absolute bottom-6 left-2 flex flex-row items-center gap-1'>
-              <div className="flex justify-start gap-2 ">
+              <div className="flex justify-start gap-1 md:gap-2 ">
                 {bgOptions.map((color, colorIndex) => (
                   <div
                     key={colorIndex}
-                    className={`w-4 h-4 md:w-6 md:h-6 rounded-full cursor-pointer ${selectedColors[index] === color ? 'border-primary-900 scale-110': 'border-primary-500'} ${color} border-2 transition-all duration-500 ease-in-out`}
+                    className={`w-3 h-3 md:w-5 md:h-5 rounded-full cursor-pointer ${selectedColors[index] === color ? 'border-primary-900 scale-110': 'border-primary-500'} ${color} border-2 transition-all duration-500 ease-in-out`}
                     onClick={() => handleColorChange(index, color)}
                   />
                 ))}

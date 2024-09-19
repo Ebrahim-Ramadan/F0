@@ -261,25 +261,34 @@ export const updateUserPayment = async (
     return { success: false, error: "Failed to update payment details" };
   }
 };
-
-
-export const setHavingTriedOnce = async (userId: number): Promise<{ success: boolean } | { error: string }> => {
+export const incrementTrialCount = async (userId: number): Promise<{ success: boolean } | { error: string }> => {
   try {
-    // Perform the update operation
-    const result = await db
-      .update(users)
-      .set({ havingtriedOnce: true })
-      .where(eq(users.id, userId))
-      .returning();
+    // Fetch the current trialCount
+    const user = await db.select({
+      trialCount: users.trialCount
+    }).from(users).where(eq(users.id, userId)).limit(1);
 
-    // Check if any rows were affected
-    if (result.length === 0) {
-      return { error: "User not found or update failed" };
+    if (user.length === 0) {
+      return { error: "User not found" };
+    }
+
+    const currentTrialCount : number | null = user[0].trialCount;
+
+    // Increment the trialCount
+    const updatedResult = await db
+      .update(users)
+      // @ts-ignore
+      .set({ trialCount: currentTrialCount + 1 })
+      .where(eq(users.id, userId))
+      .returning({ id: users.id, trialCount: users.trialCount });
+
+    if (updatedResult.length === 0) {
+      return { error: "Failed to update trial count" };
     }
 
     return { success: true };
   } catch (error) {
-    console.error("Error updating user:", error);
-    return { error: "Failed to update user" };
+    console.error("Error incrementing trial count:", error);
+    return { error: "Failed to increment trial count" };
   }
 };
