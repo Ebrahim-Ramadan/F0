@@ -5,6 +5,8 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
+  interpolate-size: allow-keywords;
+
 }
 
 body {
@@ -82,4 +84,85 @@ body {
 
 .animate-scale-fade {
   animation: scaleAndFade 1.5s infinite ease-out;
+}
+.skeleton-loader-spinner {
+  box-sizing: border-box;
+  color: white;
+  display: inline-block;
+  position: relative;
+  width: 2rem; /* Smaller size */
+  height: 2rem; /* Smaller size */
+}
+.skeleton-loader-spinner--bar:first-of-type {
+  transform: rotate(-30deg);
+  animation-delay: -1.2s;
+}
+@keyframes skeleton-loader-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.skeleton-loader-spinner--bar:after {
+  box-sizing: border-box;
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0.08rem; /* Smaller size */
+  left: 0.92rem; /* Smaller size */
+  width: 0.12rem; /* Smaller width */
+  height: 0.5rem; /* Smaller height */
+  border-radius: 0.8rem; /* Smaller radius */
+  background: currentColor;
+}
+.skeleton-loader-spinner--bar {
+  box-sizing: border-box;
+  transform-origin: 1rem 1rem; /* Adjusted for smaller size */
+  animation: skeleton-loader-spinner 1.2s linear infinite;
+}
+.skeleton-loader-spinner--bar:nth-of-type(2) {
+  transform: rotate(-60deg);
+  animation-delay: -1.3s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(3) {
+  transform: rotate(-90deg);
+  animation-delay: -1.4s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(4) {
+  transform: rotate(-120deg);
+  animation-delay: -1.5s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(5) {
+  transform: rotate(-150deg);
+  animation-delay: -1.6s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(6) {
+  transform: rotate(-180deg);
+  animation-delay: -1.7s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(7) {
+  transform: rotate(-210deg);
+  animation-delay: -1.8s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(8) {
+  transform: rotate(-240deg);
+  animation-delay: -1.9s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(9) {
+  transform: rotate(-270deg);
+  animation-delay: -2s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(10) {
+  transform: rotate(-300deg);
+  animation-delay: -2.1s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(11) {
+  transform: rotate(-330deg);
+  animation-delay: -2.2s;
+}
+.skeleton-loader-spinner--bar:nth-of-type(12) {
+  transform: rotate(-1turn);
+  animation-delay: -2.3s;
 }

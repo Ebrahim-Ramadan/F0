@@ -3,6 +3,7 @@ import {  XIcon } from "lucide-react";
 import { Dialog } from '@headlessui/react';
 import { useState } from 'react';
 import LoadingDots from '../Globals/LoadingDots'
+import { youShoulds } from "@/lib/youShoulds";
 
 interface PlansProps {
   triggerClassName: string;
@@ -10,6 +11,10 @@ interface PlansProps {
   Subscription_id: string;
 }
 
+const getRandomYouShould = () => {
+  const randomIndex = Math.floor(Math.random() * youShoulds.length);
+  return youShoulds[randomIndex];
+};
 export const CancelSubscriptionModal: React.FC<PlansProps> = ({Subscription_id, triggerClassName, triggerText }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setloading] = useState<boolean>(false)
@@ -38,20 +43,25 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({Subscription_id, 
                 <XIcon className="w-4 md:w-6 h-4 md:h-6" />
               </button>
             </div>
-            <p className="text-sm text-primary-800">Are you sure you want to cancel your subscription? This action cannot be undone and you will lose access to the services immediately.</p>
+            <p className="text-sm text-primary-800">This action cannot be undone and you will lose access to the services immediately. Are you sure you want to cancel your subscription?</p>
+          </div>
+          <div className="w-full justify-center flex items-center flex-row">
+<p className="rounded-xl bg-primary-300 p-2 md:p-4 text-sm text-primary-800 font-semibold">
+{getRandomYouShould()}
+</p>
           </div>
 <div className="flex justify-end py-4">
 <button 
     onClick={async()=>{
         setloading(true)
-        const res = await fetch('/api/cancelSubscription', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ Subscription_id }),
-        });
-     console.log('res', res);
+        // const res = await fetch('/api/cancelSubscription', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({ Subscription_id }),
+        // });
+    //  console.log('res', res);
      setloading(false)
      
     }}
@@ -62,7 +72,7 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({Subscription_id, 
               ):(
               <XIcon size='18' className='w-6'/>
       )}
-       Cancel Subscription
+       Confirm
         </button>  
 </div>
           

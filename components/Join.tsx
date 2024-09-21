@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { toast } from 'sonner';
-import LoadingDots from './Globals/LoadingDots';
+import {LoadingSpinner} from './Globals/LoadingDots';
 
 export const Join = () => {
   const router = useRouter()
@@ -108,7 +108,7 @@ export const Join = () => {
     </div>
 
     {loading  ? (
-      <div className="w-full flex justify-center"><LoadingDots/></div>
+      <div className="w-full flex justify-center"><LoadingSpinner/></div>
     ) : (
       <button
       disabled={loading}

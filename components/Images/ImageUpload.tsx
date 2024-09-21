@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'sonner';
-import LoadingDots from '../Globals/LoadingDots';
+import {LoadingSpinner} from '../Globals/LoadingDots';
 // import Plans from '../payment/Plans';
 const Plans = dynamic(() => import('../payment/Plans'), {
   ssr: true,
@@ -178,8 +178,8 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
         onDragLeave={handleDragLeave}
       >
         {isProcessing ? (
-          <div className={`flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2 border-primary-600 border-dashed rounded-lg cursor-pointer bg-black/70 hover:bg-black/90 transition-all duration-300`}>
-            <LoadingDots />
+          <div className={`flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2 border-primary-600 border-dashed rounded-lg cursor-pointer bg-black/70 hover:bg-black/90 transition-all duration-300 `}>
+            <LoadingSpinner />
           </div>
         ) : (
           <label
