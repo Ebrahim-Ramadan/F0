@@ -3,10 +3,22 @@ import { generateHashString, generateRandomString } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
+interface TokenResponse {
+    access_token: string;
+    expires_in: number;
+    token_type: string;
+    refresh_token?: string; // Optional, in case it's returned
+}
+
 export async function GET(req: Request) {
     const url = new URL(req.url);
     const code = url.searchParams.get('code');
-    
+
+    // Check if the code is null
+    if (!code) {
+        console.error('Authorization code is missing');
+        return NextResponse.redirect('/error'); // Redirect to an error page
+    }
 
     // Exchange the authorization code for tokens
     const tokenResponse = await fetch(`https://oauth2.googleapis.com/token`, {
@@ -15,11 +27,10 @@ export async function GET(req: Request) {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-            // @ts-ignore
-            code,
-            client_id: process.env.GOOGLE_CLIENT_ID ,
-            client_secret: process.env.GOOGLE_CLIENT_SECRET ,
-            redirect_uri: process.env.GOOGLE_REDIRECT_URI , 
+            code, // guaranteed to be a string here
+            client_id: process.env.GOOGLE_CLIENT_ID as string,
+            client_secret: process.env.GOOGLE_CLIENT_SECRET as string,
+            redirect_uri: process.env.GOOGLE_REDIRECT_URI as string, 
             grant_type: 'authorization_code',
         }),
     });
@@ -29,7 +40,7 @@ export async function GET(req: Request) {
         return NextResponse.redirect('/error'); // Redirect to an error page
     }
 
-    const tokenData = await tokenResponse.json();
+    const tokenData: TokenResponse = await tokenResponse.json();
     
     const accessToken = tokenData.access_token;
 
@@ -48,15 +59,16 @@ export async function GET(req: Request) {
     const userData = await userResponse.json();
     const result = await addUser(userData.email, generateHashString(generateRandomString()), userData.picture, true);
     
-        if('error' in result){
-            return NextResponse.json(
-              { message: result.error  },
-              { status: 500 }
-            );
-          }
-        // @ts-ignore
-        await createUserSession(result.id, false)
-        revalidatePath('/')
+    if ('error' in result) {
+        return NextResponse.json(
+            { message: result.error },
+            { status: 500 }
+        );
+    }
+
+    // @ts-ignore
+    await createUserSession(result.id, false);
+    revalidatePath('/');
 
     const redirectUrl = process.env.NODE_ENV === 'development'
         ? new URL('http://localhost:3001/')
