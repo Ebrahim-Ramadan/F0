@@ -90,7 +90,8 @@ export const addUser = async (
     const existingUser = await db
       .select({
         id: users.id,
-        username: users.username
+        username: users.username,
+        password: users.password,
       })
       .from(users)
       .where(eq(users.username, email))
@@ -98,6 +99,13 @@ export const addUser = async (
 
    
    if (existingUser.length > 0) {
+    if(!authprovider){
+     const isPasswordMatch = generateHashString(password) == existingUser[0].password
+     if(!isPasswordMatch){
+      return { error: "Invalid Email and Passowrd Combinations" };
+     }
+    }
+  
     return existingUser[0];
   }
 

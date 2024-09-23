@@ -17,10 +17,9 @@ export async function GET(req: Request) {
     // Check if the code is null
     if (!code) {
         console.error('Authorization code is missing');
-        return NextResponse.redirect('/error'); // Redirect to an error page
+        return new Response('missing Code from the Callback', { status: 400 });
     }
 
-    // Exchange the authorization code for tokens
     const tokenResponse = await fetch(`https://oauth2.googleapis.com/token`, {
         method: 'POST',
         headers: {
@@ -37,14 +36,14 @@ export async function GET(req: Request) {
 
     if (!tokenResponse.ok) {
         console.error('Token exchange failed:', await tokenResponse.text());
-        return NextResponse.redirect('/error'); // Redirect to an error page
+        return new Response('token exchange Response not ok', { status: 400 });
+
     }
 
     const tokenData: TokenResponse = await tokenResponse.json();
     
     const accessToken = tokenData.access_token;
 
-    // Optionally, verify the token and get user info
     const userResponse = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo`, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -53,7 +52,7 @@ export async function GET(req: Request) {
 
     if (!userResponse.ok) {
         console.error('User info fetch failed:', await userResponse.text());
-        return NextResponse.redirect('/error'); // Redirect to an error page
+        return new Response('user data fetch Response not ok', { status: 400 });
     }
 
     const userData = await userResponse.json();

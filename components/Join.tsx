@@ -34,7 +34,7 @@ export const Join = () => {
     
           if (!res.ok) {
             const errMessage = await res.json();
-            toast.error(errMessage.message+' try better internet connectio')
+            toast.error(errMessage.message||' try better internet connectio')
             return;
           }
           const userData = await res.json();
