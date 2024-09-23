@@ -87,17 +87,19 @@ const timelineItems : TimelineItem[] = [
   },
 ]
 
-const highlightWords = (text: string, href:string, wordsToHighlight: string[]): JSX.Element[] => {
+const highlightWords = (text: string, href: string, wordsToHighlight: string[]): JSX.Element[] => {
   const regex = new RegExp(`(${wordsToHighlight.join('|')})`, 'gi');
   return text.split(regex).map((part, index) => 
     wordsToHighlight.some(word => word.toLowerCase() === part.toLowerCase())
-      ?
-      <a href={href} key={index} rel="noopener noreferrer" target='_blank' className=' mx-1 custom-underline font-medium'>
-      {part}
-  </a>
-      : part
+      ? (
+          <a href={href} key={index} rel="noopener noreferrer" target='_blank' className='mx-1 custom-underline font-medium'>
+            {part}
+          </a>
+        )
+      : <span key={index}>{part}</span> // Wrap string parts in a span
   );
 };
+
 export  function Docs() {
   const wordsToHighlight = ["picthing"]; 
   return (
