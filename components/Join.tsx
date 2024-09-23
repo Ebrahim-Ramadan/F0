@@ -64,7 +64,7 @@ export const Join = () => {
             </a>
             <a 
             
-            className='w-full md:w-fit justify-center flex px-4 flex-row items-center gap-2 py-2 border-2 border-primary-300 rounded-full bg-primary-100 hover:bg-primary-300 text-white' href={googleAuthUrl}>
+            className='w-full md:w-fit justify-center flex flex-row items-center bg-primary-300 hover:bg-primary-200 transition duration-300 font-semibold rounded-full px-4 py-2 border-2 border-primary-300 gap-2' href={googleAuthUrl}>
             Sign In with Google
               <Image
               width={24}
