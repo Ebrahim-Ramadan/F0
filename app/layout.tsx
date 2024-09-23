@@ -20,7 +20,6 @@ import { GeistMono } from 'geist/font/mono';
   // }
 
 export const metadata: Metadata = {
-  // title: "F0",
   description: "Remove your background within milliseconds",
   icons: {
     icon: "/favicon.ico",
@@ -51,7 +50,7 @@ export const metadata: Metadata = {
     description: "Remove your background within milliseconds",
     images: [
       {
-        url: "https://f0-the-project.vercel.app//og",
+        url: "https://f0-the-project.vercel.app/og",
         alt: "Remove your background within milliseconds",
       },
     ],

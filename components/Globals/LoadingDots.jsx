@@ -28,19 +28,19 @@ import React from 'react'
 
 export const LoadingSpinner = () => {
   return (
-    <div class="skeleton-loader-spinner">
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
-      <div class="skeleton-loader-spinner--bar"></div>
+    <div className="skeleton-loader-spinner">
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
+      <div className="skeleton-loader-spinner--bar"></div>
     </div>
   );
 };
