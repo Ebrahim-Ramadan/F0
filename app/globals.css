@@ -71,20 +71,7 @@ body {
   }
 }
 
-@keyframes scaleAndFade {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(3);
-    opacity: 0;
-  }
-}
 
-.animate-scale-fade {
-  animation: scaleAndFade 1.5s infinite ease-out;
-}
 .skeleton-loader-spinner {
   box-sizing: border-box;
   color: white;
@@ -165,4 +152,14 @@ body {
 .skeleton-loader-spinner--bar:nth-of-type(12) {
   transform: rotate(-1turn);
   animation-delay: -2.3s;
+}
+
+.custom-underline{
+  color: rgb(182, 193, 255);
+    transition: opacity .1s ease;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    font-weight: 500;
 }

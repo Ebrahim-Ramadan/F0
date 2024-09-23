@@ -62,7 +62,7 @@ export default async function Home() {
       </Suspense>
     </div>
   </div>
-  <div className="blur-container relative w-full h-[40vh] flex items-center justify-center bg-gradient-to-b from-primary-50 to-primary-100">
+  {/* <div className="blur-container relative w-full h-[40vh] flex items-center justify-center bg-gradient-to-b from-primary-50 to-primary-100">
       <Plus strokeWidth='1' className="z-40 absolute top-2 left-4 md:left-8 text-white opacity-60" size={20} />
       <Plus strokeWidth='1' className="z-40 absolute top-2 right-4 md:right-8 text-white opacity-60" size={20} />
       <Plus strokeWidth='1' className="z-40 absolute bottom-2 left-4 md:left-8 text-white opacity-60" size={20} />
@@ -89,7 +89,7 @@ export default async function Home() {
         </Link>
       </div>
 
-    </div>
+    </div> */}
 </div>
       </section>
       <Bento/>

@@ -1,8 +1,13 @@
+import { Plus } from 'lucide-react'
 import React from 'react'
 
 export const Bento = () => {
   return (
-<div className="min-h-screen px-2 md:px-8">
+<div className="min-h-screen px-2 md:px-8 relative">
+{/* <Plus strokeWidth='1' className="z-40 absolute top-2 left-4 md:left-8 text-white opacity-60" size={20} /> */}
+      <Plus strokeWidth='1' className="z-40 absolute top-2 right-4 md:right-8 text-white opacity-60" size={20} />
+      {/* <Plus strokeWidth='1' className="z-40 absolute bottom-2 left-4 md:left-8 text-white opacity-60" size={20} /> */}
+      {/* <Plus strokeWidth='1' className="z-40 absolute bottom-2 right-4 md:right-8 text-white opacity-60" size={20} /> */}
     <h2 className="text-3xl text-darkgray undefined">Spaces</h2>
     <div className="grid sm:grid-cols-2 gap-8 mt-8 sm:h-[32rem] h-full">
         <div className="grid sm:grid-rows-2 gap-8 h-full">

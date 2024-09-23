@@ -9,6 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       animation: {
+        'spin-slow': 'spin 0.2s linear infinite',
+
         fadeIn: 'fadeIn 0.3s ease-out',
         fadeOut: 'fadeOut 0.3s ease-out',
         'float-move': 'float-move 1s ease-out forwards',
