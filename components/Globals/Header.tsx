@@ -67,7 +67,7 @@ export const Header: React.FC<{ user: User }> = ({user}) => {
             <Image
               width={40}
               height={40}
-              className="rounded-full w-8 h-8 bg-neutral-500 "
+              className="rounded-full  bg-neutral-500 "
               src={user?.pic ? user?.pic : 'https://placewaifu.com/image/50'}
               alt="User avatar"
             />

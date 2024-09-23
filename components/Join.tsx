@@ -7,6 +7,8 @@ import React from 'react'
 import { toast } from 'sonner';
 import {LoadingSpinner} from './Globals/LoadingDots';
 
+const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&response_type=code&scope=email%20profile&access_type=offline`;
+
 export const Join = () => {
   const router = useRouter()
   const [username, setUsername] = React.useState<string>("");
@@ -60,7 +62,9 @@ export const Join = () => {
           Sign In with Github
           <Github size='18'/>
             </a>
-            <a  className='w-full md:w-fit justify-center flex px-4 flex-row items-center gap-2 py-2 border-2 border-primary-300 rounded-full bg-primary-100 hover:bg-primary-300 text-white' href={``}>
+            <a 
+            
+            className='w-full md:w-fit justify-center flex px-4 flex-row items-center gap-2 py-2 border-2 border-primary-300 rounded-full bg-primary-100 hover:bg-primary-300 text-white' href={googleAuthUrl}>
             Sign In with Google
               <Image
               width={24}
