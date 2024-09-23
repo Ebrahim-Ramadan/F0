@@ -6,7 +6,7 @@ export async function GET(request) {
       <img
         width="100%"
         height="100%"
-        src='https://avatars.githubusercontent.com/u/65041082?v=4'
+        src='https://raw.githubusercontent.com/Ebrahim-Ramadan/F0/refs/heads/main/public/og.png'
       />
     ),
     {
@@ -16,7 +16,7 @@ export async function GET(request) {
         'Content-Type': 'image/jpeg',
         'Cache-Control': 'public, max-age=31536000', // cache for 1 year
         'Twitter-Card':'summary_large_image',
-        'Twitter-Image': 'https://avatars.githubusercontent.com/u/65041082?v=4',
+        'Twitter-Image': 'https://raw.githubusercontent.com/Ebrahim-Ramadan/F0/refs/heads/main/public/og.png',
       },
     },
   );
