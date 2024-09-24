@@ -228,9 +228,9 @@ export const addSubscriber = async (
 
 export const updateUserPayment = async (
   userId: number,
-  newPaymentDate: Date,
+  newPaymentDate: Date | null,
   // subscriptionID: string,
-  planName: string
+  planName: string | null
 ): Promise<{ success: boolean; error?: string }> => {
   try {
     const result = await db
@@ -260,7 +260,7 @@ export const updateUserPayment = async (
 };
 export const updateUserSubscriptionID = async (
   userId: number,
-  subscriptionID: string
+  subscriptionID: string| null
 ): Promise<{ success: boolean; error?: string }> => {
   try {
     const result = await db

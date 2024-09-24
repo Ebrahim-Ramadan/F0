@@ -32,7 +32,7 @@ export function PaidSuccessfully({ user }: { user: UserType }) {
   };
 
   return (
-    <div className="mx-auto max-w-3xl md:py-4 md:px-8 px-2 py-4 border-2 backdrop-blur-3xl rounded-xl border-primary-100 bg-primary-100/50 flex flex-col items-center justify-center gap-4 ">
+    <div className="mx-auto max-w-3xl md:py-4 md:px-8 px-2 py-4 border-2 backdrop-blur-3xl bg-opacity-50 rounded-xl border-primary-200 bg-primary-100 flex flex-col items-center justify-center gap-4 ">
       <div className='relative'>
         <p className='text-2xl md:text-4xl border-2 border-primary-300 border-dashed px-4 py-2 text-center rounded-sm'>
           MY PLAN
@@ -60,14 +60,17 @@ export function PaidSuccessfully({ user }: { user: UserType }) {
             <p><strong className='text-primary-800'>AMOUNT:</strong> {subscriptionData.amount}</p>
           </div>
         </div>
+        {user.SubscriptionID!=null&&
         <div className="flex justify-end py-4">
-    <CancelSubscriptionModal
-    Subscription_id={user.SubscriptionID}
-        triggerClassName='flex items-center text-sm md:text-base hover:bg-red-600 bg-red-500 gap-2 md:px-4 px-2 md:py-2 py-1 rounded-lg transition duration-300 disabled:text-primary-700 disabled:bg-primary-100'
-        triggerText='Cancel Subscription'
-    />
-
-        </div>
+        <CancelSubscriptionModal
+        user={user}
+            triggerClassName='flex items-center text-sm md:text-base hover:bg-red-600 bg-red-500 gap-2 md:px-4 px-2 md:py-2 py-1 rounded-lg transition duration-300 disabled:text-primary-700 disabled:bg-primary-100'
+            triggerText='Cancel Subscription'
+        />
+    
+            </div>
+        }
+        
       </div>
     </div>
   );

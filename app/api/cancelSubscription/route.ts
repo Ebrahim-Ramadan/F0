@@ -1,12 +1,14 @@
+import { updateUserPayment, updateUserSubscriptionID } from "@/app/actions";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { Subscription_id } = await req.json();
-    console.log('Subscription_id', Subscription_id);
+    const {user} = await req.json();
+    console.log('user', user);
 
-    if (!Subscription_id) {
-      return new Response('Invalid or missing Subscription_id', { status: 400 });
+    if (!user.SubscriptionID) {
+      return new Response('Invalid or missing SubscriptionID', { status: 400 });
     }
  // Fetch authentication token
     const authHeaders = new Headers();
@@ -39,7 +41,7 @@ export async function POST(req: Request) {
     };
 
     const response = await fetch(
-      `https://accept.paymob.com/api/acceptance/subscriptions/${Subscription_id}/cancel`,
+      `https://accept.paymob.com/api/acceptance/subscriptions/${user.SubscriptionID}/cancel`,
     //   @ts-ignore
       requestOptions
     );
@@ -50,6 +52,12 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Subscription not found', details: cancelSubResult }, { status: 404 });
       }
     if (response.ok) {
+      // @ts-ignore
+      const updatedUser = await updateUserPayment(user.id, null, null)
+      const updatedUser2 = await updateUserSubscriptionID(user.id,  null)
+      console.log('updatedUser', updatedUser);
+      console.log('updatedUser2', updatedUser2);
+      revalidatePath('/')
       return NextResponse.json({ message: 'Subscription Cancelled Successfully' }, { status: 200 });
     } else {
       return NextResponse.json({ error: 'Failed to cancel subscription', details: cancelSubResult }, { status: response.status });
