@@ -49,7 +49,7 @@ export const HeroSections = () => {
                 {bgOptions.map((color, colorIndex) => (
                   <div
                     key={colorIndex}
-                    className={`w-3 h-3 md:w-5 md:h-5 rounded-full cursor-pointer ${selectedColors[index] === color ? 'border-primary-900 scale-110': 'border-primary-500'} ${color} border-2 transition-all duration-500 ease-in-out`}
+                    className={`w-4 h-4 md:w-5 md:h-5 rounded-full cursor-pointer ${selectedColors[index] === color ? 'border-primary-900 scale-110': 'border-primary-500'} ${color} border-2 transition-all duration-500 ease-in-out`}
                     onClick={() => handleColorChange(index, color)}
                   />
                 ))}

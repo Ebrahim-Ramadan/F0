@@ -1,10 +1,11 @@
-import {  ArrowRightIcon,  Plus,  StarsIcon  } from 'lucide-react';
+import {  ArrowRightIcon,  Plus,  Star,  StarsIcon  } from 'lucide-react';
 import {  getUserId } from './actions';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { Bento } from '@/components/Home/Bento';
 import { Suspense } from 'react';
 import LoadingDots from '@/components/Globals/LoadingDots';
+import Image from 'next/image';
 const HeroSections = dynamic(() => import('@/components/Home/HeroSections'), {
   ssr: false,
 });
@@ -62,6 +63,25 @@ export default async function Home() {
       </Suspense>
     </div>
   </div>
+  <div className="flex items-center space-x-3 bg-black text-white p-3 rounded-md">
+  <div className="flex-row flex items-center justify-center [&>*]:rounded-full">
+    <Image src="/examples/1-no-bg.webp" alt="Avatar 1" className="w-10 h-10 object-cover" width={200} height={200}/>
+    <Image src="/examples/2-no-bg.jpg" alt="Avatar 2" className="ml-[-1rem] w-10 h-10 object-cover" width={200} height={200}/>
+  </div>
+
+  <div>
+    <div className="flex space-x-1 text-yellow-400">
+      <Star fill='#FACC15' strokeWidth={1}/>
+      <Star fill='#FACC15' strokeWidth={1}/>
+      <Star fill='#FACC15' strokeWidth={1}/>
+      <Star fill='#FACC15' strokeWidth={1}/>
+      <Star fill='#FACC15' strokeWidth={1}/>
+    </div>
+
+    <p className="text-sm text-primary-950 font-semibold">Trusted by +5400 Users</p>
+  </div>
+</div>
+
   {/* <div className="blur-container relative w-full h-[40vh] flex items-center justify-center bg-gradient-to-b from-primary-50 to-primary-100">
       <Plus strokeWidth='1' className="z-40 absolute top-2 left-4 md:left-8 text-white opacity-60" size={20} />
       <Plus strokeWidth='1' className="z-40 absolute top-2 right-4 md:right-8 text-white opacity-60" size={20} />

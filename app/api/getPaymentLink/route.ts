@@ -1,28 +1,34 @@
 import { NextResponse } from 'next/server';
 
-// Assume you have these IDs stored somewhere, like in environment variables or a database
+
 const SUBSCRIPTION_PLAN_IDS = {
   Hoppy: process.env.HoppyPlan_Sub_Plan_ID,
   GoNuts: process.env.GoNuts_Sub_Plan_ID,
   GoSuperNuts: process.env.GoSuperNuts_Sub_Plan_ID,
 };
-
 const now = new Date();
 const oneDayFromNow = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Add 1 day in milliseconds
-
 // Format as 'YYYY-MM-DD'
 const year = oneDayFromNow.getFullYear();
 const month = String(oneDayFromNow.getMonth() + 1).padStart(2, '0'); // Months are zero-based
 const day = String(oneDayFromNow.getDate()).padStart(2, '0');
-
 const subscriptionStartDate = `${year}-${month}-${day}`;
 
+
+
+function validateUsername(username: string): string {
+  if (!username.includes('@') || !username.includes('.')) {
+    return `${username.replace(' ', '')}@gmail.com`;
+  }
+  return username;
+}
 export async function POST(req: Request) {
   if (req.method !== 'POST') {
     return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
   }
   const { paymentMethod, username, userID, plan, amount } = await req.json();
-  console.log( paymentMethod, username, userID, plan, amount);
+  console.log( 'ass', paymentMethod, username, userID, plan, amount);
+  console.log('validateUsername(username)', validateUsername(username));
   
   if (!paymentMethod) {
     return NextResponse.json({ error: 'paymentMethod not valid' }, { status: 405 });
@@ -66,14 +72,14 @@ export async function POST(req: Request) {
         "building": "N/A",
         "phone_number": "+20000000000", // You might want to collect this from the user
         "country": "EGYPT",
-        "email": username,
+        "email": validateUsername(username),
         "floor": "N/A",
         "state": "N/A"
       },
       "customer": {
         "first_name": userID,
         "last_name": plan,
-        "email": username,
+        "email": validateUsername(username),
       },
       "extras": {
         "plan_type": plan

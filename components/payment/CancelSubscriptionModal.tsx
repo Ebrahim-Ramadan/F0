@@ -4,6 +4,8 @@ import { Dialog } from '@headlessui/react';
 import { useState } from 'react';
 import LoadingDots from '../Globals/LoadingDots'
 import { youShoulds } from "@/lib/youShoulds";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface PlansProps {
   triggerClassName: string;
@@ -22,11 +24,9 @@ const getRandomYouShould = () => {
   return youShoulds[randomIndex];
 };
 export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClassName, triggerText }) => {
-  console.log('CancelSubscriptionModal user', user);
-  
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setloading] = useState<boolean>(false)
-
 
   return (
     <>
@@ -69,8 +69,12 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClas
           },
           body: JSON.stringify({ user }),
         });
-     console.log('res', res);
-     setloading(false)
+        const cancelSubResult = await res.json();
+        console.log('cancelSubResult', cancelSubResult);
+        
+        toast.success(cancelSubResult.message)
+        setloading(false)
+        router.refresh()
      
     }}
     disabled={loading}

@@ -36,9 +36,9 @@ export const OhMyAss  = ({user}) => {
           alt='successful-pay'
           src='/assets/successful-pay.png'
           />
-          <h1 className="text-xl md:text-2xl text-primary-950 font-bold text-center mb-2">Payment Successful!</h1>
+          <h1 className="text-xl md:text-2xl text-primary-950 font-bold text-center mb-2">Successful Payment!</h1>
           <p className="text-primary-600 text-center mb-4 leading-tight text-xs md:text-sm">
-            Thank you for your purchase. Your transaction has been completed successfully.
+            Thank you for your purchase. Your transaction has been completed successfully. Save the Date baby!✌🏻️
           </p>
         </div>
     )

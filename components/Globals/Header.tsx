@@ -6,6 +6,8 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { Suspense } from 'react'
+import LoadingDots from './LoadingDots'
 const Plans = dynamic(() => import('../payment/Plans'), {
   ssr: false,
 });
@@ -93,7 +95,14 @@ export const Header: React.FC<{ user: User }> = ({user}) => {
       </MenuItem>
 
       <MenuItem>
-      <Plans triggerClassName=' px-4 py-2 rounded-3xl text-sm bg-black text-white hover:bg-primary-200 w-full' triggerText='Manage Plan'/>
+      <Suspense fallback={
+        <div className='flex justify-center w-full items-center'>
+          <LoadingDots/>
+        </div>
+      }>
+      <Plans triggerClassName=' px-4 py-2 rounded-3xl text-sm bg-black text-white hover:bg-primary-200 w-full' triggerText='Manage Plans'/>
+
+      </Suspense>
       </MenuItem>
 
       <MenuItem>

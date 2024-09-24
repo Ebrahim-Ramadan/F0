@@ -5,17 +5,15 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const {user} = await req.json();
-    console.log('user', user);
 
     if (!user.SubscriptionID) {
       return new Response('Invalid or missing SubscriptionID', { status: 400 });
     }
- // Fetch authentication token
     const authHeaders = new Headers();
     authHeaders.append("Content-Type", "application/json");
 
     const authBody = JSON.stringify({
-        "api_key": process.env.PAYMOB_API_KEY, // Ensure this is set in your environment
+        "api_key": process.env.PAYMOB_API_KEY, 
     });
 
     const authResponse = await fetch("https://accept.paymob.com/api/auth/tokens", {
@@ -47,16 +45,13 @@ export async function POST(req: Request) {
     );
 
     const cancelSubResult = await response.json();
-    console.log('cancelSubResult', cancelSubResult);
     if (response.status === 404) {
         return NextResponse.json({ error: 'Subscription not found', details: cancelSubResult }, { status: 404 });
       }
     if (response.ok) {
       // @ts-ignore
-      const updatedUser = await updateUserPayment(user.id, null, null)
-      const updatedUser2 = await updateUserSubscriptionID(user.id,  null)
-      console.log('updatedUser', updatedUser);
-      console.log('updatedUser2', updatedUser2);
+      await updateUserPayment(user.id, null, null)
+      await updateUserSubscriptionID(user.id,  null)
       revalidatePath('/')
       return NextResponse.json({ message: 'Subscription Cancelled Successfully' }, { status: 200 });
     } else {

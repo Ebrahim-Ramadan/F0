@@ -1,161 +1,183 @@
 'use client'
-import { CheckIcon, XIcon } from "lucide-react"
-import { Dialog } from '@headlessui/react'
-import { useState } from 'react'
+import { ArrowRight, CheckIcon, XIcon,  ImageDown,  CircleCheck, GraduationCap, ReceiptPoundSterlingIcon, CheckCheckIcon, PlaneIcon, HopIcon, LucideTarget, Superscript, ChartArea, ThermometerSnowflake, PhoneCall } from "lucide-react"
+import { Dialog,  } from '@headlessui/react'
+import { ReactNode, useState } from 'react'
+
+interface Plan {
+  name: string;
+  description: string;
+  price: string;
+  priceType: string;
+  features: {
+    label: string;
+    icon: ReactNode;
+  }[];
+  ctaUrl: string;
+}
+
 interface PlansProps {
   triggerClassName: string;
-  triggerText: string | React.ReactNode; // Update the type here
+  triggerText: string | React.ReactNode;
 }
 
-export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-      <>
-        <div className={`flex justify-end ${triggerText == 'Manage Account' &&'w-full' } ${triggerText == 'Upgrade Plan' &&'px-2' }`}>
+export const Plans: React.FC<PlansProps> = ({ triggerClassName, triggerText }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+
+  const plans: Plan[] = [
+    {
+      name: "Hoppy Plan",
+      description: "150 images each month",
+      price: "EGP 90",
+      priceType: "/month",
+      features: [
+        {
+          label: "Batch background removal for up to 150 images",
+          icon: <ImageDown className="w-4 h-4" />
+        },
+        {
+          label: "No restrictions or commercial shit",
+          icon: <ReceiptPoundSterlingIcon className="w-4 h-4" />
+        },
+        {
+          label: "Monthly payment",
+          icon: <CircleCheck className="w-4 h-4" />
+        },
+      ],
+      ctaUrl: "/payment?plan=Hoppy",
+    },
+    {
+      name: "Go nuts Plan",
+      description: "300 images each month",
+      price: "EGP 135",
+      priceType: "/month",
+      features: [
+        {
+          label: "Everything from Hoppy plan Included",
+          icon: <CheckIcon className="w-4 h-4" />
+        },
+        {
+          label: "Premium image quality",
+          icon: <LucideTarget className="w-4 h-4" />
+        },
+      ],
+      ctaUrl: "/payment?plan=GoNuts",
+    },
+    {
+      name: "Go super nuts Plan",
+      description: "unlimited images",
+      price: "EGP 600",
+      priceType: "once and forever",
+      features: [
+        {
+          label: "Everything from Go nuts plan Included",
+          icon: <CheckCheckIcon className="w-4 h-4" />
+        },
+        {
+          label: "Email, chat, and phone support",
+          icon: <PhoneCall className="w-4 h-4" />
+        },
+      ],
+      ctaUrl: "/payment?plan=GoSuperNuts",
+    },
+  ];
+  return (
+    <>
+      <div className={`flex justify-end ${triggerText == 'Manage Account' && 'w-full'} ${triggerText == 'Upgrade Plan' && 'px-2'}`}>
         <button
-        className={`font-bold text-center   ${triggerClassName}`}
-        role="Subscribe"
-        id="manage-account"
+          className={`font-bold text-center ${triggerClassName}`}
+          role="Subscribe"
+          id="manage-account"
           onClick={() => setIsOpen(true)}
         >
-       {triggerText}
+          {triggerText}
         </button>
-        
-        </div>
-        <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={`fixed inset-0 flex justify-center items-center z-50 px-2 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
-          <div  className={`fixed inset-0 bg-gradient-to-b from-black/60 to-black ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}aria-hidden="true" onClick={() => setIsOpen(false)}/>
-     <div className="-z-50 absolute w-[150px] h-[150px] bg-neutral-100 z-0 blur-[150px] top-0 bottom-0 left-0 right-0 m-auto rounded-full"></div>
-         
-          <div className={`relative overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-primary-100/20 backdrop-blur-3xl grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-200 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
-          
+      </div>
+      <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={`fixed inset-0 flex justify-center items-center z-50 px-2 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
+        <div className={`fixed inset-0 bg-gradient-to-b from-black/50 to-black ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`} aria-hidden="true" onClick={() => setIsOpen(false)} />
+        <div className="-z-50 absolute w-[150px] h-[150px] bg-neutral-100 z-0 blur-[150px] top-0 bottom-0 left-0 right-0 m-auto rounded-full"></div>
+        <div className={`relative overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-primary-100/20 backdrop-blur-3xl grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-300 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
+          <div className="w-full h-[300px] flex absolute top-0 left-0 right-0 z-[-1] m-auto bg-top bg-contain bg-no-repeat bg-[url('https://onvo.me/media/plus/light.png')] filter grayscale" />
           <div className="grid gap-2 w-full">
-          <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center ">
               <h1 className="text-xl md:text-3xl font-bold tracking-tight">Subscription Plans</h1>
-                  <button onClick={() => setIsOpen(false)} className='rounded-full bg-primary-300 hover:bg-primary-400 w-6 md:w-8 h-6 md:h-8 flex items-center justify-center'>
-                  <XIcon className="w-4 md:w-6 h-4 md:h-6"/>
+              <button onClick={() => setIsOpen(false)} className='rounded-full bg-primary-200/50 hover:bg-primary-200 w-6 md:w-8 h-6 md:h-8 flex items-center justify-center'>
+                <XIcon className="w-4 md:w-6 h-4 md:h-6" />
               </button>
-          </div>
-              <p className="text-sm md:text-base text-primary-800">Choose the plan that best suits your background removal needs.</p>
             </div>
+            <p className="text-sm md:text-base text-primary-900">Find a plan to power your business. F0 has you covered</p>
+          </div>
 
-            <div className="grid gap-6 [&>*]:transition [&>*]:duration-300 [&>*]:p-4 [&>*]:rounded-3xl">
-              <div className="bg-transparent">
+          <div className="grid gap-6 [&>*]:transition [&>*]:duration-300 [&>*]:p-4 [&>*]:rounded-3xl ">
+            {plans.map((plan, index) => (
+              <div key={index} className="bg-primary-200/50">
                 <div>
-                  <p className="text-2xl md:text-3xl font-semibold">Hoppy Plan</p>
-                  <p className="text-sm md:text-base mt-1 text-primary-800">150 images per month</p>
+                  <p className="text-2xl md:text-3xl font-semibold">{plan.name}</p>
+                  <p className="text-sm md:text-base mt-1 text-primary-800">{plan.description}</p>
                 </div>
                 <div className="grid gap-6">
                   <div className="flex items-center justify-between py-2">
-                    <div className="text-3xl md:text-4xl font-bold">EGP 90</div>
-                    <div className="text-muted-foreground">/month</div>
+                    <div className="text-2xl md:text-4xl font-bold">{plan.price}</div>
+                    <div className="text-muted-foreground">{plan.priceType}</div>
                   </div>
                   <div className="grid gap-2 ">
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Batch background removal for up to 150 images</span>
-                    </div>
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>No restrictions or commercial shit</span>
-                    </div>
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Monthly payment</span>
-                    </div>
-                   
+                    {plan.features.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="flex text-neutral-200 items-center justify-start gap-2">
+                        <span>{feature.label}</span>
+                        {feature.icon}
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <a href='/payment?plan=Hoppy' onClick={() => setIsOpen(false)} className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full">
-                  Subscribe Now
+                <a href={plan.ctaUrl} onClick={() => setIsOpen(false)} className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full relative">
+                  <span className="block mx-auto">Subscribe Now</span>
+                  <div className="w-4 md:w-6 h-4 md:h-6 justify-center rounded-full flex items-center bg-black absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2">
+                    <ArrowRight color='white' size='16' className="w-3 md:w-4 h-3 md:h-4" />
+                  </div>
                 </a>
               </div>
-              <div className="bg-primary-200">
+            ))}
+            <div className="">
+              <div>
+                <p className="text-xs px-2 py-1 bg-blue-800 text-blue-200 rounded-full font-semibold w-fit">FOUNDER MODE?</p>
+              </div>
+              <div className="grid gap-6">
                 <div>
-                  <p className="text-2xl md:text-3xl font-semibold">Go nuts Plan</p>
-                  <p className="text-sm md:text-base mt-1 text-primary-800">300 images per month</p>
+                  <div className="text-2xl md:text-4xl font-bold">Contact Us</div>
+                  <p className="text-sm text-primary-900">Tailored to your needs</p>
                 </div>
-                <div className="grid gap-6">
-                  <div className="flex items-center justify-between py-2">
-                    <div className="text-3xl md:text-4xl font-bold">EGP 135</div>
-                    <div className="text-muted-foreground">/month</div>
+                <div className="grid gap-2">
+                  <div className="flex text-neutral-300 items-center justify-between gap-2">
+                    <span>Customized background removal solution</span>
+                    <CheckIcon className="w-4 h-4 " size='16' />
                   </div>
-                  <div className="flex flex-col gap-2">
-                  <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Everything from Hoppy plan Included</span>
-                    </div>
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Premium image quality</span>
-                    </div>
-                   
+                  <div className="flex text-neutral-300 items-center justify-between gap-2">
+                    <span>Dedicated account manager</span>
+                    <CheckIcon className="w-4 h-4 " size='16' />
+                  </div>
+                  <div className="flex text-neutral-300 items-center justify-between gap-2">
+                    <span>Enterprise-level support</span>
+                    <CheckIcon className="w-4 h-4 " size='16' />
+                  </div>
+                  <div className="flex text-neutral-300 items-center justify-between gap-2">
+                    <span>Tailored pricing</span>
+                    <CheckIcon className="w-4 h-4 " size='16' />
                   </div>
                 </div>
-                <a href='/payment?plan=GoNuts' onClick={() => setIsOpen(false)} className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full">
-                  Subscribe Now
+              </div>
+              <a href="https://mail.google.com/mail/u/0/?fs=1&to=ramadanebrahim791@gmail.com&tf=cm" target='_blank'  className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full relative">
+                  <span className="block mx-auto">Contact The Founder</span>
+                  <div className="w-4 md:w-6 h-4 md:h-6 justify-center rounded-full flex items-center bg-black absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2">
+                    <ArrowRight color='white' size='16' className="w-3 md:w-4 h-3 md:h-4 -rotate-45" />
+                  </div>
                 </a>
-              </div>
-              <div className="bg-primary-200">
-                <div>
-                  <p className="text-2xl md:text-3xl font-semibold">Go super nuts Plan</p>
-                  <p className="text-sm md:text-base mt-1 text-primary-800">unlimited images</p>
-                </div>
-                <div className="grid gap-6">
-                  <div className="flex items-center justify-between py-2">
-                    <div className="text-3xl md:text-4xl font-bold">EGP 600</div>
-                    <div className="text-xs">once and forever</div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Everything from Go nuts plan Included</span>
-                    </div>
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Email, chat, and phone support</span>
-                    </div>
-                  </div>
-                </div>
-                <a href='/payment?plan=GoSuperNuts' onClick={() => setIsOpen(false)} className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full">
-                  Subscribe Now
-                </a>
-              </div>
-              <div className="">
-                <div>
-                  <p className="text-xs px-2 py-1 bg-primary-200 rounded-full w-fit">Founder Mode?</p>
-                </div>
-                <div className="grid gap-6">
-                  <div>
-                    <div className="text-4xl font-bold">Contact Us</div>
-                    <p className="text-sm text-primary-900">Tailored to your needs</p>
-                  </div>
-                  <div className="grid gap-2">
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Customized background removal solution</span>
-                    </div>
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Dedicated account manager</span>
-                    </div>
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Enterprise-level support</span>
-                    </div>
-                    <div className="flex text-neutral-300 items-center gap-2">
-                      <CheckIcon className=" " size='16' />
-                      <span>Tailored pricing</span>
-                    </div>
-                  </div>
-                </div>
-                <button className="mt-4 bg-neutral-100 text-center block px-4 py-2 text-base md:text-lg rounded-3xl hover:bg-neutral-200 text-black font-bold w-full">
-                  Contact The Founder
-                </button>
-              </div>
+             
             </div>
           </div>
-        </Dialog>
-      </>
-    );
-}
+        </div>
+      </Dialog>
+    </>
+  );
+};
+
 export default Plans;
