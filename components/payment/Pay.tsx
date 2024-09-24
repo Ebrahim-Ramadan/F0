@@ -104,7 +104,7 @@ export function Pay({user}: {user: UserType}) {
                   {option.label}
                 </label>
                 {isSelected && <div className="absolute top-1/2 right-3 transform -translate-y-1/2 w-4 h-4   flex items-center justify-center">
-                  <CheckIcon size='16' className="text-primary-900"/>
+                  <CheckIcon size='16' className="text-blue-500"/>
                 </div>
           }
               </div>
@@ -131,7 +131,7 @@ export function Pay({user}: {user: UserType}) {
         </div>
       </div>
       
-      <div className={`max-w-md mx-auto flex items-center justify-between px-3 py-1.5 text-xs text-primary-800 md:text-sm relative rounded-b-xl bg-primary-100 w-fit transition duration-300 h-fit justify-center text-center`}> <span className='has-tooltip'><span className='tooltip rounded shadow-lg px-2 py-1 bg-primary-100 text-primary-950 -mt-8'>That is just Paymob Thing</span>The only supported payment method for this subscription is the Online Card (Visa/ MasterCard).</span></div>
+      <div className={`max-w-md mx-auto flex items-center justify-between px-3 py-1.5 text-xs text-primary-800 md:text-sm relative rounded-b-xl bg-primary-100 w-fit transition duration-300 h-fit justify-center text-center`}> <span className='has-tooltip'><span className='tooltip rounded-full shadow-lg px-2 py-1 bg-blue-800 text-blue-200 -mt-8'>That is just Paymob Thing</span>The only supported payment method for this subscription is the Online Card (Visa/ MasterCard).</span></div>
 
   <div className='max-w-md mx-auto py-2 mt-4'>
 <Link href='/images' className='group flex flex-row gap-2 items-center text-center w-full py-2 px-4 rounded-3xl text-white font-semibold bg-primary-300/70 hover:bg-primary-300 text-sm md:text-base transition-all duration-200 '>
