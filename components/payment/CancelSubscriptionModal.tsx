@@ -24,12 +24,12 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({Subscription_id, 
     <>
       <div className={`flex justify-end ${triggerText == 'Manage Account' ? 'w-full' : ''}`}>
         <button
-          className={`font-bold text-center ${triggerClassName}`}
+          className={`font-medium text-center ${triggerClassName}`}
           role="Subscribe"
           id="manage-account"
           onClick={() => setIsOpen(true)}
         >
-          <XIcon size='18' className='w-6'/>
+          <XIcon size='16' />
           {triggerText}
         </button>
       </div>

@@ -1,4 +1,4 @@
-import { updateUserPayment } from '@/app/actions';
+import {  updateUserPayment } from '@/app/actions';
 import { createHmac } from 'crypto';
 import { revalidatePath } from 'next/cache';
 import { NextResponse } from "next/server";
@@ -79,10 +79,12 @@ export async function POST(req:Request) {
     // console.log('HMACs match');
     const extractedData = extractTransactionInfo(data);
     console.log('extractedData', extractedData);
-    const updatedUser = await updateUserPayment(extractedData.userID, new Date(data.obj.order.created_at), extractedData.subscription_plan_id, extractedData.plan);
+    
+    const updatedUser = await updateUserPayment(extractedData.userID, new Date(data.obj.order.created_at), extractedData.plan);
         
     console.log('updatedUser', updatedUser);
     revalidatePath('/');
+    // await fetchSubId({transaction_id: extractedData.subscription_plan_id});
     return NextResponse.json({ message: 'HMAC validation succeeded, order details appended to firestore', data }, { status: 200 });
 
   } else {
@@ -98,6 +100,6 @@ function extractTransactionInfo(data) {
     plan: obj.order.shipping_data.last_name,
     email: obj.order.shipping_data.email,
     paymentDate: obj.order.created_at,
-    subscription_plan_id: obj.payment_key_claims.subscription_plan_id,
+    subscription_plan_id: obj.id,
   };
 }

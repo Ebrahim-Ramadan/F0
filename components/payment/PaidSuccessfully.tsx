@@ -63,7 +63,7 @@ export function PaidSuccessfully({ user }: { user: UserType }) {
         <div className="flex justify-end py-4">
     <CancelSubscriptionModal
     Subscription_id={user.SubscriptionID}
-        triggerClassName='flex items-center  hover:bg-red-600 bg-red-500 gap-2 px-2 py-2 rounded-xl transition duration-300 md:px-4 disabled:text-primary-700 disabled:bg-primary-100'
+        triggerClassName='flex items-center text-sm md:text-base hover:bg-red-600 bg-red-500 gap-2 md:px-4 px-2 md:py-2 py-1 rounded-lg transition duration-300 disabled:text-primary-700 disabled:bg-primary-100'
         triggerText='Cancel Subscription'
     />
 

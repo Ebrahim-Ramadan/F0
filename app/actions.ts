@@ -225,10 +225,11 @@ export const addSubscriber = async (
   }
 };
 
+
 export const updateUserPayment = async (
   userId: number,
   newPaymentDate: Date,
-  subscriptionID: string,
+  // subscriptionID: string,
   planName: string
 ): Promise<{ success: boolean; error?: string }> => {
   try {
@@ -236,14 +237,14 @@ export const updateUserPayment = async (
       .update(users)
       .set({ 
         paymentDate: newPaymentDate,
-        SubscriptionID: subscriptionID,
+        // SubscriptionID: subscriptionID,
         planName: planName
       })
       .where(eq(users.id, userId))
       .returning({ 
         id: users.id, 
         paymentDate: users.paymentDate, 
-        subscriptionID: users.SubscriptionID,
+        // subscriptionID: users.SubscriptionID,
         planName: users.planName
       });
 
@@ -255,6 +256,32 @@ export const updateUserPayment = async (
   } catch (error) {
     console.error("Error updating user payment details:", error);
     return { success: false, error: "Failed to update payment details" };
+  }
+};
+export const updateUserSubscriptionID = async (
+  userId: number,
+  subscriptionID: string
+): Promise<{ success: boolean; error?: string }> => {
+  try {
+    const result = await db
+      .update(users)
+      .set({ 
+        SubscriptionID: subscriptionID
+      })
+      .where(eq(users.id, userId))
+      .returning({ 
+        id: users.id, 
+        subscriptionID: users.SubscriptionID
+      });
+
+    if (result.length === 0) {
+      return { success: false, error: "User not found" };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating user subscription ID:", error);
+    return { success: false, error: "Failed to update subscription ID" };
   }
 };
 export const incrementTrialCount = async (userId: number): Promise<{ success: boolean } | { error: string }> => {
@@ -288,3 +315,4 @@ export const incrementTrialCount = async (userId: number): Promise<{ success: bo
     return { error: "Failed to increment trial count" };
   }
 };
+

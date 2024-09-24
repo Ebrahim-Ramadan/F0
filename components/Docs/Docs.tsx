@@ -1,12 +1,11 @@
-import { CalendarIcon, ImageIcon, RocketIcon, CodeIcon, BugIcon, AwardIcon, UsersIcon, BarChartIcon, ArrowLeft, Inspect } from "lucide-react"
+import {  ImageIcon, RocketIcon, CodeIcon, BugIcon, AwardIcon, UsersIcon, BarChartIcon, ArrowLeft, Inspect } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-// import {BlogHeader} from "./global-elements"
 interface TimelineItem {
   date: string;
   title: string;
   description: string;
-  icon: React.ElementType; // Type for the icon component
+  icon: React.ElementType; 
   image: string;
   imageAlt: string;
   href: string;
@@ -96,7 +95,7 @@ const highlightWords = (text: string, href: string, wordsToHighlight: string[]):
             {part}
           </a>
         )
-      : <span key={index}>{part}</span> // Wrap string parts in a span
+      : <span key={index}>{part}</span> 
   );
 };
 

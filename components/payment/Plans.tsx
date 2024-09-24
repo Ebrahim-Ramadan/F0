@@ -24,7 +24,9 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
         </div>
         <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={`fixed inset-0 flex justify-center items-center z-50 px-2 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
           <div  className={`fixed inset-0 bg-gradient-to-b from-black/60 to-black ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}aria-hidden="true" onClick={() => setIsOpen(false)}/>
-          <div className={`relative overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-primary-100/80 backdrop-blur-3xl grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-200 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
+     <div className="-z-50 absolute w-[150px] h-[150px] bg-neutral-100 z-0 blur-[150px] top-0 bottom-0 left-0 right-0 m-auto rounded-full"></div>
+         
+          <div className={`relative overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-primary-100/20 backdrop-blur-3xl grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-200 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
           
           <div className="grid gap-2 w-full">
           <div className="flex justify-between items-center">
@@ -37,7 +39,7 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
             </div>
 
             <div className="grid gap-6 [&>*]:transition [&>*]:duration-300 [&>*]:p-4 [&>*]:rounded-3xl">
-              <div className="bg-primary-200">
+              <div className="bg-transparent">
                 <div>
                   <p className="text-2xl md:text-3xl font-semibold">Hoppy Plan</p>
                   <p className="text-sm md:text-base mt-1 text-primary-800">150 images per month</p>
@@ -47,17 +49,17 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
                     <div className="text-3xl md:text-4xl font-bold">EGP 90</div>
                     <div className="text-muted-foreground">/month</div>
                   </div>
-                  <div className="grid gap-2">
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                  <div className="grid gap-2 ">
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>Batch background removal for up to 150 images</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>No restrictions or commercial shit</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>Monthly payment</span>
                     </div>
                    
@@ -78,20 +80,12 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
                     <div className="text-muted-foreground">/month</div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
-                      <span>Batch background removal for up to 300 images</span>
+                  <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
+                      <span>Everything from Hoppy plan Included</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
-                      <span>No restrictions or commercial shit</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
-                      <span>Monthly payment</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>Premium image quality</span>
                     </div>
                    
@@ -112,12 +106,12 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
                     <div className="text-xs">once and forever</div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>Everything from Go nuts plan Included</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>Email, chat, and phone support</span>
                     </div>
                   </div>
@@ -136,20 +130,20 @@ export const Plans:React.FC<PlansProps> = ({triggerClassName, triggerText}) => {
                     <p className="text-sm text-primary-900">Tailored to your needs</p>
                   </div>
                   <div className="grid gap-2">
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>Customized background removal solution</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>Dedicated account manager</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>Enterprise-level support</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <CheckIcon className=" text-neutral-500" size='16' />
+                    <div className="flex text-neutral-300 items-center gap-2">
+                      <CheckIcon className=" " size='16' />
                       <span>Tailored pricing</span>
                     </div>
                   </div>
