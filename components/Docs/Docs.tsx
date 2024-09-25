@@ -17,43 +17,45 @@ const timelineItems : TimelineItem[] = [
     description: "I was using remove.bg as a normal lazy user who couldnt help it, its slow, its expensive, its shitty. Then, Theo dropped picthing. I noticed its super fast, and I have $6 on me but totally worht it specially with the optimized image hosting .engineering thing",
     icon: Inspect,
     image: "/docs/picthing.png",
-    imageAlt: "Market analysis graph showing demand for background removal tools",
+    imageAlt: "inception (why f0 is indeed needed)",
     href: "https://pic.ping.gg/",
   },
   {
     date: "February 2024",
     title: "Research and Planning",
-    description: "Dove deep into various image segmentation algorithms and machine learning models. Evaluated different tech stacks and cloud services for scalability. Created a detailed project roadmap and allocated resources for development.",
+    description: `
+    There are a lot of bg removal services out there, some are open source and some are not, some are in-browser processing and some server-side, some use machine learning and some do not.
+    Dove deep into various image segmentation algorithms and machine learning models, and ended up going for rembg, built upon an ONNX runtime-based gpu optimized version. Then, I build a small endpoint in express with bun runtime for serving and processing, It is not open source, neither and avaialable API to call/use yourself (yet).`,
     icon: CodeIcon,
-    image: "/placeholder.svg?height=200&width=8",
-    imageAlt: "Whiteboard with project architec8ure and tech stack decisions",
-  href:''
+    image: "/docs/rembg.jpeg",
+    imageAlt: "rembg",
+  href:'https://github.com/danielgatis/rembg'
     
   },
   {
     date: "March 2024",
-    title: "Prototype Development",
-    description: "Developed a basic prototype using a U-Net architecture for image segmentation. Implemented initial API endpoints for image upload and processing. Achieved a baseline accuracy of 85% on test images.",
+    title: "F0 Initiation",
+    description: "I have been using and obsessing about V0. with shadcn guy, the guy who made it too, working at Vercel and all whats happening is just so inspiring for me because I love those bad boys so much they DO good for the web. So F0 came really inspired by all of this (logo, brand name, and entity)",
     icon: ImageIcon,
-    image: "/placeholder.svg?height=200&width=400",
-    imageAlt: "Screenshot of the prototype UI with a sample image being processed",
-  href:''
+    image: "/assets/v0.svg",
+    imageAlt: "v0",
+  href:'https://v0.dev/'
   },
   {
     date: "April 2024",
-    title: "Alpha Testing",
-    description: "Conducted rigorous internal testing with a diverse set of images. Refined the algorithm to handle edge cases like hair and transparent objects. Improved processing speed by 40% through GPU optimization.",
+    title: "F0.0.0.1 Out",
+    description: "First Commit, It came out as nexjs app with tailwind (ofcourse), drizzle ORM with neonDB (first time trying this serverless) with postgreSQL. This stack was not bad at the moment and still. It has been incredible dev experience with typeScript tho.Go open source",
     icon: BugIcon,
-    image: "/placeholder.svg?height=200&width=400",
+    image: "/docs/f0-first-commit.jpeg",
     imageAlt: "Comparison of original algorithm results vs improved results after alpha testing",
-  href:''
+  href:'https://github.com/Ebrahim-Ramadan/F0'
   },
   {
     date: "May 2024",
     title: "UI/UX Development",
     description: "Designed and implemented a user-friendly interface for the web application. Incorporated features like drag-and-drop upload, preview mode, and batch processing. Conducted usability tests with a focus group.",
     icon: UsersIcon,
-    image: "/placeholder.svg?height=200&width=400",
+    image: "/",
     imageAlt: "Mockup of the user interface showing key features",
   href:''
   },
@@ -100,10 +102,10 @@ const highlightWords = (text: string, href: string, wordsToHighlight: string[]):
 };
 
 export  function Docs() {
-  const wordsToHighlight = ["picthing"]; 
+  const wordsToHighlight = ["picthing", "rembg", "V0", "go open source"]; 
   return (
     <div className="max-w-4xl mx-auto p-4 ">
-      <h2 className="text-xl md:text-3xl font-bold mb-8 text-center text-neutral-200">F0 Dev Timeline</h2>
+      <h2 className="text-xl md:text-3xl font-bold mb-8 text-center text-neutral-200">F0 Dev. Timeline</h2>
 
       <Link href="/" className="w-full flex items-center justify-start mb-4  z-50">
         <ArrowLeft size='20' className="p-2 rounded-full bg-primary-300/50 hover:bg-primary-300 transition duration-300 cursor-pointer h-8 w-8"/>
@@ -126,7 +128,7 @@ export  function Docs() {
               alt={item.imageAlt}
               width={8000}
               height={8000}
-              className="rounded-lg shadow-md mb-4 w-full"
+              className={`bg-primary-100 rounded-xl shadow-md mb-4 w-full ${item.image=='/assets/v0.svg'&& 'md:p-20 p-8'}`}
             />
           </div>
         ))}
