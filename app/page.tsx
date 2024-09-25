@@ -66,7 +66,7 @@ export default async function Home() {
   <div className="flex items-center space-x-3 bg-black text-white p-3 rounded-md">
   <a href='https://github.com/ebrahim-Ramadan' className="flex-row flex items-center justify-center [&>*]:rounded-full [&>*]:ml-[-1rem] [&>*]:border-2 [&>*]:bg-black [&>*]:border-black [&>*]:w-10 [&>*]:h-10 [&>*]:object-cover">
     <Image src="/examples/theprimeagen.jpg" alt="Avatar 2" className="" width={200} height={200}/>
-    <Image src="/examples/sharmo.png" alt="Avatar 1" className="" width={200} height={200}/>
+    <Image src="/examples/trash.jpg" alt="Avatar 1" className="" width={200} height={200}/>
     <Image src="/examples/theo.jpg" alt="Avatar 2" className="" width={200} height={200}/>
   </a>
 

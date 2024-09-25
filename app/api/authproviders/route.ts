@@ -58,8 +58,8 @@ export async function GET(req: Request) {
         await createUserSession(result.id, false)
         revalidatePath('/')
         const redirectUrl = process.env.NODE_ENV === 'development'
-        ? new URL('http://localhost:3001/')
-        : new URL('/', url.origin); 
+        ? new URL('http://localhost:3001/payment?plan=Hoppy')
+        : new URL('/payment?plan=Hoppy', url.origin); 
 
         return NextResponse.redirect(redirectUrl); // Redirect response
       } catch (error) {
