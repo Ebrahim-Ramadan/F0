@@ -9,12 +9,12 @@ export const FooterFollowUp = () => {
       <p className="text-sm text-primary-600">&copy; 2025 F0. All rights reserved.</p>
       <div className="flex space-x-4 mt-4 sm:mt-0">
         <a
-        href="docs" className="text-sm text-primary-600 hover:text-blue-500 transition-colors">Docs</a>
+        href="docs" className="text-sm text-primary-600 hover:text-primary-800 transition-colors">Docs</a>
         <Link
         prefetch={true}
-        href="#" className="text-sm text-primary-600 hover:text-blue-500 transition-colors">Privacy</Link>
+        href="#" className="text-sm text-primary-600 hover:text-primary-800 transition-colors">Privacy</Link>
         <Link
-        href="https://mail.google.com/mail/u/0/?fs=1&amp;to=ramadanebrahim791@gmail.com&amp;tf=cm" target='_blank' className="text-sm text-primary-600 hover:text-blue-500 transition-colors">Contact</Link>
+        href="https://mail.google.com/mail/u/0/?fs=1&amp;to=ramadanebrahim791@gmail.com&amp;tf=cm" target='_blank' className="text-sm text-primary-600 hover:text-primary-800 transition-colors">Contact</Link>
       </div>
       <div className="flex space-x-4 mt-4 sm:mt-0">
         <Link

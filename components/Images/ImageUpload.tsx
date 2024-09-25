@@ -1,7 +1,7 @@
 'use client';
 
 import { copyToClipboard } from '@/utils/utils';
-import { Bookmark, Check, Copy, Upload, XIcon } from 'lucide-react';
+import {  Check, CircleX, Copy, Upload, XIcon } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -161,11 +161,9 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
 
   if (error) {
     return (
-      <div className="min-h-screen  text-white flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-4xl mb-2">ERROR</h2>
-          <p>{error}</p>
-        </div>
+      <div className="min-h-screen text-primary-950 font-semibold p-2 md:p-8 items-center text-center text-sm md:text-base flex-col gap-2 text-white flex items-center justify-center">
+       <CircleX/>
+       Something went wrong, try again
       </div>
     );
   }

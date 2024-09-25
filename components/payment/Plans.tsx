@@ -96,8 +96,9 @@ export const Plans: React.FC<PlansProps> = ({ triggerClassName, triggerText }) =
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={`fixed inset-0 flex justify-center items-center z-50 px-2 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
         <div className={`fixed inset-0 bg-gradient-to-b from-black/50 to-black ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`} aria-hidden="true" onClick={() => setIsOpen(false)} />
         <div className="-z-50 absolute w-[150px] h-[150px] bg-neutral-100 z-0 blur-[150px] top-0 bottom-0 left-0 right-0 m-auto rounded-full"></div>
-        <div className={`relative overflow-y-scroll h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-primary-100/20 backdrop-blur-3xl grid gap-8 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-300 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
+        <div className={`relative overflow-y-auto h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-primary-100/20 backdrop-blur-3xl grid gap-8 max-w-7xl mx-auto pt-4 md:pt-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-300 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
           <div className="w-full h-[300px] flex absolute top-0 left-0 right-0 z-[-1] m-auto bg-top bg-contain bg-no-repeat bg-[url('https://onvo.me/media/plus/light.png')] filter grayscale" />
+          {/* <div className="w-full h-24 fixed bottom-0 left-0 right-0 z-30 bg-gradient-to-t from-black to-transparent pointer-events-none" /> */}
           <div className="grid gap-2 w-full">
             <div className="flex justify-between items-center ">
               <h1 className="text-xl md:text-3xl font-bold tracking-tight">Subscription Plans</h1>
@@ -113,18 +114,18 @@ export const Plans: React.FC<PlansProps> = ({ triggerClassName, triggerText }) =
               <div key={index} className="bg-primary-200/50">
                 <div>
                   <p className="text-2xl md:text-3xl font-semibold">{plan.name}</p>
-                  <p className="text-sm md:text-base mt-1 text-primary-800">{plan.description}</p>
+                  <p className="text-sm md:text-base mt-1 text-primary-800 tracking-tight">{plan.description}</p>
                 </div>
                 <div className="grid gap-6">
                   <div className="flex items-center justify-between py-2">
                     <div className="text-2xl md:text-4xl font-bold">{plan.price}</div>
-                    <div className="text-muted-foreground">{plan.priceType}</div>
+                    <div className="tracking-tight text-sm">{plan.priceType}</div>
                   </div>
                   <div className="grid gap-2 ">
                     {plan.features.map((feature, featureIndex) => (
                       <div key={featureIndex} className="flex text-neutral-200 items-center justify-start gap-2">
-                        <span>{feature.label}</span>
                         {feature.icon}
+                        <span>{feature.label}</span>
                       </div>
                     ))}
                   </div>
@@ -137,6 +138,8 @@ export const Plans: React.FC<PlansProps> = ({ triggerClassName, triggerText }) =
                 </a>
               </div>
             ))}
+           
+
             <div className="">
               <div>
                 <p className="text-xs px-2 py-1 bg-blue-800 text-blue-200 rounded-full font-semibold w-fit">FOUNDER MODE?</p>
@@ -174,7 +177,11 @@ export const Plans: React.FC<PlansProps> = ({ triggerClassName, triggerText }) =
              
             </div>
           </div>
+          <div className="sticky -bottom-6 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent pointer-events-none z-20" />
+
+
         </div>
+        
       </Dialog>
     </>
   );

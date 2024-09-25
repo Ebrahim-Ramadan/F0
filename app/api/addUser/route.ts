@@ -27,6 +27,8 @@ console.log('result', result);
     // @ts-ignore
     await createUserSession(result.id, false)
     revalidatePath('/')
+    revalidatePath('/payment')
+    revalidatePath('/images')
     // revalidatePath('/images')
     const redirectUrl = new URL('/', url.origin); // Redirect to home page
     // return NextResponse.redirect(redirectUrl); // Redirect response

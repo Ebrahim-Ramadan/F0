@@ -42,10 +42,17 @@ export const Join = () => {
           toast.success('Successfully joined F0, redirecting...');
           router.refresh(); 
           if(userData.user.paymentDate){
-          setTimeout(() => router.push('/images'), 500);
+          setTimeout(() => {
+            router.push('/images')
+            router.refresh()
+          }, 500);
           }
           else{
-            setTimeout(() => router.push('/payment?plan=Hoppy'), 500);
+            setTimeout(() => {
+              router.push('/payment?plan=Hoppy')
+              router.refresh()
+            }
+            , 500);
           }
         } catch (error) {
           console.log('error', error);
