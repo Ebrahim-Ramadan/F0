@@ -52,12 +52,12 @@ const timelineItems : TimelineItem[] = [
   },
   {
     date: "May 2024",
-    title: "UI/UX Development",
-    description: "Designed and implemented a user-friendly interface for the web application. Incorporated features like drag-and-drop upload, preview mode, and batch processing. Conducted usability tests with a focus group.",
+    title: "UI",
+    description: "I tried to do it well, it turned out descently fine. v0 helped with the <CurvyLineArt/> here",
     icon: UsersIcon,
-    image: "/",
+    image: "/docs/finally.jpg",
     imageAlt: "Mockup of the user interface showing key features",
-  href:''
+  href:'#CurvyLineArt'
   },
   {
     date: "June 2024",
@@ -93,7 +93,7 @@ const highlightWords = (text: string, href: string, wordsToHighlight: string[]):
   return text.split(regex).map((part, index) => 
     wordsToHighlight.some(word => word.toLowerCase() === part.toLowerCase())
       ? (
-          <a href={href} key={index} rel="noopener noreferrer" target='_blank' className='mx-1 custom-underline font-medium'>
+          <a href={href} key={index} rel="noopener noreferrer" target={`${href=='#CurvyLineArt'?'_self':'_blank'}`} className='mx-1 custom-underline font-medium'>
             {part}
           </a>
         )
@@ -102,9 +102,9 @@ const highlightWords = (text: string, href: string, wordsToHighlight: string[]):
 };
 
 export  function Docs() {
-  const wordsToHighlight = ["picthing", "rembg", "V0", "go open source"]; 
+  const wordsToHighlight = ["picthing", "rembg", "V0.", "go open source", "<CurvyLineArt/> here"]; 
   return (
-    <div className="max-w-4xl mx-auto p-4 ">
+    <div className="max-w-4xl mx-auto py-4 px-2">
       <h2 className="text-xl md:text-3xl font-bold mb-8 text-center text-neutral-200">F0 Dev. Timeline</h2>
 
       <Link href="/" className="w-full flex items-center justify-start mb-4  z-50">

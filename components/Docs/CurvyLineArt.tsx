@@ -95,8 +95,8 @@ export  function CurvyLineArt() {
   }
 
   return (
-  <div className='w-full h-full' onClick={handleRefresh}>
-      <div className="relative max-w-4xl mx-auto p-4 cursor-pointer" >
+  <div className='w-full h-full max-w-4xl mx-auto p-4 scroll-mt-2 scroll-smooth' onClick={handleRefresh} id="CurvyLineArt">
+      <a className="relative max-w-4xl mx-auto p-4 cursor-pointer scroll-smooth" href='#CurvyLineArt'>
       <canvas
         ref={canvasRef}
         width={canvasSize.width}
@@ -104,18 +104,10 @@ export  function CurvyLineArt() {
         className="w-full h-auto border border-primary-100 rounded-lg shadow-lg"
       />
      
-      <button
-      disabled={isRotating}
-        className="absolute top-4 right-4 p-2 bg-primary-100 bg-opacity-50 rounded-full hover:bg-opacity-75 transition-all duration-300 focus:outline-none"
-        aria-label="Generate new line art"
-      >
-        <RefreshCw
-          className={`md:w-6 w-3 h-3 md:h-6 text-primary-800 ${isRotating ? 'animate-spin-slow' : ''}`}
-        />
-      </button>
-    </div>
-    <div className='flex justify-end  text-xs md:text-sm text-primary-500 max-w-4xl mx-auto px-4'>
-Click To Re-generate
+     
+    </a>
+    <div className='tracking-tight flex justify-end  text-xs md:text-sm text-primary-500 max-w-4xl mx-auto px-4'>
+click to re-generate
     </div>
   </div>
   )
