@@ -65,6 +65,10 @@ export default async function RootLayout({
   const user  = await getUser()
   return (
     <html lang="en">
+      <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5719854631698521"
+     crossOrigin="anonymous"></script>
+      </head>
       <body
         className={`${GeistSans.className} ${GeistMono.className} antialiased bg-primary-50`}
       >
