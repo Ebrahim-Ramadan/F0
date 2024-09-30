@@ -1,4 +1,4 @@
-import {  ImageIcon, RocketIcon, CodeIcon, BugIcon, AwardIcon, UsersIcon, BarChartIcon, ArrowLeft, Inspect } from "lucide-react"
+import {  ImageIcon, RocketIcon, CodeIcon, BugIcon, AwardIcon, UsersIcon, BarChartIcon, ArrowLeft, Inspect, FileQuestion } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 interface TimelineItem {
@@ -107,9 +107,17 @@ export  function Docs() {
     <div className="max-w-4xl mx-auto py-4 px-2">
       <h2 className="text-xl md:text-3xl font-bold mb-8 text-center text-neutral-200">F0 Dev. Timeline</h2>
 
-      <Link href="/" className="w-full flex items-center justify-start mb-4  z-50">
-        <ArrowLeft size='20' className="p-2 rounded-full bg-primary-300/50 hover:bg-primary-300 transition duration-300 cursor-pointer h-8 w-8"/>
+      <div className="w-full flex items-center justify-between mb-4  z-50">
+      <Link href="/" className="">
+        <ArrowLeft size='20' className="p-2 rounded-full bg-primary-300 hover:bg-primary-400 transition duration-300 cursor-pointer h-8 w-8"/>
       </Link>
+      <a href="https://www.magichow.co/embed/c77f89e2-2ffb-4c87-8d58-c950ed91ef92" target='_blank' className="text-xs flex flex-row items-center gap-1 p-2 rounded-full bg-primary-300 hover:bg-primary-400 transition duration-300 cursor-pointer">
+        GUIDE
+        <FileQuestion size='12'/>
+        {/* <ArrowLeft size='20' className="p-2 rounded-full bg-primary-300/50 hover:bg-primary-300 transition duration-300 cursor-pointer h-8 w-8"/> */}
+      </a>
+      
+      </div>
       <div className="relative border-l border-primary-400/50 z-20">
         {timelineItems.map((item, index) => (
           <div key={index} className="mb-16 ml-6">
