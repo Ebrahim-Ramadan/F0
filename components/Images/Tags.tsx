@@ -1,5 +1,5 @@
 'use client'
-import { Tag, XIcon } from "lucide-react"
+import { Tag, TagIcon, XIcon } from "lucide-react"
 import { Dialog } from '@headlessui/react'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from "sonner"
@@ -80,13 +80,13 @@ export const Tags = ({ selectedImageIds, onTagsUpdate }) => {
     return (
         <>
             <button
-                className={`flex items-center gap-2 font-bold text-center block px-4 py-2 text-xs md:text-sm rounded-3xl text-white ${selectedImageIds.length === 0 ? 'bg-primary-200/50' : 'bg-primary-300 hover:bg-primary-400'}`}
+                className={`flex items-center gap-2 font-bold text-center block px-4 py-2 text-xs md:text-sm rounded-3xl transition duration-300 ${selectedImageIds.length === 0 ? 'bg-primary-300/70 text-white' : 'bg-white text-black hover:bg-white/80'}`}
                 role="button"
                 disabled={selectedImageIds.length === 0}
                 id="create-tag"
                 onClick={() => setIsOpen(true)}
             >
-                <Tag  size='12' className='h-4'/>
+                <TagIcon  size='12' className='h-4'/>
                 CREATE TAG
             </button>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="fixed inset-0 flex justify-center items-center z-50 px-2">

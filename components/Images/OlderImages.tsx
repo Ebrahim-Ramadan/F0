@@ -191,7 +191,7 @@ export const OlderImages = ({ user }: { user: UserType }) => {
     <div className='min-h-screen w-full '>
       {user.images.length > 0 && (
         <div className="relative my-2 md:my-8">
-          <h1 className="relative ml-2 z-10 inline-block bg-black px-2 font-bold text-xl md:text-2xl text-white">ALL IMAGES</h1>
+          <h1 className="relative ml-2 z-10 inline-block bg-black/10 backdrop-blur-3xl px-2 font-bold text-xl md:text-2xl text-white">ALL IMAGES</h1>
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-neutral-600"></div>
           </div>
@@ -208,7 +208,7 @@ export const OlderImages = ({ user }: { user: UserType }) => {
             <Tags selectedImageIds={deferredImagesSelected} onTagsUpdate={handleTagsUpdate}/>
 
             <button 
-              className={`items-center gap-1 flex flex-row ${!Loading ? 'bg-red-600 hover:bg-red-700 ' : 'bg-transparent'} p-2 rounded-full text-xs md:text-sm md:font-semibold disabled:bg-primary-100`} 
+              className={`items-center gap-2 flex flex-row disabled:bg-primary-300/70 transition duration-300 ${!Loading ? 'bg-red-600 hover:bg-red-700 ' : 'bg-transparent'} p-2 rounded-full text-xs  md:text-sm md:font-semibold `} 
               onClick={handleDeleteSelected}
               disabled={selectedImages.length === 0}
             >
