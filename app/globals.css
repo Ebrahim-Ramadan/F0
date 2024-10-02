@@ -28,7 +28,9 @@ body {
     rgb(var(--background-start-rgb));
 
 }
-
+.filter-blur {
+  filter: url(#blur-and-scale);
+}
 /* width */
 ::-webkit-scrollbar {
   height: 0;

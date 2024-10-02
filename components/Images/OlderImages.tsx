@@ -247,8 +247,15 @@ export const OlderImages = ({ user }: { user: UserType }) => {
               height={500}
               alt={`Processed Image ${index + 1}`}
               src={img.afterBgRemoval}
-              className="object-cover w-full h-36 md:h-72 transition-transform duration-300 group-hover:scale-110"
+              className="filter-blur object-cover w-full h-36 md:h-72 transition-transform duration-300 group-hover:scale-110"
             />
+              {/* <svg width="0" height="0">
+      <filter id="blur-and-scale" y="-50%" x="-50%" width="200%" height="200%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="40" result="blurred" />
+        <feColorMatrix type="saturate" in="blurred" values="30" />
+        <feComposite in="SourceGraphic" operator="over" />
+      </filter>
+    </svg> */}
             <div className="text-xs md:text-sm absolute top-2 right-2 bg-primary-200 backdrop-blur-3xl transition-opacity duration-300 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               <button
                 onClick={() => handleCopy(img.id, img.afterBgRemoval)}
@@ -261,7 +268,7 @@ export const OlderImages = ({ user }: { user: UserType }) => {
               className="bottombar text-xs md:text-sm absolute bottom-0 flex flex-row justify-between w-full items-center bg-black/80 backdrop-blur-xl transition-opacity duration-300 rounded-md md:px-2 py-1"
             >
               <input
-                className='w-5 h-5 w-5 h-5 appearance-none cursor-pointer border border-primary-300 bg-primary-300  rounded-md mr-2 hover:border-primary-500  checked:bg-no-repeat checked:bg-center checked:border-primary-600 checked:bg-primary-950'
+                className='w-5 h-5 w-5 h-5 appearance-none cursor-pointer border border-primary-500 bg-primary-300  rounded-md mr-2 hover:border-primary-600  checked:bg-no-repeat checked:bg-center checked:border-primary-600 checked:bg-primary-950'
                 type="checkbox"
                 id={img.id}
                 checked={selectedImages.includes(img.id)}

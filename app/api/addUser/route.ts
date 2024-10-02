@@ -25,7 +25,7 @@ console.log('result', result);
       );
     }
     // @ts-ignore
-    await createUserSession(result.id, false)
+    await createUserSession(result.id, true)
     revalidatePath('/')
     revalidatePath('/payment')
     revalidatePath('/images')

@@ -55,7 +55,7 @@ export async function GET(req: Request) {
             );
           }
         // @ts-ignore
-        await createUserSession(result.id, false)
+        await createUserSession(result.id, true)
         revalidatePath('/')
         const redirectUrl = process.env.NODE_ENV === 'development'
         ? new URL('http://localhost:3001/payment?plan=Hoppy')
