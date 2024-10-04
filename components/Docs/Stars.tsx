@@ -26,24 +26,30 @@ export const Stars= () => {
     }
 
     function animate() {
+      // @ts-ignore
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       stars.forEach((star) => {
-        // Calculate opacity based on y position
+            // @ts-ignore
         const fadeStart = canvas.height * 0.8
+      // @ts-ignore
         const fadeEnd = canvas.height
         let opacity = star.opacity
 
         if (star.y > fadeStart) {
           opacity = star.opacity * (1 - (star.y - fadeStart) / (fadeEnd - fadeStart))
         }
-
+      // @ts-ignore
         ctx.beginPath()
+      // @ts-ignore
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2)
+      // @ts-ignore
         ctx.fillStyle = `rgba(220, 220, 220, ${opacity/5})`
+      // @ts-ignore
         ctx.fill()
 
         star.y += star.speed
+      // @ts-ignore
         if (star.y > canvas.height) {
           star.y = 0
           star.opacity = Math.random()
