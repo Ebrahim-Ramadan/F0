@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { RefreshCw } from 'lucide-react'
+import Stars from './Stars'
 
 interface Point {
   x: number
@@ -96,6 +97,7 @@ export  function CurvyLineArt() {
 
   return (
   <div className='w-full h-full max-w-4xl mx-auto p-4 scroll-mt-2 scroll-smooth' onClick={handleRefresh} id="CurvyLineArt">
+    <Stars/>
       <a className="relative max-w-4xl mx-auto p-4 cursor-pointer scroll-smooth" href='#CurvyLineArt'>
       <canvas
         ref={canvasRef}

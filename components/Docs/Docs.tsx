@@ -1,4 +1,4 @@
-import {  ImageIcon, RocketIcon, CodeIcon, BugIcon, AwardIcon, UsersIcon, BarChartIcon, ArrowLeft, Inspect, FileQuestion } from "lucide-react"
+import {  ImageIcon, RocketIcon, CodeIcon, BugIcon, AwardIcon, UsersIcon, BarChartIcon, ArrowLeft, Inspect, FileQuestion, Brain, PackageSearch, Code, LaptopMinimal } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 interface TimelineItem {
@@ -15,7 +15,7 @@ const timelineItems : TimelineItem[] = [
     date: "September 2024",
     title: "F0 Inception",
     description: "I was using remove.bg as a normal lazy user who couldnt help it, its slow, its expensive, its shitty. Then, Theo dropped picthing. I noticed its super fast, and I have $6 on me but totally worht it specially with the optimized image hosting .engineering thing",
-    icon: Inspect,
+    icon: Brain,
     image: "/docs/picthing.png",
     imageAlt: "inception (why f0 is indeed needed)",
     href: "https://pic.ping.gg/",
@@ -26,7 +26,7 @@ const timelineItems : TimelineItem[] = [
     description: `
     There are a lot of bg removal services out there, some are open source and some are not, some are in-browser processing and some server-side, some use machine learning and some do not.
     Dove deep into various image segmentation algorithms and machine learning models, and ended up going for rembg, built upon an ONNX runtime-based gpu optimized version. Then, I build a small endpoint in express with bun runtime for serving and processing, It is not open source, neither and avaialable API to call/use yourself (yet).`,
-    icon: CodeIcon,
+    icon: PackageSearch,
     image: "/docs/rembg.jpeg",
     imageAlt: "rembg",
   href:'https://github.com/danielgatis/rembg'
@@ -36,7 +36,7 @@ const timelineItems : TimelineItem[] = [
     date: "March 2024",
     title: "F0 Initiation",
     description: "I have been using and obsessing about V0. with shadcn guy, the guy who made it too, working at Vercel and all whats happening is just so inspiring for me because I love those bad boys so much they DO good for the web. So F0 came really inspired by all of this (logo, brand name, and entity)",
-    icon: ImageIcon,
+    icon: RocketIcon,
     image: "/assets/v0.svg",
     imageAlt: "v0",
   href:'https://v0.dev/'
@@ -45,7 +45,7 @@ const timelineItems : TimelineItem[] = [
     date: "April 2024",
     title: "F0.0.0.1 Out",
     description: "First Commit, It came out as nexjs app with tailwind (ofcourse), drizzle ORM with neonDB (first time trying this serverless) with postgreSQL. This stack was not bad at the moment and still. It has been incredible dev experience with typeScript tho.Go open source",
-    icon: BugIcon,
+    icon: Code,
     image: "/docs/f0-first-commit.jpeg",
     imageAlt: "Comparison of original algorithm results vs improved results after alpha testing",
   href:'https://github.com/Ebrahim-Ramadan/F0'
@@ -54,7 +54,7 @@ const timelineItems : TimelineItem[] = [
     date: "May 2024",
     title: "UI",
     description: "I tried to do it well, it turned out descently fine. v0 helped with the <CurvyLineArt/> here",
-    icon: UsersIcon,
+    icon: LaptopMinimal,
     image: "/docs/finally.jpg",
     imageAlt: "Mockup of the user interface showing key features",
   href:'#CurvyLineArt'
@@ -105,7 +105,7 @@ export  function Docs() {
   const wordsToHighlight = ["picthing", "rembg", "V0.", "go open source", "<CurvyLineArt/> here"]; 
   return (
     <div className="max-w-4xl mx-auto py-4 px-2">
-      <h2 className="text-xl md:text-3xl font-bold mb-8 text-center text-neutral-200">F0 Dev. Timeline</h2>
+      <h2 className="text-2xl md:text-5xl font-bold mb-8 text-center text-neutral-200">F0 Dev. Timeline</h2>
 
       <div className="w-full flex items-center justify-between mb-4  z-50">
       <Link href="/" className="">
@@ -121,7 +121,7 @@ export  function Docs() {
       <div className="relative border-l border-primary-400/50 z-20">
         {timelineItems.map((item, index) => (
           <div key={index} className="mb-16 ml-6">
-            <div className="absolute md:w-8 w-6 md:h-8 h-6 bg-primary-300/50 rounded-full md:-left-4 -left-3 flex items-center justify-center">
+            <div className="absolute md:w-8 w-6 md:h-8 h-6 bg-primary-200 rounded-full md:-left-4 -left-3 flex items-center justify-center">
               <item.icon className="md:h-6 md:w-6 h-4 w-4 text-blue-600" />
             </div>
             <time className="text-xs md:text-sm font-normal leading-none text-primary-500">{item.date}</time>

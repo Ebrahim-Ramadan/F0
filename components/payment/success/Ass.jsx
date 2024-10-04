@@ -4,6 +4,16 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import Image from "next/image"
 
+/**
+ * OhMyAss
+ * @param {{user: UserType}} props
+ * @returns {JSX.Element}
+ * @description
+ * This component is rendered when the user has successfully paid for a subscription.
+ * It will check the status of the subscription for the given `transaction_id` and `userId`.
+ * If the subscription is confirmed, it will display a success message.
+ * If the subscription is not confirmed, it will display an error message.
+ */
 export const OhMyAss  = ({user}) => {
     const searchParams = useSearchParams()
 
@@ -40,6 +50,7 @@ export const OhMyAss  = ({user}) => {
           <p className="text-primary-600 text-center mb-4 leading-tight text-xs md:text-sm">
             Thank you for your purchase. Your transaction has been completed successfully. Save the Date baby!✌🏻️
           </p>
+         
         </div>
     )
     

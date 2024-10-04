@@ -1,5 +1,5 @@
 'use client'
-import {  XIcon } from "lucide-react";
+import {  StopCircle, XIcon } from "lucide-react";
 import { Dialog } from '@headlessui/react';
 import { useState } from 'react';
 import LoadingDots from '../Globals/LoadingDots'
@@ -30,20 +30,23 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClas
 
   return (
     <>
-      <div className={`flex justify-end ${triggerText == 'Manage Account' ? 'w-full' : ''}`}>
+      <div className={`flex justify-center  ${triggerText == 'Manage Account' ? 'w-full' : ''}`}>
         <button
-          className={`font-medium text-center ${triggerClassName}`}
+          className={`font-medium text-center  ${triggerClassName}`}
           role="Subscribe"
           id="manage-account"
           onClick={() => setIsOpen(true)}
         >
-          <XIcon size='16' />
+          {/* <StopCircle size='16' /> */}
           {triggerText}
         </button>
       </div>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={`fixed inset-0 flex justify-center items-center z-50 px-2 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
         <div className={`fixed inset-0 bg-gradient-to-b from-black/40 to-black ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`} aria-hidden="true" onClick={() => setIsOpen(false)} />
-        <div className={`relative overflow-y-auto h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-primary-200 backdrop-blur-3xl grid gap-2 md:gap-4 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-100 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
+        <div className={`
+        [&>*]:border-neutral-700 [&>*]:pb-2 [&>*:nth-last-child(2)]:border-b-2 
+
+        relative overflow-y-auto h-auto md:max-h-[90vh] max-h-[80vh] w-full md:max-w-3xl bg-primary-200 backdrop-blur-3xl grid gap-2 md:gap-4 max-w-7xl mx-auto py-4 md:py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border-2 border-primary-100 ${isOpen ? 'animate-fadeIn' : 'animate-fadeOut'}`}>
           <div className="grid gap-2 w-full">
             <div className="flex justify-between items-center">
               <h1 className="text-xl md:text-3xl font-bold tracking-tight">Cancel Subscription</h1>
@@ -54,9 +57,8 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClas
             <p className="text-xs md:text-sm text-primary-700">This action cannot be undone and you will lose access to the services immediately. Are you sure you want to cancel your subscription?</p>
           </div>
           <div className="w-full justify-center flex items-center flex-row">
-<p className="rounded-xl bg-primary-100 p-2 md:p-4 text-sm text-primary-900 font-semibold">
-{getRandomYouShould()}
-</p>
+<p className="rounded-3xl bg-primary-100 p-2 md:p-4 text-sm text-primary-900 font-semibold">
+`{getRandomYouShould()}`</p>
           </div>
 <div className="flex justify-end pt-4">
 <button 
@@ -78,11 +80,11 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClas
      
     }}
     disabled={loading}
-    className="flex items-center text-sm md:text-base hover:bg-red-600 bg-red-500 gap-2 px-2 py-1 rounded-xl transition duration-300 md:px-4 disabled:text-primary-700 disabled:bg-primary-100">
+    className="flex items-center text-sm md:text-base hover:bg-red-600 bg-red-500 gap-2 px-2 md:py-2 py-1 rounded-3xl transition duration-300 md:px-4 disabled:text-primary-700 disabled:bg-primary-100 font-medium">
        {loading ? (
               <LoadingDots/>      
               ):(
-          'Confirm'
+          'CONFIRM'
       )}
         </button>  
 </div>

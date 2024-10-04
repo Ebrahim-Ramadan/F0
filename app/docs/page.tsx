@@ -8,7 +8,7 @@ const CurvyLineArt = dynamic(() => import("@/components/Docs/CurvyLineArt"), {
 export default async function Home() {
     return (
       <>
-      <div className="relative flex h-full flex-col px-4 py-24 sm:px-6 lg:px-8" >
+      <div className="relative flex h-full flex-col px-4 py-24 sm:px-6 lg:px-8 backdrop-blur-3xl bg-black" >
         <div className="absolute left-1/2 top-0 ml-[-50%] h-[25rem] w-full -z-50 max-w-[81.25rem] dark:[mask-image:linear-gradient(white,transparent)]">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-900  [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] dark:from-blue-500/30 dark:to-[#450a0a]/80 ">
             <svg

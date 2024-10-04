@@ -1,4 +1,5 @@
-import {CheckCircle } from 'lucide-react';
+import {ArrowLeft,  CheckCircle } from 'lucide-react';
+import Link from 'next/link';
 
 import CancelSubscriptionModal from './CancelSubscriptionModal';
 import Plans from './Plans';
@@ -60,18 +61,24 @@ export function PaidSuccessfully({ user }: { user: UserType }) {
             <p><strong className='text-primary-800'>AMOUNT:</strong> {subscriptionData.amount}</p>
           </div>
         </div>
-        {user.SubscriptionID!=null&&
-        <div className="flex justify-end py-4">
+        {/* {user.SubscriptionID!=null&& */}
+        <div className="flex justify-between flex-col md:flex-row space-y-2 py-4">
+        <Link href='/images' className=' self-center text-center group flex flex-row gap-2 items-center   py-2 px-4 rounded-3xl font-semibold bg-neutral-800 hover:bg-neutral-700 w-fit text-neutral-100 text-sm md:text-base transition-all duration-200 '>
+<ArrowLeft size='16' className='text-primary-800 group-hover:text-primary-900 transition-all duration-300 '/>
+
+GO BACK
+</Link>
         <CancelSubscriptionModal
         user={user}
-            triggerClassName='flex items-center text-sm md:text-base hover:bg-red-600 bg-red-500 gap-2 md:px-4 px-2 md:py-2 py-1 rounded-lg transition duration-300 disabled:text-primary-700 disabled:bg-primary-100'
-            triggerText='Cancel Subscription'
+            triggerClassName='flex items-center text-sm md:text-base hover:bg-red-600 bg-red-500 gap-2 px-4 py-2  rounded-3xl transition duration-300 disabled:text-primary-700 disabled:bg-primary-100'
+            triggerText='UNSUBSCRIBE'
         />
     
             </div>
-        }
+        {/* } */}
         
       </div>
+     
     </div>
   );
 }
