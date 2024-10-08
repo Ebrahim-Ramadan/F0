@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     const authResult = await authResponse.json();
 
     if (!authResult.token) {
-    throw new Error('Failed to obtain auth token');
+      throw new Error('Failed to obtain auth token');
     }
 
     const myHeaders = new Headers();
@@ -47,11 +47,11 @@ export async function POST(req: Request) {
     const cancelSubResult = await response.json();
     if (response.status === 404) {
         return NextResponse.json({ error: 'Subscription not found', details: cancelSubResult }, { status: 404 });
-      }
+    }
     if (response.ok) {
       // @ts-ignore
       await updateUserPayment(user.id, null, null)
-      await updateUserSubscriptionID(user.id,  null)
+      await updateUserSubscriptionID(user.id, null)
       revalidatePath('/')
       return NextResponse.json({ message: 'Subscription Cancelled Successfully' }, { status: 200 });
     } else {

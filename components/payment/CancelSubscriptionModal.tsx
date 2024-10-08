@@ -1,7 +1,7 @@
 'use client'
 import {  StopCircle, XIcon } from "lucide-react";
 import { Dialog } from '@headlessui/react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import LoadingDots from '../Globals/LoadingDots'
 import { youShoulds } from "@/lib/youShoulds";
 import { useRouter } from "next/navigation";
@@ -58,7 +58,7 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClas
           </div>
           <div className="w-full justify-center flex items-center flex-row">
 <p className="rounded-3xl bg-primary-100 p-2 md:p-4 text-sm text-primary-900 font-semibold">
-`{getRandomYouShould()}`</p>
+`{ useMemo(() => getRandomYouShould(), [])}`</p>
           </div>
 <div className="flex justify-end pt-4">
 <button 
@@ -73,8 +73,12 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClas
         });
         const cancelSubResult = await res.json();
         console.log('cancelSubResult', cancelSubResult);
-        
-        toast.success(cancelSubResult.message)
+        if(cancelSubResult.error){
+          toast.error(cancelSubResult.error )
+        }
+        else{
+          toast.success(cancelSubResult.message )
+        }
         setloading(false)
         router.refresh()
      
