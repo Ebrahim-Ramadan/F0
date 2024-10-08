@@ -80,7 +80,7 @@ export async function POST(req:Request) {
     const extractedData = extractTransactionInfo(data);
     console.log('extractedData', extractedData);
     
-    const updatedUser = await updateUserPayment(extractedData.userID, new Date(data.obj.order.created_at), extractedData.plan);
+    const updatedUser = await updateUserPayment(extractedData.userID, new Date(data.obj.order.created_at), extractedData.transactionID, extractedData.plan);
         
     console.log('updatedUser', updatedUser);
     revalidatePath('/');
@@ -100,6 +100,6 @@ function extractTransactionInfo(data) {
     plan: obj.order.shipping_data.last_name,
     email: obj.order.shipping_data.email,
     paymentDate: obj.order.created_at,
-    subscription_plan_id: obj.id,
+    transactionID: obj.id,
   };
 }

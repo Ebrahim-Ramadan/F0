@@ -229,22 +229,36 @@ export const addSubscriber = async (
 export const updateUserPayment = async (
   userId: number,
   newPaymentDate: Date | null,
-  // subscriptionID: string,
+  transactionID: string | null,
   planName: string | null
 ): Promise<{ success: boolean; error?: string }> => {
   try {
+     // Create an update object with only the non-null values
+     const updateData: Partial<typeof users.$inferSelect> = {};
+    
+     if (newPaymentDate !== undefined) {
+       updateData.paymentDate = newPaymentDate;
+     }
+     
+     if (transactionID !== undefined) {
+       updateData.lastTransactionID = transactionID;
+     }
+     
+     if (planName !== undefined) {
+       updateData.planName = planName;
+     }
     const result = await db
       .update(users)
       .set({ 
         paymentDate: newPaymentDate,
-        // SubscriptionID: subscriptionID,
+        lastTransactionID: transactionID,
         planName: planName
       })
       .where(eq(users.id, userId))
       .returning({ 
         id: users.id, 
         paymentDate: users.paymentDate, 
-        // subscriptionID: users.SubscriptionID,
+        lastTransactionID: users.lastTransactionID,
         planName: users.planName
       });
 
@@ -258,32 +272,7 @@ export const updateUserPayment = async (
     return { success: false, error: "Failed to update payment details" };
   }
 };
-export const updateUserSubscriptionID = async (
-  userId: number,
-  subscriptionID: string| null
-): Promise<{ success: boolean; error?: string }> => {
-  try {
-    const result = await db
-      .update(users)
-      .set({ 
-        SubscriptionID: subscriptionID
-      })
-      .where(eq(users.id, userId))
-      .returning({ 
-        id: users.id, 
-        subscriptionID: users.SubscriptionID
-      });
 
-    if (result.length === 0) {
-      return { success: false, error: "User not found" };
-    }
-
-    return { success: true };
-  } catch (error) {
-    console.error("Error updating user subscription ID:", error);
-    return { success: false, error: "Failed to update subscription ID" };
-  }
-};
 export const incrementTrialCount = async (userId: number): Promise<{ success: boolean } | { error: string }> => {
   try {
     // Fetch the current trialCount

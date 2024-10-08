@@ -19,10 +19,6 @@ interface PlansProps {
   };
 }
 
-const getRandomYouShould = () => {
-  const randomIndex = Math.floor(Math.random() * youShoulds.length);
-  return youShoulds[randomIndex];
-};
 export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClassName, triggerText }) => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
@@ -56,10 +52,7 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClas
             </div>
             <p className="text-xs md:text-sm text-primary-700">This action cannot be undone and you will lose access to the services immediately. Are you sure you want to cancel your subscription?</p>
           </div>
-          <div className="w-full justify-center flex items-center flex-row">
-<p className="rounded-3xl bg-primary-100 p-2 md:p-4 text-sm text-primary-900 font-semibold">
-`{ useMemo(() => getRandomYouShould(), [])}`</p>
-          </div>
+         
 <div className="flex justify-end pt-4">
 <button 
     onClick={async()=>{
@@ -88,7 +81,7 @@ export const CancelSubscriptionModal: React.FC<PlansProps> = ({user, triggerClas
        {loading ? (
               <LoadingDots/>      
               ):(
-          'CONFIRM'
+          'UNSCUBSCRIBE'
       )}
         </button>  
 </div>

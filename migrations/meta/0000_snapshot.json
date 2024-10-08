@@ -1,5 +1,5 @@
 {
-  "id": "27a87d5b-2114-4540-b229-5b190c99224f",
+  "id": "efb0ef67-b531-41d1-a56d-c98603719f82",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -126,6 +126,12 @@
           "primaryKey": false,
           "notNull": false,
           "default": 0
+        },
+        "last_transaction_id": {
+          "name": "last_transaction_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},

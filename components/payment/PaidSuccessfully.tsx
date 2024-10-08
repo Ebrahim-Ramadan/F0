@@ -1,4 +1,4 @@
-import {ArrowLeft,  CheckCircle } from 'lucide-react';
+import {ArrowLeft,  CheckCircle, Upload } from 'lucide-react';
 import Link from 'next/link';
 
 import CancelSubscriptionModal from './CancelSubscriptionModal';
@@ -17,7 +17,7 @@ function addMonth(date: Date): Date {
   newDate.setMonth(date.getMonth() + 1);
   return newDate;
 }
-const plans = [{'Hoppy':'90'}, {'Go nuts':'135'}, {'Go super nuts':'600'}];
+const plans = [{'Hoppy':'90'}, {'GoNuts':'135'}, {'GoSuperNuts':'600'}];
 const getAmount = (planName: string) => {
   const plan = plans.find(p => Object.keys(p)[0] === planName);
   return plan ? Object.values(plan)[0] : '0';
@@ -45,7 +45,7 @@ export function PaidSuccessfully({ user }: { user: UserType }) {
       <div className="mt-4 ">
         <div className='space-y-2'>
           <div className="flex justify-between items-center">
-            <div className='text-lg md:text-3xl'>Subscription Status</div>
+            <div className='text-lg md:text-3xl'>STATUS</div>
             <div className="bg-green-500 flex items-center flex-row rounded-full px-2 py-1 text-xs md:text-sm text-white">
               <CheckCircle className="mr-1 h-4 w-4" />
               ACTIVE
@@ -62,11 +62,11 @@ export function PaidSuccessfully({ user }: { user: UserType }) {
           </div>
         </div>
         {/* {user.SubscriptionID!=null&& */}
-        <div className="flex justify-between flex-col md:flex-row space-y-2 py-4">
+        <div className="flex justify-end flex-col md:flex-row gap-2 py-4">
         <Link href='/images' className=' self-center text-center group flex flex-row gap-2 items-center   py-2 px-4 rounded-3xl font-semibold bg-neutral-800 hover:bg-neutral-700 w-fit text-neutral-100 text-sm md:text-base transition-all duration-200 '>
-<ArrowLeft size='16' className='text-primary-800 group-hover:text-primary-900 transition-all duration-300 '/>
+<Upload size='16' className='text-primary-800 group-hover:text-primary-900 transition-all duration-300 '/>
 
-GO BACK
+UPLOAD IMAGES
 </Link>
         <CancelSubscriptionModal
         user={user}
