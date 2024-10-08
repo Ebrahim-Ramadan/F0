@@ -25,7 +25,7 @@ export default async function Home() {
     <div className='flex flex-row gap-2 items-center justify-center bg-gradient-to-r from-primary-200 to-primary-100 rounded-full p-2 hover:bg-red-200 transition-colors'>
     <StarsIcon className='w-8 h-8 md:w-10 md:h-10 bg-blue-900 flex items-center justify-center p-2 rounded-full'/>
     <span className='font-semibold'>Inspired by
-      <a href='https://pic.ping.gg/' className="px-1 tracking-tight">pic<span className="text-[#E24B8C]">thing</span></a>
+      <a href='https://pic.ping.gg/' className="alegreya-ass px-1 tracking-tight">pic<span className="text-[#E24B8C]">thing</span></a>
     </span>
   </div>
     </div>
@@ -37,7 +37,7 @@ export default async function Home() {
         <span className='text-xl md:text-2xl font-bold text-white'>
           WHAT PEOPLE DID
         </span>
-        <p className='text-primary-700 text-xs md:text-sm'>
+        <p className='alegreya-ass text-primary-700 text-xs md:text-sm'>
           See Youself
         </p>
         </div>

@@ -49,7 +49,11 @@ body {
   border-radius: 0;
 }
 
-
+.alegreya-ass {
+  font-family: "Alegreya", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+}
 
 
 .blur-container {

@@ -1,4 +1,4 @@
-import {  ImageIcon, RocketIcon, CodeIcon, BugIcon, AwardIcon, UsersIcon, BarChartIcon, ArrowLeft, Inspect, FileQuestion, Brain, PackageSearch, Code, LaptopMinimal } from "lucide-react"
+import {  ImageIcon, RocketIcon, CodeIcon, BugIcon, AwardIcon, UsersIcon, BarChartIcon, ArrowLeft, Inspect, FileQuestion, Brain, PackageSearch, Code, LaptopMinimal, ShieldQuestion, Parentheses, Dock, Star, Github } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 interface TimelineItem {
@@ -111,9 +111,12 @@ export  function Docs() {
       <Link href="/" className="">
         <ArrowLeft size='20' className="p-2 rounded-full bg-primary-300 hover:bg-primary-400 transition duration-300 cursor-pointer h-8 w-8"/>
       </Link>
-      <a href="https://www.magichow.co/embed/c77f89e2-2ffb-4c87-8d58-c950ed91ef92" target='_blank' className="text-xs flex flex-row items-center gap-1 p-2 rounded-full bg-primary-300 hover:bg-primary-400 transition duration-300 cursor-pointer">
-        GUIDE
-        <FileQuestion size='12'/>
+      <a
+      href='https://github.com/Ebrahim-Ramadan/f0'
+      // href="https://www.magichow.co/embed/c77f89e2-2ffb-4c87-8d58-c950ed91ef92"
+       target='_blank' className="alegreya-ass text-xs flex flex-row items-center gap-1 p-2 rounded-full bg-primary-300 hover:bg-primary-400 transition duration-300 cursor-pointer">
+        STAR
+        <Github size='12'/>
         {/* <ArrowLeft size='20' className="p-2 rounded-full bg-primary-300/50 hover:bg-primary-300 transition duration-300 cursor-pointer h-8 w-8"/> */}
       </a>
       
@@ -124,7 +127,7 @@ export  function Docs() {
             <div className="absolute md:w-8 w-6 md:h-8 h-6 bg-primary-200 rounded-full md:-left-4 -left-3 flex items-center justify-center">
               <item.icon className="md:h-6 md:w-6 h-4 w-4 text-blue-600" />
             </div>
-            <time className="text-xs md:text-sm font-normal leading-none text-primary-500">{item.date}</time>
+            <time className="text-xs md:text-sm font-normal leading-none text-primary-500 alegreya-ass ">{item.date}</time>
             <h3 className="text-xl font-semibold text-white  mb-4">
               {item.title}
             </h3>

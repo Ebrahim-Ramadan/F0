@@ -11,7 +11,7 @@ export default async function RootLayout({
     children: React.ReactNode;
   }>) {
     return (
- <div>
+ <div> 
      <div className="-z-50 absolute w-[150px] h-[150px] bg-neutral-100 z-[-1] blur-[200px] top-0 bottom-0 left-0 right-0 m-auto rounded-full"></div>
 
  {children}

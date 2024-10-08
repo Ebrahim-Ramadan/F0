@@ -68,6 +68,9 @@ export default async function RootLayout({
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5719854631698521"
      crossOrigin="anonymous"></script>
+     <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"/>
       </head>
       <body
         className={`${GeistSans.className} ${GeistMono.className} antialiased bg-primary-50`}
@@ -76,8 +79,7 @@ export default async function RootLayout({
 {/* @ts-ignore */}
     <Header user={user && user}/>
 
-         <Toaster position="bottom-right" richColors  theme="dark"/>
-
+         <Toaster position="top-center" richColors  theme="dark"/>
         {children}
         <Footer/>
       </body>
