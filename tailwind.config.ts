@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       animation: {
+        rainbow: "rainbow var(--speed, 2s) infinite linear",
         'spin-slow': 'spin 0.2s linear infinite',
 
         fadeIn: 'fadeIn 0.3s ease-out',
@@ -16,6 +17,10 @@ const config: Config = {
         'float-move': 'float-move 1s ease-out forwards',
       },
       keyframes: {
+        rainbow: {
+          "0%": { "background-position": "0%" },
+          "100%": { "background-position": "200%" },
+        },
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
@@ -33,6 +38,11 @@ const config: Config = {
         },
       },
       colors: {
+        "color-1": "hsl(var(--color-1))",
+        "color-2": "hsl(var(--color-2))",
+        "color-3": "hsl(var(--color-3))",
+        "color-4": "hsl(var(--color-4))",
+        "color-5": "hsl(var(--color-5))",
         primary: {
           50:  '#000000', // Lightest shade
           100: '#121212', // Lightest shade
