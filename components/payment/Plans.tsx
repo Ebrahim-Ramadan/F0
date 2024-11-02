@@ -1,7 +1,9 @@
 'use client'
+// 'use cache'
 import { ArrowRight, CheckIcon, XIcon,  ImageDown,  CircleCheck, GraduationCap, ReceiptPoundSterlingIcon, CheckCheckIcon, PlaneIcon, HopIcon, LucideTarget, Superscript, ChartArea, ThermometerSnowflake, PhoneCall } from "lucide-react"
 import { Dialog,  } from '@headlessui/react'
 import { ReactNode, useState } from 'react'
+import Tabs from "./Tabs";
 
 interface Plan {
   name: string;
@@ -110,6 +112,7 @@ export const Plans: React.FC<PlansProps> = ({ triggerClassName, triggerText }) =
           </div>
 
           <div className="grid gap-6 [&>*]:transition [&>*]:duration-300 [&>*]:p-4 [&>*]:rounded-3xl ">
+            <Tabs/>
             {plans.map((plan, index) => (
               <div key={index} className="bg-primary-200/50">
                 <div>

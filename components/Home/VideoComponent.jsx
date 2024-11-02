@@ -35,8 +35,8 @@ const VideoComponent = ({loggedIN}) => {
   <div className="absolute top-0 bg-gradient-to-b from-primary-200 to-transparent z-20 w-full h-16"></div>
 
   <div className="w-full flex-grow relative">
-    <div className='absolute h-full flex flex-col justify-center items-center text-white z-20 w-full bg-primary-50 bg-opacity-20 backdrop-blur-xs px-4 md:px-8'>
-<div className="w-full md:w-1/2 space-y-2 md:space-y-2 bg-primary-50 bg-opacity-20 backdrop-blur-2xl p-4 rounded-3xl ">
+    <div className='absolute h-full flex flex-col justify-center items-center text-white z-20 w-full bg-primary-50 bg-opacity-20 backdrop-blur-xs px-2 md:px-8'>
+<div className="w-full md:w-1/2 space-y-2 md:space-y-2 bg-primary-50 bg-opacity-20 backdrop-blur-2xl p-3 py-4 md:p-6 rounded-3xl ">
               <div className="inline-block rounded-lg transition-all duration-300 hover:bg-primary-200 bg-primary-100 px-3 py-1 text-xs items-center font-bold flex w-fit gap-1 flex-row">
                 Inspired by 
                <Image
@@ -49,7 +49,7 @@ const VideoComponent = ({loggedIN}) => {
               <h1 className="text-primary-900 text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl ">
                 Welcome to <span className="text-primary-950">F0</span>
               </h1>
-              <p className="mt-2 text-primary-800 text-lg md:text-xl">
+              <p className="mt-2 text-primary-800 text-lg md:text-xl tracking-tight  leading-6">
               remove your background within milliseconds.
               </p>
               <button className="mt-2 md:mt-4 flex justify-end w-full">

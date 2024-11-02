@@ -1,7 +1,7 @@
 import { ImageUpload } from "@/components/Images/ImageUpload";
 import { Join } from "@/components/Join";
 import {   getUserId, getUserWithImages } from "../actions";
-import { Suspense } from "react";
+import { cache, Suspense } from "react";
 import LoadingDots from "@/components/Globals/LoadingDots";
 import dynamic from "next/dynamic";
 import { Metadata } from "next";
@@ -10,13 +10,13 @@ const OlderImages = dynamic(() => import("@/components/Images/OlderImages"), {
 });
 
   
-   async function getUser() {
+   const getUser = cache(async()=> {
     const userId = await getUserId();
     if (!userId) return null;
   
     const userWithImages = await getUserWithImages(userId);
     if (userWithImages) return userWithImages;
-  }
+  })
 export default async function Home() {
   const userWithImages  = await getUser()
 console.log('userWithImages',userWithImages)

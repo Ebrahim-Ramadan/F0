@@ -176,13 +176,13 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
         onDragLeave={handleDragLeave}
       >
         {isProcessing ? (
-          <div className={`flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2 border-primary-600 border-dashed rounded-lg cursor-pointer bg-black/70 hover:bg-black/90 transition-all duration-300 `}>
+          <div className={`flex flex-col items-center justify-center  w-full h-64 border-2 border-primary-600 border-dashed rounded-lg cursor-pointer bg-black/70 hover:bg-black/90 transition-all duration-300 `}>
             <LoadingSpinner />
           </div>
         ) : (
           <label
             htmlFor="dropzone-file"
-            className={`bg-black/80 flex flex-col items-center justify-center md:w-1/2 w-full h-64 border-2  border-dashed rounded-lg cursor-pointer transition-all duration-300 ${draggedState ? 'border-blue-500' : 'border-neutral-600 hover:border-primary-600'}`}
+            className={`bg-black/80 flex flex-col items-center justify-center  w-full h-64 border-2  border-dashed rounded-lg cursor-pointer transition-all duration-300 ${draggedState ? 'border-blue-500' : 'border-neutral-600 hover:border-primary-600'}`}
           >
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <Upload className={`w-10 h-10 mb-3 text-primary-700 transition duration-300 ${draggedState && 'scale-110 text-primary-800 '}`} />
@@ -201,7 +201,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
           </label>
         )}
        {UpgradeShow && !PaidUser && (
-  <div className={`flex items-center justify-between px-3 py-1.5 text-xs text-primary-600 md:text-sm relative rounded-b-xl bg-primary-100 md:w-1/2 w-full transition duration-300 h-fit ${UpgradeShow ? '' : 'h-0'}`}>
+  <div className={`flex items-center justify-between px-3 py-1.5 text-xs text-primary-600 md:text-sm relative rounded-b-xl bg-primary-100  w-full transition duration-300 h-fit ${UpgradeShow ? '' : 'h-0'}`}>
     <span className="flex w-full justify-between pr-1">
       Subscribe for more than 1 image per time. 
       <Plans

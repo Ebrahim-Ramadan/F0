@@ -6,15 +6,16 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/drizzle";
 import { images, Subscribers, users } from "@/lib/schema";
 import { cookies } from 'next/headers';
+import {cache} from 'react'
 
-
-export async function getUserId() {
+export  const getUserId = cache(async()=> {
   const cookieStore = cookies();
   const userId = cookieStore.get('userID')?.value;
   return userId;
 }
+)
 
-export async function getUser() {
+export const  getUser = cache(async()=> {
   const userId = await getUserId();
   if (!userId) return null;
 
@@ -23,15 +24,15 @@ export async function getUser() {
 
   await logout();
   return null;
-}
+})
 
-export async function requireUserId(redirectTo: string) {
+export const  requireUserId = cache(async(redirectTo: string) =>{
   const userId = await getUserId();
   if (!userId) {
     return { redirect: `/login?redirectTo=${encodeURIComponent(redirectTo)}` };
   }
   return userId;
-}
+})
 
 export async function requireUser() {
   const userId = await requireUserId('/');
@@ -63,22 +64,24 @@ export async function logout() {
   return true;
 }
 
-export const getUserById = async (id: string | number) => {
-  console.log('id', id);
-  
-  try {
-    const userId = typeof id === 'string' ? parseInt(id, 10) : id;
-    if (isNaN(userId)) {
-      console.error('Invalid user ID:', id);
+export const getUserById = cache(
+  async (id: string | number) => {
+    console.log('id', id);
+    
+    try {
+      const userId = typeof id === 'string' ? parseInt(id, 10) : id;
+      if (isNaN(userId)) {
+        console.error('Invalid user ID:', id);
+        return null;
+      }
+      const data = await db.select().from(users).where(eq(users.id, userId));
+      return data.length > 0 ? data[0] : null;
+    } catch (error) {
+      console.error('Error fetching user:', error);
       return null;
     }
-    const data = await db.select().from(users).where(eq(users.id, userId));
-    return data.length > 0 ? data[0] : null;
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    return null;
   }
-};
+)
 
 export const addUser = async (
   email: string,
@@ -147,10 +150,10 @@ export async function createImage(userId: number,  afterBgRemoval: string) {
   return newImage; 
 }
 
-export async function getImagesByUser(userId: number) {
+export const  getImagesByUser = cache(async(userId: number) => {
   const userImages = await db.select().from(images).where(eq(images.userId, userId));
   return userImages; 
-}
+})
 
 export async function deleteImage(imageId: number) {
   const deletedImage = await db.delete(images)
@@ -158,38 +161,40 @@ export async function deleteImage(imageId: number) {
     .returning(); 
   return deletedImage;
 }
-export const getUserWithImages = async (id: string | number) => {
-  console.log('id', id);
+export const getUserWithImages = cache(
+  async (id: string | number) => {
+    console.log('id', id);
+    
+    try {
+      const userId = typeof id === 'string' ? parseInt(id, 10) : id;
+      if (isNaN(userId)) {
+        console.error('Invalid user ID:', id);
+        return null;
+      }
   
-  try {
-    const userId = typeof id === 'string' ? parseInt(id, 10) : id;
-    if (isNaN(userId)) {
-      console.error('Invalid user ID:', id);
+      const userData = await db.select().from(users).where(eq(users.id, userId));
+      
+      if (userData.length === 0) {
+        return null;
+      }
+  
+      const user = userData[0];
+  
+      
+      const userImages = await db.select().from(images)
+      .where(eq(images.userId, userId))
+      .limit(10); 
+      return {
+        ...user,
+        images: userImages
+      };
+  
+    } catch (error) {
+      console.error('Error fetching user with images:', error);
       return null;
     }
-
-    const userData = await db.select().from(users).where(eq(users.id, userId));
-    
-    if (userData.length === 0) {
-      return null;
-    }
-
-    const user = userData[0];
-
-    
-    const userImages = await db.select().from(images)
-    .where(eq(images.userId, userId))
-    .limit(10); 
-    return {
-      ...user,
-      images: userImages
-    };
-
-  } catch (error) {
-    console.error('Error fetching user with images:', error);
-    return null;
   }
-};
+)
 
 
 export const addSubscriber = async (
@@ -275,7 +280,6 @@ export const updateUserPayment = async (
 
 export const incrementTrialCount = async (userId: number): Promise<{ success: boolean } | { error: string }> => {
   try {
-    // Fetch the current trialCount
     const user = await db.select({
       trialCount: users.trialCount
     }).from(users).where(eq(users.id, userId)).limit(1);
@@ -286,7 +290,6 @@ export const incrementTrialCount = async (userId: number): Promise<{ success: bo
 
     const currentTrialCount : number | null = user[0].trialCount;
 
-    // Increment the trialCount
     const updatedResult = await db
       .update(users)
       // @ts-ignore
