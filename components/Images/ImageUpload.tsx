@@ -234,7 +234,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
         <div>
           <div className="p-2 md:p-4 columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-4">
             {processedImages.map((img, index) => (
-              <div key={img.id || index} className="group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden rounded-lg  bg-primary-100">
+              <div key={img.id || index} className="group break-inside-avoid rounded-lg transition-colors duration-300 py-2 relative group overflow-hidden ">
                 {img.afterBgRemoval && (
                   <Image
                     width={500}
@@ -256,7 +256,7 @@ export const ImageUpload: React.FC<{ user: User }> = ({ user }) => {
                     {copiedId === (img.id || index.toString()) ? <Check size='16' /> : <Copy size='16' />}
                   </button>
                 </div>
-                <div className="text-xs md:text-sm absolute bottom-2 left-2 text-white">
+                <div className="text-xs md:text-sm absolute bottom-2 left-2 text-primary-700">
                   {img.processedAt && formatDate(img.processedAt)}
                 </div>
               </div>

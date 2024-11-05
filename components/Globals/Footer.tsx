@@ -41,7 +41,7 @@ export const Footer = () => {
           <div className="text-center space-y-2">
             <h2 className="text-2xl font-bold text-primary-950">F0 NEWSLETTER</h2>
             <p className="text-sm text-primary-700">
-              A weekly newsletter to help you be better at things tech.
+              A weekly newsletter to help you be better at all things tech.
             </p>
             <p className="text-xs text-primary-600">By <span>
               <a href='https://ebrahim-ramadan.vercel.app/' target="_blank" className='text-primary-700 hover:text-primary-800'>
