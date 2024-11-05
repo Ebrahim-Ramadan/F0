@@ -71,6 +71,11 @@ export default async function RootLayout({
      <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"/>
+<link rel="dns-prefetch" href="//placewaifu.com" />
+<link rel="dns-prefetch" href="//ik.imagekit.io" />
+<link rel="dns-prefetch" href="//avatars.githubusercontent.com" />
+<link rel="dns-prefetch" href="//lh3.googleusercontent.com" />
+<link rel="dns-prefetch" href="//raw.githubusercontent.com" />
       </head>
       <body
         className={`${GeistSans.className} ${GeistMono.className} antialiased bg-primary-50`}
