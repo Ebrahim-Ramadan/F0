@@ -163,6 +163,7 @@ export async function deleteImage(imageId: number) {
 }
 export const getUserWithImages = cache(
   async (id: string | number) => {
+  'use cache';
     console.log('id', id);
     
     try {
